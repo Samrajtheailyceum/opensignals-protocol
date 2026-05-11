@@ -1,0 +1,569 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opensignals.org/schemas/v0.1/audit-signal-usage-response.schema.json",
+  "title": "Audit Signal Usage Response Schema",
+  "description": "Response schema for audit logging operations in OpenSignals Protocol. Confirms successful logging and provides acknowledgment details for audit trail completeness.",
+  "type": "object",
+  "required": [
+    "audit_id",
+    "response_id",
+    "timestamp",
+    "status"
+  ],
+  "properties": {
+    "audit_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier of the original audit log entry (UUID v4 format). Matches the audit_id from the request."
+    },
+    "response_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this response (UUID v4 format)."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the audit log was processed and stored."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "accepted",
+        "accepted_with_warnings",
+        "rejected",
+        "pending",
+        "failed"
+      ],
+      "description": "Status of the audit log submission. 'accepted' = successfully logged, 'accepted_with_warnings' = logged but with issues, 'rejected' = validation failed, 'pending' = queued for processing, 'failed' = system error during logging."
+    },
+    "processing_result": {
+      "type": "object",
+      "required": ["received", "validated", "stored"],
+      "properties": {
+        "received": {
+          "type": "boolean",
+          "description": "Whether the audit request was successfully received."
+        },
+        "validated": {
+          "type": "boolean",
+          "description": "Whether the audit data passed validation checks."
+        },
+        "stored": {
+          "type": "boolean",
+          "description": "Whether the audit log was successfully persisted to storage."
+        },
+        "indexed": {
+          "type": "boolean",
+          "description": "Whether the audit log was successfully indexed for search and retrieval."
+        },
+        "replicated": {
+          "type": "boolean",
+          "description": "Whether the audit log was replicated to backup systems (if applicable)."
+        },
+        "processing_time_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total processing time in milliseconds."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Detailed breakdown of the audit log processing pipeline."
+    },
+    "storage_details": {
+      "type": "object",
+      "properties": {
+        "storage_location": {
+          "type": "string",
+          "description": "Identifier or reference to where the audit log is stored."
+        },
+        "storage_tier": {
+          "type": "string",
+          "enum": ["hot", "warm", "cold", "archive"],
+          "description": "Storage tier where the audit log was placed based on retention and access policies."
+        },
+        "shard_id": {
+          "type": "string",
+          "description": "Shard or partition identifier where the log is stored."
+        },
+        "backup_status": {
+          "type": "string",
+          "enum": ["completed", "in_progress", "scheduled", "failed", "not_required"],
+          "description": "Status of backup operations for this audit log."
+        },
+        "encryption_status": {
+          "type": "string",
+          "enum": ["encrypted", "not_encrypted", "partially_encrypted"],
+          "description": "Encryption status of the stored audit log."
+        }
+      },
+      "description": "Information about where and how the audit log is stored."
+    },
+    "validation_results": {
+      "type": "object",
+      "properties": {
+        "schema_valid": {
+          "type": "boolean",
+          "description": "Whether the audit data conforms to the schema."
+        },
+        "business_rules_valid": {
+          "type": "boolean",
+          "description": "Whether the audit data passes business rule validation."
+        },
+        "integrity_check_passed": {
+          "type": "boolean",
+          "description": "Whether data integrity checks passed (checksums, signatures, etc.)."
+        },
+        "validation_errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["code", "message"],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Machine-readable error code."
+              },
+              "message": {
+                "type": "string",
+                "description": "Human-readable error message."
+              },
+              "field": {
+                "type": "string",
+                "description": "Field name that caused the validation error."
+              },
+              "severity": {
+                "type": "string",
+                "enum": ["error", "warning", "info"],
+                "description": "Severity level of the validation issue."
+              }
+            },
+            "additionalProperties": false
+          },
+          "description": "List of validation errors encountered."
+        }
+      },
+      "description": "Results of validation checks performed on the audit data."
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["code", "message"],
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Machine-readable warning code."
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable warning message."
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "data_quality",
+              "retention_policy",
+              "compliance_concern",
+              "performance",
+              "configuration",
+              "deprecation"
+            ],
+            "description": "Category of the warning."
+          },
+          "recommendation": {
+            "type": "string",
+            "description": "Recommended action to address the warning."
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "Non-critical warnings about the audit log submission."
+    },
+    "chain_of_custody": {
+      "type": "object",
+      "properties": {
+        "sequence_number": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Sequential number of this audit log in the overall chain."
+        },
+        "previous_audit_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Audit ID of the previous log entry for chain verification."
+        },
+        "hash": {
+          "type": "string",
+          "description": "Cryptographic hash of this audit log entry for integrity verification."
+        },
+        "previous_hash": {
+          "type": "string",
+          "description": "Hash of the previous audit log entry, creating a tamper-evident chain."
+        },
+        "signature": {
+          "type": "string",
+          "description": "Digital signature of this audit log entry."
+        },
+        "signing_authority": {
+          "type": "string",
+          "description": "Entity that signed this audit log."
+        }
+      },
+      "description": "Chain of custody information for creating tamper-evident audit trails."
+    },
+    "retention_confirmation": {
+      "type": "object",
+      "properties": {
+        "retention_period_days": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3650,
+          "description": "Confirmed retention period in days."
+        },
+        "retention_start_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when retention period begins."
+        },
+        "deletion_scheduled_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when automatic deletion is scheduled."
+        },
+        "legal_hold": {
+          "type": "boolean",
+          "description": "Whether this audit log is under legal hold (prevents deletion)."
+        },
+        "retention_policy_id": {
+          "type": "string",
+          "description": "Identifier of the retention policy applied."
+        }
+      },
+      "description": "Confirmation of retention policy applied to this audit log."
+    },
+    "compliance_confirmations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["regulation", "compliant"],
+        "properties": {
+          "regulation": {
+            "type": "string",
+            "enum": [
+              "gdpr",
+              "ccpa",
+              "cpra",
+              "lgpd",
+              "sox",
+              "hipaa",
+              "pci_dss",
+              "iso_27001",
+              "soc2",
+              "custom"
+            ],
+            "description": "Regulatory framework or standard."
+          },
+          "compliant": {
+            "type": "boolean",
+            "description": "Whether the audit log meets requirements for this regulation."
+          },
+          "requirements_met": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of specific requirements satisfied."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes about compliance status."
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "Confirmation of compliance with various regulatory requirements."
+    },
+    "access_control": {
+      "type": "object",
+      "properties": {
+        "access_level": {
+          "type": "string",
+          "enum": ["public", "internal", "confidential", "restricted", "highly_restricted"],
+          "description": "Access level classification for this audit log."
+        },
+        "authorized_roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Roles authorized to access this audit log."
+        },
+        "redacted_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Fields that have been redacted for privacy or security."
+        },
+        "access_restrictions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Additional access restrictions applied."
+        }
+      },
+      "description": "Access control settings for the stored audit log."
+    },
+    "notification_status": {
+      "type": "object",
+      "properties": {
+        "notifications_sent": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["recipient", "method", "status"],
+            "properties": {
+              "recipient": {
+                "type": "string",
+                "description": "Recipient identifier or email."
+              },
+              "method": {
+                "type": "string",
+                "enum": ["email", "webhook", "sms", "slack", "teams", "pagerduty"],
+                "description": "Notification method used."
+              },
+              "status": {
+                "type": "string",
+                "enum": ["sent", "failed", "pending", "skipped"],
+                "description": "Status of the notification."
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time",
+                "description": "When the notification was sent."
+              }
+            }
+          },
+          "description": "List of notifications sent about this audit event."
+        },
+        "alerts_triggered": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["alert_id", "severity"],
+            "properties": {
+              "alert_id": {
+                "type": "string",
+                "description": "Identifier of the alert triggered."
+              },
+              "alert_name": {
+                "type": "string",
+                "description": "Name of the alert."
+              },
+              "severity": {
+                "type": "string",
+                "enum": ["critical", "high", "medium", "low", "info"],
+                "description": "Severity of the alert."
+              },
+              "reason": {
+                "type": "string",
+                "description": "Reason the alert was triggered."
+              }
+            }
+          },
+          "description": "Alerts triggered based on audit event analysis."
+        }
+      },
+      "description": "Status of notifications and alerts related to this audit event."
+    },
+    "query_access": {
+      "type": "object",
+      "properties": {
+        "query_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to query or retrieve this specific audit log."
+        },
+        "search_indexed": {
+          "type": "boolean",
+          "description": "Whether this audit log is available in search indexes."
+        },
+        "api_accessible": {
+          "type": "boolean",
+          "description": "Whether this audit log can be retrieved via API."
+        },
+        "export_formats": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["json", "csv", "xml", "pdf", "syslog"]
+          },
+          "description": "Available export formats for this audit log."
+        }
+      },
+      "description": "Information about how to access and query this audit log."
+    },
+    "related_audits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["audit_id", "relationship"],
+        "properties": {
+          "audit_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Audit ID of a related log entry."
+          },
+          "relationship": {
+            "type": "string",
+            "enum": [
+              "parent",
+              "child",
+              "sibling",
+              "causation",
+              "correlation",
+              "continuation"
+            ],
+            "description": "Type of relationship to this audit log."
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the relationship."
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "References to related audit log entries."
+    },
+    "system_metadata": {
+      "type": "object",
+      "properties": {
+        "audit_service_version": {
+          "type": "string",
+          "description": "Version of the audit logging service that processed this request."
+        },
+        "processing_node": {
+          "type": "string",
+          "description": "Identifier of the processing node that handled this request."
+        },
+        "schema_version": {
+          "type": "string",
+          "description": "Version of the audit schema used."
+        },
+        "protocol_version": {
+          "type": "string",
+          "description": "OpenSignals Protocol version."
+        },
+        "database_version": {
+          "type": "string",
+          "description": "Version of the audit database."
+        },
+        "environment": {
+          "type": "string",
+          "enum": ["production", "staging", "development", "testing"],
+          "description": "Environment where the audit was logged."
+        }
+      },
+      "description": "System-level metadata about the audit logging infrastructure."
+    },
+    "performance_metrics": {
+      "type": "object",
+      "properties": {
+        "total_latency_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total end-to-end latency in milliseconds."
+        },
+        "validation_time_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Time spent on validation in milliseconds."
+        },
+        "storage_time_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Time spent storing the audit log in milliseconds."
+        },
+        "indexing_time_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Time spent indexing the audit log in milliseconds."
+        },
+        "queue_wait_time_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Time spent waiting in queue before processing in milliseconds."
+        }
+      },
+      "description": "Performance metrics for the audit logging operation."
+    },
+    "error_details": {
+      "type": "object",
+      "properties": {
+        "error_code": {
+          "type": "string",
+          "description": "Machine-readable error code if status is failed or rejected."
+        },
+        "error_message": {
+          "type": "string",
+          "description": "Human-readable error message."
+        },
+        "error_type": {
+          "type": "string",
+          "enum": [
+            "validation_error",
+            "storage_error",
+            "permission_denied",
+            "quota_exceeded",
+            "service_unavailable",
+            "timeout",
+            "internal_error"
+          ],
+          "description": "Category of error."
+        },
+        "recoverable": {
+          "type": "boolean",
+          "description": "Whether the error is recoverable and retry is recommended."
+        },
+        "retry_after_seconds": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Suggested seconds to wait before retrying."
+        }
+      },
+      "description": "Error details if the audit logging operation failed."
+    },
+    "next_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["action", "description"],
+        "properties": {
+          "action": {
+            "type": "string",
+            "description": "Recommended next action."
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the action and its purpose."
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["required", "recommended", "optional"],
+            "description": "Priority level of this action."
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Deadline for completing this action (if applicable)."
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "Recommended next actions based on the audit event."
+    }
+  },
+  "additionalProperties": false
+}

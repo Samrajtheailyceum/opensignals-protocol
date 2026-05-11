@@ -1,0 +1,258 @@
+{
+  "protocol": "opensignals",
+  "version": "0.1",
+  "signal_id": "verified-sustainable-inventory",
+  "name": "Verified Sustainable Advertising Inventory",
+  "signal_type": "environmental",
+  "status": "active",
+  "description": "Environmental impact signal identifying advertising inventory with verified carbon-neutral delivery and sustainable media practices. Includes publisher carbon footprint assessment, renewable energy usage verification, and supply chain emissions tracking. Ideal for brands with sustainability commitments and ESG reporting requirements.",
+  "owner": {
+    "organization": "GreenMedia Verification Network",
+    "contact": "signals@greenmedia.example.com",
+    "sustainability_officer": "sustainability@greenmedia.example.com"
+  },
+  "provider": {
+    "name": "GreenMedia Verification Network",
+    "url": "https://greenmedia.example.com",
+    "privacy_policy_url": "https://greenmedia.example.com/privacy",
+    "terms_of_service_url": "https://greenmedia.example.com/terms"
+  },
+  "provenance": {
+    "data_sources": [
+      "third_party_verification",
+      "publisher_reporting",
+      "energy_grid_data",
+      "supply_chain_emissions"
+    ],
+    "collection_method": "third_party_audit_and_carbon_tracking",
+    "last_updated": "2026-05-10T00:00:00Z",
+    "update_frequency": "monthly",
+    "verification_partner": "Carbon Trust International",
+    "chain_of_custody": [
+      {
+        "entity": "Publisher Network",
+        "role": "data_provider",
+        "timestamp": "2026-04-30T00:00:00Z"
+      },
+      {
+        "entity": "Carbon Trust International",
+        "role": "third_party_verifier",
+        "timestamp": "2026-05-05T00:00:00Z"
+      },
+      {
+        "entity": "GreenMedia Verification Network",
+        "role": "signal_aggregator",
+        "timestamp": "2026-05-10T00:00:00Z"
+      }
+    ]
+  },
+  "quality": {
+    "overall_trust_score": 0.79,
+    "coverage_score": 0.62,
+    "freshness_score": 0.85,
+    "precision_score": 0.81,
+    "explainability_score": 0.88,
+    "compliance_safety_score": 0.91,
+    "outcome_relevance_score": 0.74
+  },
+  "permissioning": {
+    "consent_mechanism": "not_applicable_environmental",
+    "usage_rights": "commercial_advertising_and_reporting",
+    "permitted_uses": [
+      "sustainable_inventory_selection",
+      "esg_reporting",
+      "carbon_footprint_optimization",
+      "sustainability_targeting"
+    ],
+    "prohibited_uses": [
+      "greenwashing",
+      "misleading_environmental_claims",
+      "user_profiling"
+    ],
+    "data_retention_days": 730,
+    "geographic_restrictions": []
+  },
+  "governance": {
+    "category": "environmental",
+    "subcategory": "carbon_neutral_inventory",
+    "human_approval_required": false,
+    "audit_required": true,
+    "audit_frequency": "monthly",
+    "risk_level": "low",
+    "compliance_frameworks": [
+      "GHG_Protocol_Scope_3",
+      "Science_Based_Targets_Initiative",
+      "ISO_14064",
+      "PAS_2060_Carbon_Neutrality"
+    ],
+    "policy_references": [
+      {
+        "policy_name": "GHG Protocol Corporate Value Chain Standard",
+        "policy_url": "https://ghgprotocol.org/standards/scope-3-standard",
+        "applies_to_markets": ["global"]
+      },
+      {
+        "policy_name": "Ad Net Zero Industry Initiative",
+        "policy_url": "https://adnetzero.com/",
+        "applies_to_markets": ["GB", "US"]
+      }
+    ],
+    "brand_safety_categories": [
+      "sustainability",
+      "environmental",
+      "esg"
+    ]
+  },
+  "coverage": {
+    "scale": "medium",
+    "estimated_reach": 18000000,
+    "geographic_markets": [
+      "GB",
+      "FR",
+      "DE",
+      "NL",
+      "SE",
+      "NO",
+      "DK",
+      "FI",
+      "CH",
+      "AU",
+      "NZ",
+      "CA"
+    ],
+    "publisher_count": 145,
+    "inventory_types": [
+      "display",
+      "video",
+      "native"
+    ],
+    "device_types": [
+      "desktop",
+      "mobile_web",
+      "mobile_app",
+      "tablet"
+    ]
+  },
+  "environmental_details": {
+    "carbon_metrics": [
+      "impression_carbon_footprint_grams",
+      "renewable_energy_percentage",
+      "carbon_offset_verified",
+      "supply_chain_emissions_tracked"
+    ],
+    "carbon_neutrality_method": "renewable_energy_and_verified_offsets",
+    "average_impression_carbon_grams": 0.8,
+    "carbon_offset_provider": "Gold Standard Carbon Credits",
+    "renewable_energy_sources": [
+      "wind",
+      "solar",
+      "hydro"
+    ],
+    "publisher_requirements": {
+      "minimum_renewable_energy_percentage": 60,
+      "carbon_tracking_required": true,
+      "annual_carbon_audit_required": true,
+      "offset_verification_required": true
+    },
+    "scope_3_emissions_included": true,
+    "supply_chain_transparency": "high"
+  },
+  "verification": {
+    "verification_method": "third_party_carbon_audit",
+    "last_verified": "2026-05-05T00:00:00Z",
+    "verification_frequency": "monthly",
+    "third_party_auditor": "Carbon Trust International",
+    "audit_report_url": "https://greenmedia.example.com/audits/carbon-verification-april-2026.pdf",
+    "certifications": [
+      "PAS_2060_Carbon_Neutral",
+      "ISO_14064_Verified",
+      "Science_Based_Targets_Approved",
+      "Carbon_Trust_Standard"
+    ],
+    "audit_scope": [
+      "publisher_energy_consumption",
+      "data_center_emissions",
+      "supply_chain_emissions",
+      "carbon_offset_verification"
+    ]
+  },
+  "technical": {
+    "activation_endpoint": "https://api.greenmedia.example.com/v1/signals/verified-sustainable-inventory/activate",
+    "authentication_method": "api_key",
+    "supported_formats": [
+      "json"
+    ],
+    "integration_documentation_url": "https://docs.greenmedia.example.com/signals/sustainable-inventory",
+    "api_version": "1.1",
+    "carbon_reporting_endpoint": "https://api.greenmedia.example.com/v1/reports/carbon-footprint",
+    "rate_limits": {
+      "requests_per_minute": 50,
+      "requests_per_day": 5000
+    }
+  },
+  "transparency": {
+    "explainability": "high",
+    "explanation": "This signal identifies advertising inventory from publishers who have achieved verified carbon-neutral status. Publishers must meet strict criteria: 60%+ renewable energy usage, comprehensive carbon tracking, and verified carbon offsets for remaining emissions. Third-party auditors from Carbon Trust International verify all claims monthly. Each impression's carbon footprint is measured across the full supply chain including data centers, content delivery networks, and device rendering.",
+    "methodology_url": "https://greenmedia.example.com/methodology/carbon-verification",
+    "methodology_whitepaper_url": "https://greenmedia.example.com/research/sustainable-advertising-inventory-2026.pdf",
+    "sample_signals_available": true,
+    "sample_signals_url": "https://greenmedia.example.com/samples/carbon-dashboard",
+    "carbon_calculation_methodology": "GHG Protocol Scope 3 Category 1 and Category 11 emissions"
+  },
+  "pricing": {
+    "cpm_range": {
+      "min": 3.00,
+      "max": 7.50,
+      "currency": "USD"
+    },
+    "pricing_model": "cpm_with_carbon_offset_included",
+    "carbon_offset_cost_per_impression_usd": 0.0003,
+    "pricing_url": "https://greenmedia.example.com/pricing"
+  },
+  "reporting": {
+    "carbon_reporting_available": true,
+    "reporting_metrics": [
+      "total_impressions_delivered",
+      "total_carbon_emissions_grams",
+      "carbon_offset_grams",
+      "net_carbon_impact",
+      "renewable_energy_percentage",
+      "emissions_by_publisher",
+      "emissions_by_geography"
+    ],
+    "reporting_frequency": "real_time_and_monthly",
+    "esg_report_generation": true,
+    "third_party_verification_reports": true
+  },
+  "sustainability_commitments": {
+    "net_zero_target_year": 2030,
+    "current_emissions_reduction_vs_2020": 0.42,
+    "renewable_energy_goal": 0.90,
+    "supply_chain_engagement": "tier_1_and_tier_2_suppliers",
+    "industry_initiatives": [
+      "Ad_Net_Zero",
+      "Science_Based_Targets_Initiative",
+      "UN_Race_to_Zero"
+    ]
+  },
+  "metadata": {
+    "created_at": "2025-08-15T00:00:00Z",
+    "updated_at": "2026-05-10T00:00:00Z",
+    "version": "1.5",
+    "tags": [
+      "environmental",
+      "sustainability",
+      "carbon_neutral",
+      "esg",
+      "third_party_verified",
+      "renewable_energy"
+    ],
+    "supported_languages": [
+      "en",
+      "de",
+      "fr",
+      "sv",
+      "no"
+    ]
+  }
+}

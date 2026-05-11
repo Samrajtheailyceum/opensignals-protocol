@@ -1,0 +1,239 @@
+{
+  "_comment": "CONCEPTUAL EXAMPLE - This illustrates how AdCP get_signals responses could include OpenSignals metadata",
+  "_disclaimer": "This is a conceptual integration example showing how OpenSignals trust metadata could extend AdCP signal discovery. This is not an official AdCP specification or endorsed integration pattern. Implementation requires coordination between AdCP and OpenSignals protocol communities.",
+  "_reference": "AdCP Specification: https://adcontextprotocol.org/ | OpenSignals Specification: opensignals-v0.1.md",
+
+  "adcp_task": "get_signals",
+  "adcp_version": "1.0",
+  "request_id": "req_abc123xyz",
+  "timestamp": "2026-05-11T10:30:00Z",
+
+  "signals": [
+    {
+      "signal_id": "premium-outdoor-enthusiasts",
+      "name": "Premium Outdoor Recreation Enthusiasts",
+      "provider": "Adventure Data Co",
+      "signal_type": "audience",
+      "description": "High-value audience segment of outdoor recreation enthusiasts with premium product purchase behavior",
+      "coverage": {
+        "estimated_reach": 3200000,
+        "geographic_markets": ["US", "CA", "GB", "AU", "NZ"],
+        "devices": ["desktop", "mobile_web", "mobile_app"]
+      },
+      "pricing": {
+        "cpm": 4.50,
+        "currency": "USD",
+        "pricing_model": "cpm_flat"
+      },
+      "activation_endpoint": "https://api.adventuredata.example.com/v2/activate",
+
+      "open_signals": {
+        "_comment": "OpenSignals extension providing trust verification metadata",
+        "protocol": "opensignals",
+        "version": "0.1",
+        "manifest_url": "https://adventuredata.example.com/.well-known/opensignals/premium-outdoor-enthusiasts",
+        "trust_metadata": {
+          "overall_trust_score": 0.89,
+          "trust_band": "trusted",
+          "trust_scores": {
+            "provenance_score": 0.92,
+            "permissioning_score": 0.87,
+            "freshness_score": 0.94,
+            "quality_score": 0.86,
+            "explainability_score": 0.90,
+            "outcome_score": 0.84,
+            "compliance_score": 0.91
+          },
+          "last_verified": "2026-05-11T08:00:00Z",
+          "verification_ttl": 86400
+        },
+        "governance_requirements": {
+          "verification_required": true,
+          "decision_mode": "autonomous_with_limits",
+          "audit_required": true,
+          "human_approval_required_for_categories": ["alcohol", "gambling", "pharma"]
+        },
+        "permissioning_summary": {
+          "consent_scope": "explicit_opt_in",
+          "valid_use_cases": ["targeting", "measurement", "optimization"],
+          "geographic_restrictions": [],
+          "category_restrictions": [],
+          "individual_profiling_allowed": true
+        },
+        "provenance_summary": {
+          "data_sources": ["first_party_behavioral", "survey"],
+          "collection_method": "opt_in_panel",
+          "last_updated": "2026-05-11T06:00:00Z",
+          "update_frequency": "daily"
+        },
+        "recommended_workflow": {
+          "step_1": "Call OpenSignals verify_signal to check brand policy compliance",
+          "step_2": "Call OpenSignals score_signal to assess objective alignment (optional)",
+          "step_3": "If approved, call AdCP activate_signal with verification metadata",
+          "step_4": "Call OpenSignals audit_signal_usage after activation"
+        }
+      }
+    },
+
+    {
+      "signal_id": "contextual-sustainability-content",
+      "name": "Sustainable Living Content Context",
+      "provider": "EcoContext Analytics",
+      "signal_type": "contextual",
+      "description": "Page-level contextual signal identifying content about sustainability, eco-friendly products, and environmental responsibility",
+      "coverage": {
+        "estimated_reach": 45000000,
+        "geographic_markets": ["US", "GB", "FR", "DE", "ES", "IT", "NL", "SE", "NO", "DK"],
+        "publisher_count": 1200
+      },
+      "pricing": {
+        "cpm": 1.80,
+        "currency": "USD",
+        "pricing_model": "cpm_flat"
+      },
+      "activation_endpoint": "https://api.ecocontext.example.com/v1/activate",
+
+      "open_signals": {
+        "protocol": "opensignals",
+        "version": "0.1",
+        "manifest_url": "https://ecocontext.example.com/.well-known/opensignals/contextual-sustainability-content",
+        "trust_metadata": {
+          "overall_trust_score": 0.93,
+          "trust_band": "highly_trusted",
+          "trust_scores": {
+            "provenance_score": 0.95,
+            "permissioning_score": 0.98,
+            "freshness_score": 0.99,
+            "quality_score": 0.89,
+            "explainability_score": 0.94,
+            "outcome_score": 0.81,
+            "compliance_score": 0.96
+          },
+          "last_verified": "2026-05-11T10:15:00Z",
+          "verification_ttl": 3600
+        },
+        "governance_requirements": {
+          "verification_required": true,
+          "decision_mode": "autonomous_with_limits",
+          "audit_required": false,
+          "human_approval_required_for_categories": []
+        },
+        "permissioning_summary": {
+          "consent_scope": "consent_not_required",
+          "valid_use_cases": ["targeting", "frequency_capping", "measurement"],
+          "geographic_restrictions": [],
+          "category_restrictions": [],
+          "individual_profiling_allowed": false
+        },
+        "provenance_summary": {
+          "data_sources": ["contextual_analysis"],
+          "collection_method": "contextual_crawl",
+          "last_updated": "2026-05-11T10:00:00Z",
+          "update_frequency": "real_time"
+        },
+        "recommended_workflow": {
+          "step_1": "Call OpenSignals verify_signal to check brand policy compliance",
+          "step_2": "If approved, call AdCP activate_signal",
+          "step_3": "Contextual signals typically have lower governance requirements due to privacy-safe nature"
+        }
+      }
+    },
+
+    {
+      "signal_id": "verified-attention-premium-video",
+      "name": "Verified Attention - Premium Video Inventory",
+      "provider": "AttentionMetrics Research Group",
+      "signal_type": "attention",
+      "description": "Verified attention measurement for premium video inventory with MRC-accredited measurement methodology",
+      "coverage": {
+        "estimated_reach": 78000000,
+        "geographic_markets": ["US", "GB", "CA", "AU"],
+        "inventory_types": ["video", "connected_tv"]
+      },
+      "pricing": {
+        "cpm": 1.20,
+        "currency": "USD",
+        "pricing_model": "cpm_measurement_fee"
+      },
+      "activation_endpoint": "https://api.attentionmetrics.example.com/v2/activate",
+
+      "open_signals": {
+        "protocol": "opensignals",
+        "version": "0.1",
+        "manifest_url": "https://attentionmetrics.example.com/.well-known/opensignals/verified-attention-premium-video",
+        "trust_metadata": {
+          "overall_trust_score": 0.96,
+          "trust_band": "highly_trusted",
+          "trust_scores": {
+            "provenance_score": 0.97,
+            "permissioning_score": 0.96,
+            "freshness_score": 0.99,
+            "quality_score": 0.95,
+            "explainability_score": 0.96,
+            "outcome_score": 0.93,
+            "compliance_score": 0.98
+          },
+          "last_verified": "2026-05-11T10:20:00Z",
+          "verification_ttl": 3600
+        },
+        "governance_requirements": {
+          "verification_required": true,
+          "decision_mode": "autonomous_with_limits",
+          "audit_required": true,
+          "human_approval_required_for_categories": []
+        },
+        "permissioning_summary": {
+          "consent_scope": "explicit_opt_in",
+          "valid_use_cases": ["measurement", "optimization", "attribution"],
+          "geographic_restrictions": [],
+          "category_restrictions": [],
+          "individual_profiling_allowed": false
+        },
+        "provenance_summary": {
+          "data_sources": ["first_party_measurement", "device_sensor_data"],
+          "collection_method": "sdk_measurement",
+          "last_updated": "2026-05-11T10:15:00Z",
+          "update_frequency": "real_time"
+        },
+        "certifications": [
+          "MRC_Accredited_Attention_Measurement",
+          "IAB_Tech_Lab_Certified",
+          "TAG_Certified_Against_Fraud"
+        ],
+        "recommended_workflow": {
+          "step_1": "Call OpenSignals verify_signal for brand compliance check",
+          "step_2": "Call OpenSignals score_signal for performance forecasting (optional)",
+          "step_3": "Call AdCP activate_signal",
+          "step_4": "Call OpenSignals audit_signal_usage for measurement campaign tracking"
+        }
+      }
+    }
+  ],
+
+  "integration_notes": {
+    "adcp_compatibility": "This extension is backward-compatible with AdCP. Agents not implementing OpenSignals can ignore the open_signals field.",
+    "signal_provider_adoption": "Signal providers implementing both AdCP and OpenSignals can include this metadata in their get_signals responses to enable trust-aware signal discovery.",
+    "buyer_agent_workflow": "Buyer agents should: 1) Call AdCP get_signals to discover signals with OpenSignals metadata, 2) Call OpenSignals verify_signal and score_signal for trust assessment, 3) Call AdCP activate_signal for approved signals, 4) Call OpenSignals audit_signal_usage after activation.",
+    "governance_integration": "Governance agents can use the open_signals metadata to pre-filter signals before detailed verification, improving efficiency.",
+    "trust_bands_guidance": {
+      "highly_trusted": "0.90-1.00 - May activate autonomously if brand policy allows",
+      "trusted": "0.75-0.89 - Should activate with governance checks",
+      "limited_trust": "0.50-0.74 - Must require human review before activation",
+      "low_trust": "0.25-0.49 - Should not activate without explicit approval",
+      "unsafe_invalid": "0.00-0.24 - Must not activate"
+    }
+  },
+
+  "specification_references": {
+    "adcp": {
+      "name": "Ad Context Protocol",
+      "url": "https://adcontextprotocol.org/",
+      "github": "https://github.com/adcontextprotocol/adcp"
+    },
+    "opensignals": {
+      "name": "OpenSignals Protocol v0.1",
+      "specification_file": "opensignals-v0.1.md",
+      "repository": "https://github.com/opensignals-protocol/opensignals-protocol"
+    }
+  }
+}

@@ -1,0 +1,859 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opensignals.org/schemas/v0.1/policy-binding.schema.json",
+  "title": "Policy Binding Schema",
+  "description": "Schema for defining policy bindings in OpenSignals Protocol. Policy bindings specify rules, restrictions, and compliance requirements for signal usage across different contexts, industries, and regulatory frameworks.",
+  "type": "object",
+  "required": [
+    "policy_id",
+    "policy_name",
+    "version",
+    "effective_date",
+    "status",
+    "scope",
+    "rules"
+  ],
+  "properties": {
+    "policy_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$",
+      "minLength": 3,
+      "maxLength": 128,
+      "description": "Unique identifier for this policy binding."
+    },
+    "policy_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "description": "Human-readable name for the policy."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+(\\.\\d+)?$",
+      "description": "Version of this policy following semantic versioning.",
+      "examples": ["1.0", "1.0.0"]
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 2048,
+      "description": "Detailed description of the policy's purpose and scope."
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when this policy becomes effective."
+    },
+    "expiration_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when this policy expires (if applicable)."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "active", "deprecated", "archived"],
+      "description": "Current lifecycle status of the policy."
+    },
+    "priority": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100,
+      "description": "Priority level for policy evaluation when multiple policies apply. Higher numbers = higher priority."
+    },
+    "scope": {
+      "type": "object",
+      "required": ["applies_to"],
+      "properties": {
+        "applies_to": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": [
+              "all_signals",
+              "specific_signal",
+              "signal_type",
+              "provider",
+              "organization",
+              "geographic_region",
+              "industry_vertical"
+            ]
+          },
+          "description": "Scope to which this policy applies."
+        },
+        "signal_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          },
+          "description": "Specific signal IDs this policy applies to (if applies_to includes 'specific_signal')."
+        },
+        "signal_types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "audience",
+              "contextual",
+              "geographic",
+              "temporal",
+              "commerce",
+              "attention",
+              "creative",
+              "environmental",
+              "compliance",
+              "outcome",
+              "brand_safety",
+              "custom"
+            ]
+          },
+          "description": "Signal types this policy applies to (if applies_to includes 'signal_type')."
+        },
+        "provider_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Provider IDs this policy applies to (if applies_to includes 'provider')."
+        },
+        "organization_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Organization IDs this policy applies to (if applies_to includes 'organization')."
+        },
+        "geographic_regions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          },
+          "description": "ISO 3166-1 alpha-2 country codes this policy applies to."
+        },
+        "industry_verticals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Industry verticals this policy applies to."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Defines the scope and applicability of this policy."
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["rule_id", "rule_type", "enforcement"],
+        "properties": {
+          "rule_id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]+$",
+            "description": "Unique identifier for this rule within the policy."
+          },
+          "rule_name": {
+            "type": "string",
+            "description": "Human-readable name for the rule."
+          },
+          "rule_type": {
+            "type": "string",
+            "enum": [
+              "usage_restriction",
+              "consent_requirement",
+              "data_minimization",
+              "purpose_limitation",
+              "retention_limit",
+              "geographic_restriction",
+              "age_restriction",
+              "category_restriction",
+              "quality_threshold",
+              "audit_requirement",
+              "notification_requirement",
+              "custom"
+            ],
+            "description": "Type of rule being defined."
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1024,
+            "description": "Detailed description of the rule and its requirements."
+          },
+          "enforcement": {
+            "type": "string",
+            "enum": ["strict", "flexible", "advisory"],
+            "description": "Enforcement level for this rule. 'strict' = blocking, 'flexible' = warnings, 'advisory' = informational."
+          },
+          "condition": {
+            "type": "object",
+            "properties": {
+              "expression": {
+                "type": "string",
+                "description": "Boolean expression defining when this rule applies (e.g., 'signal_type == \"audience\" AND geographic_region IN [\"US\", \"CA\"]')."
+              },
+              "parameters": {
+                "type": "object",
+                "description": "Parameters used in the condition expression."
+              }
+            },
+            "description": "Conditional logic for when this rule applies."
+          },
+          "action": {
+            "type": "object",
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "block",
+                  "allow",
+                  "require_approval",
+                  "require_consent",
+                  "log_only",
+                  "redact",
+                  "transform",
+                  "notify"
+                ],
+                "description": "Action to take when rule is triggered."
+              },
+              "parameters": {
+                "type": "object",
+                "description": "Parameters for the action."
+              },
+              "message": {
+                "type": "string",
+                "description": "Message to display when rule is triggered."
+              }
+            },
+            "additionalProperties": false,
+            "description": "Action to take when this rule is triggered."
+          },
+          "exceptions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["exception_id", "condition"],
+              "properties": {
+                "exception_id": {
+                  "type": "string",
+                  "description": "Unique identifier for this exception."
+                },
+                "condition": {
+                  "type": "string",
+                  "description": "Condition under which this exception applies."
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Description of the exception."
+                },
+                "approval_required": {
+                  "type": "boolean",
+                  "description": "Whether approval is required to invoke this exception."
+                }
+              }
+            },
+            "description": "Exceptions to this rule."
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "Collection of rules defined in this policy."
+    },
+    "categories": {
+      "type": "object",
+      "properties": {
+        "alcohol": {
+          "type": "object",
+          "properties": {
+            "restricted": {
+              "type": "boolean",
+              "description": "Whether alcohol advertising is restricted."
+            },
+            "min_age": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Minimum age for alcohol targeting."
+            },
+            "prohibited_contexts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Contexts where alcohol advertising is prohibited."
+            },
+            "geographic_restrictions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}$"
+              },
+              "description": "Countries where alcohol advertising is restricted."
+            }
+          },
+          "description": "Policy rules for alcohol advertising."
+        },
+        "gambling": {
+          "type": "object",
+          "properties": {
+            "restricted": {
+              "type": "boolean",
+              "description": "Whether gambling advertising is restricted."
+            },
+            "min_age": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Minimum age for gambling targeting."
+            },
+            "license_required": {
+              "type": "boolean",
+              "description": "Whether gambling license verification is required."
+            },
+            "prohibited_contexts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Contexts where gambling advertising is prohibited."
+            },
+            "geographic_restrictions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}$"
+              },
+              "description": "Countries where gambling advertising is restricted."
+            }
+          },
+          "description": "Policy rules for gambling advertising."
+        },
+        "tobacco": {
+          "type": "object",
+          "properties": {
+            "restricted": {
+              "type": "boolean",
+              "description": "Whether tobacco advertising is restricted."
+            },
+            "prohibited": {
+              "type": "boolean",
+              "description": "Whether tobacco advertising is completely prohibited."
+            },
+            "min_age": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Minimum age for tobacco targeting."
+            },
+            "geographic_restrictions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}$"
+              },
+              "description": "Countries where tobacco advertising is restricted."
+            }
+          },
+          "description": "Policy rules for tobacco advertising."
+        },
+        "pharmaceuticals": {
+          "type": "object",
+          "properties": {
+            "restricted": {
+              "type": "boolean",
+              "description": "Whether pharmaceutical advertising is restricted."
+            },
+            "prescription_drugs_allowed": {
+              "type": "boolean",
+              "description": "Whether prescription drug advertising is allowed."
+            },
+            "health_claims_approval_required": {
+              "type": "boolean",
+              "description": "Whether health claims require approval."
+            },
+            "geographic_restrictions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}$"
+              },
+              "description": "Countries where pharmaceutical advertising has restrictions."
+            }
+          },
+          "description": "Policy rules for pharmaceutical advertising."
+        },
+        "financial_services": {
+          "type": "object",
+          "properties": {
+            "restricted": {
+              "type": "boolean",
+              "description": "Whether financial services advertising is restricted."
+            },
+            "disclosure_required": {
+              "type": "boolean",
+              "description": "Whether risk disclosures are required."
+            },
+            "license_verification_required": {
+              "type": "boolean",
+              "description": "Whether financial license verification is required."
+            },
+            "prohibited_products": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "payday_loans",
+                  "binary_options",
+                  "high_risk_investments",
+                  "unregulated_securities"
+                ]
+              },
+              "description": "Financial products prohibited from advertising."
+            },
+            "geographic_restrictions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}$"
+              },
+              "description": "Countries with financial advertising restrictions."
+            }
+          },
+          "description": "Policy rules for financial services advertising."
+        },
+        "dating": {
+          "type": "object",
+          "properties": {
+            "restricted": {
+              "type": "boolean",
+              "description": "Whether dating service advertising is restricted."
+            },
+            "min_age": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Minimum age for dating service targeting."
+            },
+            "content_restrictions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Content restrictions for dating ads."
+            }
+          },
+          "description": "Policy rules for dating service advertising."
+        },
+        "adult_content": {
+          "type": "object",
+          "properties": {
+            "prohibited": {
+              "type": "boolean",
+              "description": "Whether adult content advertising is completely prohibited."
+            },
+            "min_age": {
+              "type": "integer",
+              "minimum": 18,
+              "description": "Minimum age for adult content targeting."
+            },
+            "age_verification_required": {
+              "type": "boolean",
+              "description": "Whether age verification is required."
+            }
+          },
+          "description": "Policy rules for adult content advertising."
+        },
+        "weapons": {
+          "type": "object",
+          "properties": {
+            "restricted": {
+              "type": "boolean",
+              "description": "Whether weapons advertising is restricted."
+            },
+            "prohibited": {
+              "type": "boolean",
+              "description": "Whether weapons advertising is completely prohibited."
+            },
+            "license_verification_required": {
+              "type": "boolean",
+              "description": "Whether dealer license verification is required."
+            },
+            "geographic_restrictions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}$"
+              },
+              "description": "Countries where weapons advertising is restricted."
+            }
+          },
+          "description": "Policy rules for weapons advertising."
+        },
+        "political": {
+          "type": "object",
+          "properties": {
+            "restricted": {
+              "type": "boolean",
+              "description": "Whether political advertising is restricted."
+            },
+            "disclaimer_required": {
+              "type": "boolean",
+              "description": "Whether 'paid for by' disclaimers are required."
+            },
+            "advertiser_verification_required": {
+              "type": "boolean",
+              "description": "Whether advertiser identity verification is required."
+            },
+            "blackout_periods": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "start_date": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "end_date": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Blackout periods when political advertising is restricted."
+            },
+            "geographic_restrictions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}$"
+              },
+              "description": "Countries with political advertising restrictions."
+            }
+          },
+          "description": "Policy rules for political advertising."
+        },
+        "healthcare": {
+          "type": "object",
+          "properties": {
+            "restricted": {
+              "type": "boolean",
+              "description": "Whether healthcare advertising is restricted."
+            },
+            "sensitive_conditions_prohibited": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Health conditions that cannot be used for targeting."
+            },
+            "certification_required": {
+              "type": "boolean",
+              "description": "Whether healthcare provider certification is required."
+            },
+            "privacy_controls_required": {
+              "type": "boolean",
+              "description": "Whether enhanced privacy controls are required for health data."
+            }
+          },
+          "description": "Policy rules for healthcare advertising."
+        },
+        "cryptocurrency": {
+          "type": "object",
+          "properties": {
+            "restricted": {
+              "type": "boolean",
+              "description": "Whether cryptocurrency advertising is restricted."
+            },
+            "license_required": {
+              "type": "boolean",
+              "description": "Whether financial services license is required."
+            },
+            "risk_disclosure_required": {
+              "type": "boolean",
+              "description": "Whether risk disclosures are required."
+            },
+            "prohibited_types": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["ico", "defi", "nft", "meme_coins"]
+              },
+              "description": "Types of cryptocurrency products prohibited."
+            },
+            "geographic_restrictions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}$"
+              },
+              "description": "Countries with cryptocurrency advertising restrictions."
+            }
+          },
+          "description": "Policy rules for cryptocurrency advertising."
+        },
+        "children": {
+          "type": "object",
+          "properties": {
+            "coppa_compliant": {
+              "type": "boolean",
+              "description": "Whether COPPA compliance is required for child-directed content."
+            },
+            "max_age": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Maximum age considered as child for policy purposes."
+            },
+            "prohibited_targeting": {
+              "type": "boolean",
+              "description": "Whether behavioral targeting of children is prohibited."
+            },
+            "parental_consent_required": {
+              "type": "boolean",
+              "description": "Whether parental consent is required."
+            },
+            "prohibited_categories": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Product categories prohibited for child advertising."
+            }
+          },
+          "description": "Policy rules for advertising to children."
+        },
+        "environmental": {
+          "type": "object",
+          "properties": {
+            "greenwashing_prohibited": {
+              "type": "boolean",
+              "description": "Whether unsubstantiated environmental claims are prohibited."
+            },
+            "certification_required": {
+              "type": "boolean",
+              "description": "Whether environmental certification proof is required."
+            },
+            "substantiation_required": {
+              "type": "boolean",
+              "description": "Whether environmental claims must be substantiated."
+            }
+          },
+          "description": "Policy rules for environmental claims in advertising."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Category-specific policy rules for sensitive advertising verticals."
+    },
+    "compliance_requirements": {
+      "type": "object",
+      "properties": {
+        "regulations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "gdpr",
+              "ccpa",
+              "cpra",
+              "lgpd",
+              "pipeda",
+              "pdpa_singapore",
+              "pdpa_thailand",
+              "appi",
+              "popia",
+              "coppa",
+              "tcpa",
+              "can_spam",
+              "casl",
+              "custom"
+            ]
+          },
+          "description": "Regulatory frameworks this policy ensures compliance with."
+        },
+        "certifications_required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Certifications required for policy compliance."
+        },
+        "audit_frequency": {
+          "type": "string",
+          "enum": ["daily", "weekly", "monthly", "quarterly", "annually", "on_demand"],
+          "description": "Required frequency for compliance audits."
+        },
+        "reporting_requirements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["report_type", "frequency"],
+            "properties": {
+              "report_type": {
+                "type": "string",
+                "description": "Type of report required."
+              },
+              "frequency": {
+                "type": "string",
+                "enum": ["daily", "weekly", "monthly", "quarterly", "annually"]
+              },
+              "recipients": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Recipients of the report."
+              }
+            }
+          },
+          "description": "Reporting requirements for policy compliance."
+        }
+      },
+      "description": "Compliance and regulatory requirements enforced by this policy."
+    },
+    "enforcement": {
+      "type": "object",
+      "properties": {
+        "automated_enforcement": {
+          "type": "boolean",
+          "description": "Whether policy is enforced automatically by systems."
+        },
+        "manual_review_required": {
+          "type": "boolean",
+          "description": "Whether manual review is required for policy evaluation."
+        },
+        "violation_actions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["severity", "action"],
+            "properties": {
+              "severity": {
+                "type": "string",
+                "enum": ["critical", "high", "medium", "low"],
+                "description": "Severity level of the violation."
+              },
+              "action": {
+                "type": "string",
+                "enum": [
+                  "block_signal",
+                  "suspend_account",
+                  "require_revalidation",
+                  "notify_admin",
+                  "log_only",
+                  "escalate"
+                ],
+                "description": "Action taken for this severity level."
+              },
+              "notification_required": {
+                "type": "boolean",
+                "description": "Whether notification is required for this action."
+              }
+            }
+          },
+          "description": "Actions taken for policy violations at different severity levels."
+        },
+        "grace_period_days": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Grace period in days before enforcement begins after policy activation."
+        }
+      },
+      "description": "Enforcement mechanisms and violation handling for this policy."
+    },
+    "owner": {
+      "type": "object",
+      "required": ["organization", "contact_email"],
+      "properties": {
+        "organization": {
+          "type": "string",
+          "description": "Organization responsible for this policy."
+        },
+        "contact_email": {
+          "type": "string",
+          "format": "email",
+          "description": "Contact email for policy inquiries."
+        },
+        "department": {
+          "type": "string",
+          "description": "Department responsible for policy maintenance."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Ownership information for this policy."
+    },
+    "change_log": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["version", "date", "changes"],
+        "properties": {
+          "version": {
+            "type": "string",
+            "description": "Version number for this change."
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Date of the change."
+          },
+          "changes": {
+            "type": "string",
+            "description": "Description of changes made in this version."
+          },
+          "author": {
+            "type": "string",
+            "description": "Person or system that made the change."
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "Version history and change log for this policy."
+    },
+    "related_policies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "IDs of related or dependent policies."
+    },
+    "documentation_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to detailed policy documentation."
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Tags for policy categorization."
+        },
+        "created_by": {
+          "type": "string",
+          "description": "Creator of this policy."
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this policy was created."
+        },
+        "last_modified_by": {
+          "type": "string",
+          "description": "Last person to modify this policy."
+        },
+        "last_modified_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this policy was last modified."
+        }
+      },
+      "additionalProperties": true,
+      "description": "Additional metadata about this policy."
+    }
+  },
+  "additionalProperties": false
+}

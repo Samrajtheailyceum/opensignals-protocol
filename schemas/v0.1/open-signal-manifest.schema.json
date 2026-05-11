@@ -1,0 +1,640 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opensignals.org/schemas/v0.1/open-signal-manifest.schema.json",
+  "title": "Open Signal Manifest",
+  "description": "Complete schema for OpenSignals Protocol signal manifests. Defines the structure, metadata, quality metrics, and governance requirements for advertising signals.",
+  "type": "object",
+  "required": [
+    "protocol",
+    "version",
+    "signal_id",
+    "name",
+    "description",
+    "signal_type",
+    "status",
+    "owner",
+    "provider",
+    "compatible_protocols",
+    "provenance",
+    "permissioning",
+    "quality",
+    "freshness",
+    "audit"
+  ],
+  "properties": {
+    "protocol": {
+      "type": "string",
+      "const": "opensignals",
+      "description": "Protocol identifier. Must be 'opensignals' for compliance."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+(\\.\\d+)?$",
+      "description": "Schema version following semantic versioning (e.g., '0.1', '1.0.0').",
+      "examples": ["0.1", "1.0.0"]
+    },
+    "signal_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$",
+      "minLength": 3,
+      "maxLength": 128,
+      "description": "Unique identifier for the signal. Must be alphanumeric with underscores or hyphens.",
+      "examples": ["audience_fashion_enthusiasts", "geo_us_california"]
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "description": "Human-readable name for the signal.",
+      "examples": ["Fashion Enthusiasts Audience", "California Geographic Signal"]
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 2048,
+      "description": "Detailed description of what the signal represents, its use cases, and methodology."
+    },
+    "signal_type": {
+      "type": "string",
+      "enum": [
+        "audience",
+        "contextual",
+        "geographic",
+        "temporal",
+        "commerce",
+        "attention",
+        "creative",
+        "environmental",
+        "compliance",
+        "outcome",
+        "brand_safety",
+        "custom"
+      ],
+      "description": "Category of the signal defining its primary classification and use case."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "deprecated",
+        "revoked",
+        "experimental"
+      ],
+      "description": "Current lifecycle status of the signal. 'active' = production-ready, 'inactive' = temporarily unavailable, 'deprecated' = scheduled for removal, 'revoked' = permanently disabled, 'experimental' = testing phase."
+    },
+    "owner": {
+      "type": "object",
+      "required": ["organization", "contact_email"],
+      "properties": {
+        "organization": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "description": "Legal name of the organization that owns this signal."
+        },
+        "contact_email": {
+          "type": "string",
+          "format": "email",
+          "description": "Primary contact email for signal inquiries and support."
+        },
+        "website": {
+          "type": "string",
+          "format": "uri",
+          "description": "Organization's official website URL."
+        },
+        "jurisdiction": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$",
+          "description": "Two-letter ISO 3166-1 alpha-2 country code of the owner's primary jurisdiction.",
+          "examples": ["US", "GB", "DE", "FR", "JP"]
+        }
+      },
+      "additionalProperties": false,
+      "description": "Information about the organization that owns and is legally responsible for this signal."
+    },
+    "provider": {
+      "type": "object",
+      "required": ["name", "provider_id"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "description": "Name of the technical provider delivering the signal."
+        },
+        "provider_id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "minLength": 3,
+          "maxLength": 128,
+          "description": "Unique identifier for the provider within the OpenSignals ecosystem."
+        },
+        "certification": {
+          "type": "object",
+          "properties": {
+            "certified": {
+              "type": "boolean",
+              "description": "Whether the provider is certified by OpenSignals governance."
+            },
+            "certification_date": {
+              "type": "string",
+              "format": "date",
+              "description": "ISO 8601 date of certification."
+            },
+            "certification_level": {
+              "type": "string",
+              "enum": ["standard", "premium", "enterprise"],
+              "description": "Level of certification achieved."
+            }
+          },
+          "description": "Provider certification status and details."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Information about the technical provider delivering this signal."
+    },
+    "compatible_protocols": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "rtb_2.5",
+          "rtb_2.6",
+          "rtb_3.0",
+          "vast_4.0",
+          "vast_4.1",
+          "vast_4.2",
+          "ads_txt",
+          "sellers_json",
+          "openrtb",
+          "custom"
+        ]
+      },
+      "description": "List of advertising protocols and standards compatible with this signal."
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["data_sources", "collection_method", "update_frequency"],
+      "properties": {
+        "data_sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["type", "description"],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "first_party",
+                  "second_party",
+                  "third_party",
+                  "syndicated",
+                  "public",
+                  "derived"
+                ],
+                "description": "Classification of the data source."
+              },
+              "description": {
+                "type": "string",
+                "minLength": 10,
+                "maxLength": 1024,
+                "description": "Detailed description of the data source and its characteristics."
+              },
+              "consent_basis": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "explicit_consent",
+                    "legitimate_interest",
+                    "contract",
+                    "legal_obligation",
+                    "vital_interest",
+                    "public_interest"
+                  ]
+                },
+                "description": "Legal basis for data collection under GDPR and similar regulations."
+              }
+            },
+            "additionalProperties": false
+          },
+          "description": "Array of data sources used to create this signal."
+        },
+        "collection_method": {
+          "type": "string",
+          "enum": [
+            "deterministic",
+            "probabilistic",
+            "hybrid",
+            "modeled",
+            "panel_based",
+            "survey",
+            "observational"
+          ],
+          "description": "Primary methodology used to collect and generate the signal data."
+        },
+        "update_frequency": {
+          "type": "string",
+          "enum": [
+            "real_time",
+            "hourly",
+            "daily",
+            "weekly",
+            "monthly",
+            "quarterly",
+            "annually",
+            "on_demand",
+            "static"
+          ],
+          "description": "How frequently the signal data is updated."
+        },
+        "geographic_coverage": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          },
+          "description": "ISO 3166-1 alpha-2 country codes indicating geographic coverage.",
+          "examples": [["US", "CA", "MX"], ["GB", "DE", "FR"]]
+        },
+        "creation_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when this signal was first created."
+        },
+        "last_modified": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of the last modification to this manifest."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Complete lineage and origin information for the signal data."
+    },
+    "permissioning": {
+      "type": "object",
+      "required": ["requires_consent", "privacy_compliance", "usage_restrictions"],
+      "properties": {
+        "requires_consent": {
+          "type": "boolean",
+          "description": "Whether explicit user consent is required to use this signal."
+        },
+        "consent_framework": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "tcf_v2",
+              "tcf_v2.2",
+              "gpp",
+              "ccpa",
+              "gdpr",
+              "lgpd",
+              "pipeda",
+              "custom"
+            ]
+          },
+          "description": "Consent frameworks supported by this signal."
+        },
+        "privacy_compliance": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": [
+              "gdpr",
+              "ccpa",
+              "cpra",
+              "lgpd",
+              "pipeda",
+              "pdpa_singapore",
+              "pdpa_thailand",
+              "appi",
+              "popia",
+              "privacy_shield",
+              "iso_27001",
+              "soc2",
+              "custom"
+            ]
+          },
+          "description": "Privacy regulations and standards this signal complies with."
+        },
+        "usage_restrictions": {
+          "type": "object",
+          "required": ["allowed_uses"],
+          "properties": {
+            "allowed_uses": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "targeting",
+                  "measurement",
+                  "attribution",
+                  "frequency_capping",
+                  "brand_safety",
+                  "contextual_placement",
+                  "audience_insights",
+                  "bidding",
+                  "creative_optimization",
+                  "forecasting"
+                ]
+              },
+              "description": "Permitted use cases for this signal."
+            },
+            "prohibited_uses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Explicitly prohibited use cases for this signal."
+            },
+            "geographic_restrictions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}$"
+              },
+              "description": "ISO 3166-1 alpha-2 country codes where signal usage is restricted."
+            },
+            "max_retention_days": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 3650,
+              "description": "Maximum number of days signal data may be retained by consumers."
+            }
+          },
+          "additionalProperties": false,
+          "description": "Detailed restrictions on how the signal may be used."
+        },
+        "data_processing_addendum": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the Data Processing Addendum (DPA) governing signal usage."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Permission requirements and privacy compliance information."
+    },
+    "quality": {
+      "type": "object",
+      "required": [
+        "coverage_score",
+        "freshness_score",
+        "precision_score",
+        "stability_score",
+        "explainability_score",
+        "overall_trust_score"
+      ],
+      "properties": {
+        "coverage_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Score (0-1) indicating the breadth of signal coverage across the target population. 1.0 = complete coverage, 0.0 = minimal coverage."
+        },
+        "freshness_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Score (0-1) indicating how current the signal data is. 1.0 = real-time/very fresh, 0.0 = stale/outdated."
+        },
+        "precision_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Score (0-1) indicating the accuracy and precision of the signal. 1.0 = highly precise, 0.0 = imprecise."
+        },
+        "stability_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Score (0-1) indicating the consistency and reliability of signal over time. 1.0 = highly stable, 0.0 = unstable/volatile."
+        },
+        "explainability_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Score (0-1) indicating how well the signal methodology can be understood and explained. 1.0 = fully transparent, 0.0 = black box."
+        },
+        "overall_trust_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Composite score (0-1) representing the overall trustworthiness of the signal across all dimensions. 1.0 = highly trustworthy, 0.0 = not trustworthy."
+        },
+        "validation_methodology": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 2048,
+          "description": "Detailed explanation of how quality scores were calculated and validated."
+        },
+        "sample_size": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of data points or users in the signal's sample population."
+        },
+        "confidence_interval": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Statistical confidence interval (e.g., 0.95 for 95% confidence)."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Quality metrics and trust scores for the signal."
+    },
+    "freshness": {
+      "type": "object",
+      "required": ["last_updated", "next_update"],
+      "properties": {
+        "last_updated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of when the signal data was last updated."
+        },
+        "next_update": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of when the signal data is scheduled for next update."
+        },
+        "update_cadence": {
+          "type": "string",
+          "pattern": "^P(?:\\d+Y)?(?:\\d+M)?(?:\\d+W)?(?:\\d+D)?(?:T(?:\\d+H)?(?:\\d+M)?(?:\\d+S)?)?$",
+          "description": "ISO 8601 duration indicating the typical update frequency (e.g., 'PT1H' for hourly, 'P1D' for daily).",
+          "examples": ["PT1H", "P1D", "P7D", "P1M"]
+        },
+        "latency": {
+          "type": "object",
+          "properties": {
+            "average_ms": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Average latency in milliseconds for signal retrieval."
+            },
+            "p95_ms": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "95th percentile latency in milliseconds."
+            },
+            "p99_ms": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "99th percentile latency in milliseconds."
+            }
+          },
+          "description": "Signal retrieval latency metrics."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Freshness indicators and update schedule for the signal."
+    },
+    "audit": {
+      "type": "object",
+      "required": ["audit_log_required", "retention_period_days"],
+      "properties": {
+        "audit_log_required": {
+          "type": "boolean",
+          "description": "Whether audit logging is required for this signal usage."
+        },
+        "retention_period_days": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3650,
+          "description": "Number of days audit logs must be retained."
+        },
+        "audit_events": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "signal_access",
+              "signal_usage",
+              "signal_modification",
+              "consent_change",
+              "policy_violation",
+              "data_export",
+              "data_deletion"
+            ]
+          },
+          "description": "Types of events that must be logged for audit purposes."
+        },
+        "compliance_auditor": {
+          "type": "string",
+          "description": "Name of third-party auditor or compliance body overseeing this signal."
+        },
+        "last_audit_date": {
+          "type": "string",
+          "format": "date",
+          "description": "ISO 8601 date of the most recent compliance audit."
+        },
+        "next_audit_date": {
+          "type": "string",
+          "format": "date",
+          "description": "ISO 8601 date of the next scheduled compliance audit."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Audit requirements and compliance tracking information."
+    },
+    "technical": {
+      "type": "object",
+      "properties": {
+        "api_endpoint": {
+          "type": "string",
+          "format": "uri",
+          "description": "Base URL for the signal's API endpoint."
+        },
+        "authentication": {
+          "type": "string",
+          "enum": ["oauth2", "api_key", "jwt", "mutual_tls", "custom"],
+          "description": "Authentication method required for API access."
+        },
+        "rate_limits": {
+          "type": "object",
+          "properties": {
+            "requests_per_second": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "requests_per_day": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "burst_capacity": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "description": "API rate limiting configuration."
+        },
+        "data_format": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["json", "xml", "protobuf", "avro", "csv"]
+          },
+          "description": "Supported data formats for signal delivery."
+        },
+        "encryption": {
+          "type": "object",
+          "properties": {
+            "in_transit": {
+              "type": "string",
+              "enum": ["tls_1.2", "tls_1.3"]
+            },
+            "at_rest": {
+              "type": "string",
+              "enum": ["aes_256", "aes_128", "none"]
+            }
+          },
+          "description": "Encryption standards for data protection."
+        }
+      },
+      "description": "Technical specifications for signal integration and access."
+    },
+    "taxonomy": {
+      "type": "object",
+      "properties": {
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Hierarchical categories for signal classification."
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Freeform tags for signal discovery and filtering."
+        },
+        "iab_categories": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^IAB\\d+(-\\d+)?$"
+          },
+          "description": "IAB Content Taxonomy categories (e.g., 'IAB1', 'IAB1-1').",
+          "examples": ["IAB1", "IAB1-1", "IAB3-1"]
+        }
+      },
+      "description": "Taxonomical classification for signal categorization and discovery."
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Custom extensions for provider-specific metadata. Keys should follow reverse domain notation (e.g., 'com.example.custom_field').",
+      "patternProperties": {
+        "^[a-z][a-z0-9]*\\.[a-z][a-z0-9]*(\\.[a-z][a-z0-9]*)*$": {}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,240 @@
+{
+  "protocol": "opensignals",
+  "version": "0.1",
+  "signal_id": "verified-attention-quality",
+  "name": "Verified Attention Quality Measurement",
+  "signal_type": "attention",
+  "status": "active",
+  "description": "First-party attention measurement signal tracking verified human attention across display and video inventory. Measures active engagement time, viewability, interaction depth, and attention quality score using eye-tracking calibrated models and interaction patterns.",
+  "owner": {
+    "organization": "AttentionMetrics Research Group",
+    "contact": "signals@attentionmetrics.example.com",
+    "technical_support": "support@attentionmetrics.example.com"
+  },
+  "provider": {
+    "name": "AttentionMetrics Research Group",
+    "url": "https://attentionmetrics.example.com",
+    "privacy_policy_url": "https://attentionmetrics.example.com/privacy",
+    "terms_of_service_url": "https://attentionmetrics.example.com/terms"
+  },
+  "provenance": {
+    "data_sources": [
+      "first_party_measurement",
+      "device_sensor_data",
+      "interaction_tracking"
+    ],
+    "collection_method": "sdk_measurement",
+    "last_updated": "2026-05-11T07:30:00Z",
+    "update_frequency": "real_time",
+    "measurement_methodology": "eye_tracking_calibrated_attention_model",
+    "chain_of_custody": [
+      {
+        "entity": "Publisher SDK",
+        "role": "data_collector",
+        "timestamp": "2026-05-11T07:25:00Z"
+      },
+      {
+        "entity": "AttentionMetrics Research Group",
+        "role": "data_processor",
+        "timestamp": "2026-05-11T07:26:00Z"
+      },
+      {
+        "entity": "AttentionMetrics Research Group",
+        "role": "data_aggregator",
+        "timestamp": "2026-05-11T07:30:00Z"
+      }
+    ]
+  },
+  "quality": {
+    "overall_trust_score": 0.94,
+    "coverage_score": 0.89,
+    "freshness_score": 0.98,
+    "precision_score": 0.93,
+    "explainability_score": 0.95,
+    "compliance_safety_score": 0.97,
+    "outcome_relevance_score": 0.91
+  },
+  "permissioning": {
+    "consent_mechanism": "explicit_opt_in",
+    "consent_framework": "IAB_TCF_v2.2",
+    "usage_rights": "commercial_measurement_and_optimization",
+    "permitted_uses": [
+      "attention_measurement",
+      "campaign_optimization",
+      "performance_reporting",
+      "inventory_quality_assessment"
+    ],
+    "prohibited_uses": [
+      "individual_profiling",
+      "audience_segmentation",
+      "cross_site_tracking",
+      "third_party_data_sale"
+    ],
+    "data_retention_days": 180,
+    "geographic_restrictions": []
+  },
+  "governance": {
+    "category": "measurement",
+    "subcategory": "attention_quality",
+    "human_approval_required": false,
+    "audit_required": true,
+    "audit_frequency": "monthly",
+    "risk_level": "low",
+    "compliance_frameworks": [
+      "MRC_Invalid_Traffic_Detection",
+      "IAB_Measurement_Guidelines",
+      "GDPR",
+      "CCPA"
+    ],
+    "policy_references": [
+      {
+        "policy_name": "MRC Attention Measurement Standards",
+        "policy_url": "https://mediaratingcouncil.org/Standards/Attention-Measurement.htm",
+        "applies_to_markets": ["global"]
+      }
+    ],
+    "brand_safety_categories": [
+      "measurement",
+      "performance"
+    ]
+  },
+  "coverage": {
+    "scale": "very_large",
+    "estimated_reach": 125000000,
+    "geographic_markets": [
+      "US",
+      "GB",
+      "FR",
+      "DE",
+      "AU",
+      "CA",
+      "JP",
+      "ES",
+      "IT",
+      "BR",
+      "MX",
+      "NL",
+      "SE",
+      "NO",
+      "DK",
+      "FI"
+    ],
+    "device_types": [
+      "desktop",
+      "mobile_web",
+      "mobile_app",
+      "tablet"
+    ],
+    "inventory_types": [
+      "display",
+      "video",
+      "native",
+      "rich_media"
+    ],
+    "publisher_count": 850
+  },
+  "measurement_details": {
+    "attention_metrics": [
+      "active_attention_time",
+      "viewability_duration",
+      "interaction_depth",
+      "scroll_engagement",
+      "focus_time",
+      "attention_quality_score"
+    ],
+    "viewability_standard": "MRC_viewable_impression",
+    "minimum_viewability_threshold": 0.5,
+    "measurement_granularity": "impression_level",
+    "aggregation_levels": [
+      "campaign",
+      "placement",
+      "creative",
+      "publisher",
+      "device_type"
+    ],
+    "sampling_rate": 1.0,
+    "measurement_accuracy": 0.96
+  },
+  "verification": {
+    "verification_method": "third_party_audit_and_continuous_validation",
+    "last_verified": "2026-04-15T00:00:00Z",
+    "verification_frequency": "quarterly",
+    "third_party_auditor": "Media Rating Council",
+    "audit_report_url": "https://attentionmetrics.example.com/audits/mrc-attention-q1-2026.pdf",
+    "certifications": [
+      "MRC_Accredited_Attention_Measurement",
+      "MRC_Invalid_Traffic_Detection",
+      "IAB_Tech_Lab_Certified",
+      "TAG_Certified_Against_Fraud"
+    ]
+  },
+  "technical": {
+    "activation_endpoint": "https://api.attentionmetrics.example.com/v2/signals/verified-attention-quality/activate",
+    "authentication_method": "http_message_signatures",
+    "supported_formats": [
+      "json",
+      "avro"
+    ],
+    "integration_documentation_url": "https://docs.attentionmetrics.example.com/signals/attention-quality",
+    "api_version": "2.1",
+    "sdk_versions": {
+      "javascript": "3.2.1",
+      "ios": "2.8.0",
+      "android": "2.7.5"
+    },
+    "rate_limits": {
+      "requests_per_minute": 500,
+      "requests_per_day": 100000
+    },
+    "latency_sla_ms": 150
+  },
+  "transparency": {
+    "explainability": "very_high",
+    "explanation": "Attention measurement is performed using calibrated models trained on eye-tracking studies with 15,000+ participants. The SDK measures visible time in viewport, interaction signals (scroll, hover, click), and device orientation. Attention Quality Score combines multiple signals: 40% active visible time, 30% interaction depth, 20% viewability quality, 10% content completion. All measurement is privacy-preserving and aggregated at impression level.",
+    "methodology_url": "https://attentionmetrics.example.com/methodology/attention-measurement",
+    "methodology_whitepaper_url": "https://attentionmetrics.example.com/research/attention-quality-model-2026.pdf",
+    "sample_signals_available": true,
+    "sample_signals_url": "https://attentionmetrics.example.com/samples/attention-dashboard",
+    "research_validation": [
+      {
+        "study_name": "Eye-Tracking Calibration Study 2025",
+        "institution": "University of Applied Media Research",
+        "publication_url": "https://research.attentionmetrics.example.com/eye-tracking-2025",
+        "sample_size": 15000,
+        "correlation_coefficient": 0.89
+      }
+    ]
+  },
+  "pricing": {
+    "cpm_range": {
+      "min": 0.50,
+      "max": 2.00,
+      "currency": "USD"
+    },
+    "pricing_model": "cpm_measurement_fee",
+    "pricing_url": "https://attentionmetrics.example.com/pricing"
+  },
+  "performance_history": {
+    "historical_performance_available": true,
+    "performance_metrics_url": "https://attentionmetrics.example.com/performance/verified-attention-quality",
+    "average_attention_time_seconds": 8.7,
+    "average_attention_quality_score": 0.82,
+    "benchmark_percentile": 92
+  },
+  "metadata": {
+    "created_at": "2024-06-01T00:00:00Z",
+    "updated_at": "2026-05-11T07:30:00Z",
+    "version": "4.1",
+    "tags": [
+      "attention",
+      "measurement",
+      "high_trust",
+      "first_party",
+      "mrc_accredited",
+      "real_time"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  }
+}

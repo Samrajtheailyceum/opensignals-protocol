@@ -1,0 +1,385 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opensignals.org/schemas/v0.1/verify-signal-request.schema.json",
+  "title": "Verify Signal Request Schema",
+  "description": "Request schema for the verify_signal task in OpenSignals Protocol. Used to validate signal compliance against policies, regulations, and usage restrictions before signal activation or usage.",
+  "type": "object",
+  "required": [
+    "request_id",
+    "timestamp",
+    "signal_id",
+    "requestor",
+    "verification_type",
+    "context"
+  ],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this verification request (UUID v4 format).",
+      "examples": ["550e8400-e29b-41d4-a716-446655440000"]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the verification request was initiated."
+    },
+    "signal_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$",
+      "minLength": 3,
+      "maxLength": 128,
+      "description": "Unique identifier of the signal to be verified. Must match a registered signal_id in the OpenSignals ecosystem."
+    },
+    "signal_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+(\\.\\d+)?$",
+      "description": "Specific version of the signal manifest to verify against. If omitted, latest version is used.",
+      "examples": ["1.0", "1.0.0"]
+    },
+    "requestor": {
+      "type": "object",
+      "required": ["organization_id", "user_id"],
+      "properties": {
+        "organization_id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "minLength": 3,
+          "maxLength": 128,
+          "description": "Unique identifier of the organization requesting verification."
+        },
+        "organization_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "description": "Legal name of the requesting organization."
+        },
+        "user_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "description": "Unique identifier of the user initiating the verification request."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address of the requesting user."
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "admin",
+            "compliance_officer",
+            "data_steward",
+            "developer",
+            "analyst",
+            "operator"
+          ],
+          "description": "Role of the requesting user within their organization."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Information about the entity requesting signal verification."
+    },
+    "verification_type": {
+      "type": "string",
+      "enum": [
+        "pre_activation",
+        "periodic_review",
+        "incident_investigation",
+        "policy_change",
+        "usage_validation",
+        "compliance_audit",
+        "manual_review"
+      ],
+      "description": "Type of verification being requested. 'pre_activation' = before signal goes live, 'periodic_review' = scheduled compliance check, 'incident_investigation' = in response to an issue, 'policy_change' = after policy updates, 'usage_validation' = verify specific usage scenario, 'compliance_audit' = regulatory audit, 'manual_review' = ad-hoc human review."
+    },
+    "context": {
+      "type": "object",
+      "required": ["intended_use"],
+      "properties": {
+        "intended_use": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": [
+              "targeting",
+              "measurement",
+              "attribution",
+              "frequency_capping",
+              "brand_safety",
+              "contextual_placement",
+              "audience_insights",
+              "bidding",
+              "creative_optimization",
+              "forecasting"
+            ]
+          },
+          "description": "Intended use cases for the signal being verified."
+        },
+        "geographic_scope": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          },
+          "description": "ISO 3166-1 alpha-2 country codes where signal will be used."
+        },
+        "target_audience": {
+          "type": "object",
+          "properties": {
+            "age_ranges": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Target age ranges (e.g., ['18-24', '25-34'])."
+            },
+            "demographics": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Demographic targeting parameters."
+            },
+            "sensitive_categories": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "children",
+                  "health_conditions",
+                  "financial_status",
+                  "political_affiliation",
+                  "religious_beliefs",
+                  "sexual_orientation",
+                  "trade_union_membership",
+                  "none"
+                ]
+              },
+              "description": "Sensitive audience categories involved."
+            }
+          },
+          "description": "Target audience characteristics for signal usage."
+        },
+        "campaign_details": {
+          "type": "object",
+          "properties": {
+            "advertiser_id": {
+              "type": "string",
+              "description": "Identifier of the advertiser using this signal."
+            },
+            "campaign_id": {
+              "type": "string",
+              "description": "Identifier of the specific campaign."
+            },
+            "product_categories": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Product or service categories being advertised."
+            },
+            "policy_sensitive_categories": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "alcohol",
+                  "gambling",
+                  "tobacco",
+                  "pharmaceuticals",
+                  "financial_services",
+                  "dating",
+                  "adult_content",
+                  "weapons",
+                  "political",
+                  "healthcare",
+                  "cryptocurrency",
+                  "none"
+                ]
+              },
+              "description": "Policy-sensitive product categories."
+            }
+          },
+          "description": "Campaign-specific context for verification."
+        },
+        "platforms": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "display",
+              "video",
+              "mobile_app",
+              "mobile_web",
+              "desktop",
+              "ctv",
+              "dooh",
+              "audio",
+              "native",
+              "social"
+            ]
+          },
+          "description": "Advertising platforms where signal will be used."
+        },
+        "data_retention_days": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3650,
+          "description": "Number of days the requestor intends to retain signal data."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Contextual information about how the signal will be used."
+    },
+    "policies": {
+      "type": "object",
+      "properties": {
+        "policy_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Specific policy IDs to verify against. If empty, all applicable policies are checked."
+        },
+        "policy_frameworks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "gdpr",
+              "ccpa",
+              "cpra",
+              "lgpd",
+              "pipeda",
+              "pdpa_singapore",
+              "pdpa_thailand",
+              "internal_policy",
+              "industry_standard",
+              "custom"
+            ]
+          },
+          "description": "Policy frameworks to verify compliance against."
+        },
+        "custom_rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["rule_id", "description"],
+            "properties": {
+              "rule_id": {
+                "type": "string",
+                "description": "Unique identifier for the custom rule."
+              },
+              "description": {
+                "type": "string",
+                "description": "Description of the custom verification rule."
+              },
+              "severity": {
+                "type": "string",
+                "enum": ["blocking", "warning", "info"],
+                "description": "Severity level of the rule violation."
+              }
+            }
+          },
+          "description": "Custom verification rules specific to the requestor."
+        }
+      },
+      "description": "Policy and compliance requirements for verification."
+    },
+    "consent_status": {
+      "type": "object",
+      "properties": {
+        "consent_available": {
+          "type": "boolean",
+          "description": "Whether user consent is available for the intended signal usage."
+        },
+        "consent_framework": {
+          "type": "string",
+          "enum": ["tcf_v2", "tcf_v2.2", "gpp", "ccpa", "custom"],
+          "description": "Consent management framework in use."
+        },
+        "consent_string": {
+          "type": "string",
+          "description": "Encoded consent string (e.g., IAB TCF consent string)."
+        },
+        "purposes_consented": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "description": "List of purpose IDs for which consent was granted."
+        }
+      },
+      "description": "User consent information relevant to signal usage."
+    },
+    "verification_options": {
+      "type": "object",
+      "properties": {
+        "strict_mode": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, apply strictest interpretation of policies and fail on any ambiguity."
+        },
+        "include_warnings": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to include non-blocking warnings in verification response."
+        },
+        "require_manual_review": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to require manual human review regardless of automated checks."
+        },
+        "generate_recommendations": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to generate recommendations for addressing verification issues."
+        },
+        "detailed_report": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to generate a detailed verification report with all checks."
+        }
+      },
+      "description": "Options controlling verification behavior and output."
+    },
+    "callback_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Optional webhook URL to receive verification results asynchronously."
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["low", "normal", "high", "urgent"],
+      "default": "normal",
+      "description": "Priority level for processing this verification request."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata for the verification request.",
+      "properties": {
+        "reference_id": {
+          "type": "string",
+          "description": "External reference identifier for tracking."
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 2048,
+          "description": "Additional notes or context from the requestor."
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Freeform tags for categorization and search."
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

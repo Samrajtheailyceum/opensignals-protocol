@@ -1,0 +1,547 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opensignals.org/schemas/v0.1/audit-signal-usage-request.schema.json",
+  "title": "Audit Signal Usage Request Schema",
+  "description": "Request schema for logging signal usage events in the OpenSignals Protocol. Used to create comprehensive audit trails for compliance, governance, and analytics purposes.",
+  "type": "object",
+  "required": [
+    "audit_id",
+    "timestamp",
+    "signal_id",
+    "event_type",
+    "actor",
+    "action"
+  ],
+  "properties": {
+    "audit_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this audit log entry (UUID v4 format)."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the auditable event occurred."
+    },
+    "signal_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$",
+      "minLength": 3,
+      "maxLength": 128,
+      "description": "Unique identifier of the signal involved in this audit event."
+    },
+    "signal_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+(\\.\\d+)?$",
+      "description": "Version of the signal manifest at the time of the event."
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "signal_access",
+        "signal_usage",
+        "signal_creation",
+        "signal_modification",
+        "signal_deletion",
+        "signal_activation",
+        "signal_deactivation",
+        "consent_granted",
+        "consent_revoked",
+        "consent_verified",
+        "policy_violation",
+        "policy_evaluation",
+        "data_export",
+        "data_deletion",
+        "verification_request",
+        "verification_result",
+        "trust_score_update",
+        "configuration_change",
+        "permission_granted",
+        "permission_revoked",
+        "api_call",
+        "error_event",
+        "security_event",
+        "custom"
+      ],
+      "description": "Type of event being audited. Determines what additional context should be included."
+    },
+    "actor": {
+      "type": "object",
+      "required": ["type", "id"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "user",
+            "service",
+            "system",
+            "api_client",
+            "automated_process",
+            "anonymous"
+          ],
+          "description": "Type of actor performing the action."
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "description": "Unique identifier of the actor within their type namespace."
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable name of the actor."
+        },
+        "organization_id": {
+          "type": "string",
+          "description": "Identifier of the organization the actor belongs to."
+        },
+        "organization_name": {
+          "type": "string",
+          "description": "Name of the organization the actor belongs to."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address of the actor (for user type)."
+        },
+        "role": {
+          "type": "string",
+          "description": "Role or permission level of the actor."
+        },
+        "ip_address": {
+          "type": "string",
+          "oneOf": [
+            {"format": "ipv4"},
+            {"format": "ipv6"}
+          ],
+          "description": "IP address from which the action was performed."
+        },
+        "user_agent": {
+          "type": "string",
+          "description": "User agent string of the client application."
+        },
+        "session_id": {
+          "type": "string",
+          "description": "Session identifier for tracking related actions."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Information about the entity performing the audited action."
+    },
+    "action": {
+      "type": "object",
+      "required": ["operation"],
+      "properties": {
+        "operation": {
+          "type": "string",
+          "enum": [
+            "create",
+            "read",
+            "update",
+            "delete",
+            "execute",
+            "approve",
+            "reject",
+            "verify",
+            "export",
+            "import",
+            "grant",
+            "revoke",
+            "enable",
+            "disable",
+            "evaluate",
+            "transform",
+            "custom"
+          ],
+          "description": "Type of operation performed."
+        },
+        "resource": {
+          "type": "string",
+          "description": "Specific resource or object that was acted upon (e.g., field name, policy ID)."
+        },
+        "outcome": {
+          "type": "string",
+          "enum": ["success", "failure", "partial", "pending"],
+          "description": "Outcome of the action."
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 2048,
+          "description": "Human-readable description of the action performed."
+        },
+        "method": {
+          "type": "string",
+          "enum": ["api", "ui", "cli", "automated", "batch", "import"],
+          "description": "Method or interface used to perform the action."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Details about the action that was performed."
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "description": "Unique identifier for the request that triggered this event."
+        },
+        "correlation_id": {
+          "type": "string",
+          "description": "Identifier for correlating multiple related audit events."
+        },
+        "parent_audit_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Audit ID of parent event if this is part of a cascading action."
+        },
+        "transaction_id": {
+          "type": "string",
+          "description": "Identifier for transaction if event is part of a larger transaction."
+        },
+        "campaign_id": {
+          "type": "string",
+          "description": "Identifier of advertising campaign if relevant."
+        },
+        "advertiser_id": {
+          "type": "string",
+          "description": "Identifier of advertiser if relevant."
+        },
+        "platform": {
+          "type": "string",
+          "enum": [
+            "display",
+            "video",
+            "mobile_app",
+            "mobile_web",
+            "desktop",
+            "ctv",
+            "dooh",
+            "audio",
+            "native",
+            "social"
+          ],
+          "description": "Advertising platform where signal was used."
+        },
+        "geographic_location": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$",
+          "description": "ISO 3166-1 alpha-2 country code where event occurred."
+        },
+        "environment": {
+          "type": "string",
+          "enum": ["production", "staging", "development", "testing"],
+          "description": "Environment where the event occurred."
+        }
+      },
+      "description": "Contextual information about where and why the event occurred."
+    },
+    "changes": {
+      "type": "object",
+      "properties": {
+        "before": {
+          "type": "object",
+          "description": "State of the resource before the change (for update/delete operations)."
+        },
+        "after": {
+          "type": "object",
+          "description": "State of the resource after the change (for create/update operations)."
+        },
+        "fields_changed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of field names that were modified."
+        },
+        "change_reason": {
+          "type": "string",
+          "description": "Reason or justification for the change."
+        }
+      },
+      "description": "Details about what changed for modification events."
+    },
+    "usage_details": {
+      "type": "object",
+      "properties": {
+        "usage_type": {
+          "type": "string",
+          "enum": [
+            "targeting",
+            "measurement",
+            "attribution",
+            "frequency_capping",
+            "brand_safety",
+            "contextual_placement",
+            "audience_insights",
+            "bidding",
+            "creative_optimization",
+            "forecasting"
+          ],
+          "description": "How the signal was used."
+        },
+        "volume": {
+          "type": "object",
+          "properties": {
+            "records_accessed": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of signal records accessed."
+            },
+            "users_impacted": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of unique users/identifiers involved."
+            },
+            "impressions": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of ad impressions served using this signal."
+            },
+            "api_calls": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of API calls made."
+            }
+          },
+          "description": "Volume metrics for the usage event."
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Duration of the usage event in milliseconds."
+        },
+        "latency_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Latency of the operation in milliseconds."
+        },
+        "cost": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number",
+              "minimum": 0
+            },
+            "currency": {
+              "type": "string",
+              "pattern": "^[A-Z]{3}$",
+              "description": "ISO 4217 currency code."
+            }
+          },
+          "description": "Cost associated with this usage (if applicable)."
+        }
+      },
+      "description": "Detailed metrics about signal usage."
+    },
+    "consent_context": {
+      "type": "object",
+      "properties": {
+        "consent_id": {
+          "type": "string",
+          "description": "Unique identifier of the consent record."
+        },
+        "consent_framework": {
+          "type": "string",
+          "enum": ["tcf_v2", "tcf_v2.2", "gpp", "ccpa", "custom"],
+          "description": "Consent framework used."
+        },
+        "consent_string": {
+          "type": "string",
+          "description": "Encoded consent string at time of event."
+        },
+        "purposes_consented": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "description": "List of purpose IDs consented to."
+        },
+        "consent_verified": {
+          "type": "boolean",
+          "description": "Whether consent was verified before action."
+        },
+        "consent_timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When consent was originally granted."
+        }
+      },
+      "description": "Consent-related information for the audited event."
+    },
+    "policy_context": {
+      "type": "object",
+      "properties": {
+        "policies_applied": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of policy IDs that were evaluated or applied."
+        },
+        "policy_decision": {
+          "type": "string",
+          "enum": ["allow", "deny", "allow_with_conditions", "not_evaluated"],
+          "description": "Overall policy decision for this event."
+        },
+        "violations_detected": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["policy_id", "violation_type"],
+            "properties": {
+              "policy_id": {
+                "type": "string"
+              },
+              "violation_type": {
+                "type": "string"
+              },
+              "severity": {
+                "type": "string",
+                "enum": ["critical", "high", "medium", "low"]
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "Policy violations detected during this event."
+        }
+      },
+      "description": "Policy enforcement information for the audited event."
+    },
+    "security_context": {
+      "type": "object",
+      "properties": {
+        "authentication_method": {
+          "type": "string",
+          "enum": ["oauth2", "api_key", "jwt", "saml", "certificate", "basic_auth", "none"],
+          "description": "Authentication method used."
+        },
+        "authorization_level": {
+          "type": "string",
+          "description": "Authorization level or scope granted."
+        },
+        "encryption_used": {
+          "type": "boolean",
+          "description": "Whether encryption was used for data in transit."
+        },
+        "tls_version": {
+          "type": "string",
+          "description": "TLS version used (if applicable)."
+        },
+        "threat_indicators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Any security threat indicators detected."
+        },
+        "risk_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Calculated risk score for this event (0-1)."
+        }
+      },
+      "description": "Security-related context for the audited event."
+    },
+    "error_details": {
+      "type": "object",
+      "properties": {
+        "error_code": {
+          "type": "string",
+          "description": "Machine-readable error code."
+        },
+        "error_message": {
+          "type": "string",
+          "description": "Human-readable error message."
+        },
+        "error_type": {
+          "type": "string",
+          "enum": [
+            "validation_error",
+            "permission_denied",
+            "resource_not_found",
+            "conflict",
+            "rate_limit_exceeded",
+            "service_unavailable",
+            "timeout",
+            "internal_error",
+            "custom"
+          ],
+          "description": "Category of error."
+        },
+        "stack_trace": {
+          "type": "string",
+          "description": "Stack trace or detailed error information (sanitized)."
+        },
+        "retry_attempted": {
+          "type": "boolean",
+          "description": "Whether the operation was automatically retried."
+        }
+      },
+      "description": "Error information if the event involved a failure."
+    },
+    "retention": {
+      "type": "object",
+      "properties": {
+        "retention_period_days": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3650,
+          "description": "Number of days this audit log should be retained."
+        },
+        "retention_reason": {
+          "type": "string",
+          "enum": [
+            "regulatory_requirement",
+            "legal_hold",
+            "contractual_obligation",
+            "business_requirement",
+            "security_investigation",
+            "standard_retention"
+          ],
+          "description": "Reason for the specified retention period."
+        },
+        "auto_delete_after": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp after which this log can be automatically deleted."
+        }
+      },
+      "description": "Retention policy information for this audit log."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Freeform tags for categorizing and filtering audit logs."
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "source_system": {
+          "type": "string",
+          "description": "System that generated this audit event."
+        },
+        "source_version": {
+          "type": "string",
+          "description": "Version of the source system."
+        },
+        "schema_version": {
+          "type": "string",
+          "description": "Version of the audit schema used."
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 2048,
+          "description": "Additional notes or context."
+        }
+      },
+      "additionalProperties": true,
+      "description": "Additional metadata about the audit event."
+    }
+  },
+  "additionalProperties": false
+}

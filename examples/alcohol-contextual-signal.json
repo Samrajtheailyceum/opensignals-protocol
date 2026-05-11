@@ -1,0 +1,222 @@
+{
+  "protocol": "opensignals",
+  "version": "0.1",
+  "signal_id": "premium-cocktail-contexts",
+  "name": "Premium Cocktail & Spirits Content Contexts",
+  "signal_type": "contextual",
+  "status": "active",
+  "description": "High-quality contextual signal identifying premium content environments suitable for spirits and cocktail advertising. Includes food and drink editorial, lifestyle content, and premium entertainment contexts. Compliant with age-gated advertising requirements.",
+  "owner": {
+    "organization": "ContextIQ Media Solutions",
+    "contact": "signals@contextiq.example.com",
+    "compliance_officer": "compliance@contextiq.example.com"
+  },
+  "provider": {
+    "name": "ContextIQ Media Solutions",
+    "url": "https://contextiq.example.com",
+    "privacy_policy_url": "https://contextiq.example.com/privacy",
+    "terms_of_service_url": "https://contextiq.example.com/terms"
+  },
+  "provenance": {
+    "data_sources": [
+      "first_party_page_analysis",
+      "editorial_classification",
+      "semantic_content_analysis"
+    ],
+    "collection_method": "automated_content_analysis",
+    "last_updated": "2026-05-11T06:00:00Z",
+    "update_frequency": "hourly",
+    "chain_of_custody": [
+      {
+        "entity": "ContextIQ Media Solutions",
+        "role": "data_collector",
+        "timestamp": "2026-05-11T06:00:00Z"
+      },
+      {
+        "entity": "ContextIQ Media Solutions",
+        "role": "data_processor",
+        "timestamp": "2026-05-11T06:15:00Z"
+      }
+    ]
+  },
+  "quality": {
+    "overall_trust_score": 0.88,
+    "coverage_score": 0.85,
+    "freshness_score": 0.95,
+    "precision_score": 0.87,
+    "explainability_score": 0.92,
+    "compliance_safety_score": 0.94,
+    "outcome_relevance_score": 0.78
+  },
+  "permissioning": {
+    "consent_mechanism": "not_applicable_contextual",
+    "usage_rights": "commercial_advertising",
+    "permitted_uses": [
+      "contextual_targeting",
+      "content_adjacency_optimization",
+      "brand_safety_verification"
+    ],
+    "prohibited_uses": [
+      "individual_profiling",
+      "cross_site_tracking",
+      "behavioral_targeting",
+      "minor_targeting"
+    ],
+    "data_retention_days": 90,
+    "geographic_restrictions": [
+      "age_verification_required_all_markets"
+    ]
+  },
+  "governance": {
+    "category": "regulated",
+    "subcategory": "alcohol",
+    "human_approval_required": true,
+    "approval_workflow": "brand_legal_and_compliance_review",
+    "audit_required": true,
+    "audit_frequency": "per_activation",
+    "risk_level": "medium_high",
+    "market_restrictions": {
+      "prohibited_markets": [
+        "SA",
+        "AE",
+        "IQ"
+      ],
+      "age_restricted_markets": [
+        "US",
+        "GB",
+        "FR",
+        "DE",
+        "AU",
+        "CA",
+        "JP"
+      ],
+      "minimum_age_by_market": {
+        "US": 21,
+        "GB": 18,
+        "FR": 18,
+        "DE": 18,
+        "AU": 18,
+        "CA": 19,
+        "JP": 20
+      }
+    },
+    "compliance_frameworks": [
+      "UK_CAP_Code",
+      "US_DISCUS_Code",
+      "EU_Audiovisual_Media_Services_Directive",
+      "Portman_Group_Code"
+    ],
+    "policy_references": [
+      {
+        "policy_name": "UK Advertising Standards - Alcohol Advertising",
+        "policy_url": "https://www.asa.org.uk/codes-and-rulings/advertising-codes/broadcast-code/alcohol.html",
+        "applies_to_markets": ["GB"]
+      },
+      {
+        "policy_name": "DISCUS Code of Responsible Practices",
+        "policy_url": "https://www.distilledspirits.org/responsibility/advertising-marketing-code/",
+        "applies_to_markets": ["US"]
+      }
+    ],
+    "brand_safety_categories": [
+      "premium_food_drink",
+      "lifestyle_entertainment",
+      "travel_hospitality"
+    ],
+    "blocked_content_categories": [
+      "children_content",
+      "youth_content",
+      "educational_content",
+      "health_medical",
+      "gambling",
+      "unsafe_driving"
+    ]
+  },
+  "coverage": {
+    "scale": "large",
+    "estimated_reach": 45000000,
+    "geographic_markets": [
+      "US",
+      "GB",
+      "FR",
+      "DE",
+      "AU",
+      "CA",
+      "JP",
+      "ES",
+      "IT"
+    ],
+    "content_types": [
+      "editorial_articles",
+      "recipe_content",
+      "lifestyle_videos",
+      "entertainment_reviews"
+    ],
+    "inventory_types": [
+      "display",
+      "video",
+      "native"
+    ]
+  },
+  "verification": {
+    "verification_method": "automated_nlp_and_human_review",
+    "last_verified": "2026-05-10T14:00:00Z",
+    "verification_frequency": "weekly",
+    "third_party_auditor": "Digital Media Verification Ltd",
+    "audit_report_url": "https://contextiq.example.com/audits/premium-cocktail-contexts-2026-05.pdf",
+    "certifications": [
+      "TAG_Brand_Safety_Certified",
+      "MRC_Viewability_Accredited"
+    ]
+  },
+  "technical": {
+    "activation_endpoint": "https://api.contextiq.example.com/v1/signals/premium-cocktail-contexts/activate",
+    "authentication_method": "http_message_signatures",
+    "supported_formats": [
+      "json",
+      "xml"
+    ],
+    "integration_documentation_url": "https://docs.contextiq.example.com/signals/premium-cocktail-contexts",
+    "rate_limits": {
+      "requests_per_minute": 100,
+      "requests_per_day": 10000
+    }
+  },
+  "transparency": {
+    "explainability": "high",
+    "explanation": "This signal identifies page-level content contexts through semantic analysis of editorial content, page metadata, and IAB Content Taxonomy classification. No individual user data or behavioral tracking is involved. Content is classified based on article topic, keywords, sentiment, and editorial category.",
+    "methodology_url": "https://contextiq.example.com/methodology/contextual-classification",
+    "sample_signals_available": true,
+    "sample_signals_url": "https://contextiq.example.com/samples/premium-cocktail-contexts"
+  },
+  "pricing": {
+    "cpm_range": {
+      "min": 4.50,
+      "max": 12.00,
+      "currency": "USD"
+    },
+    "pricing_model": "cpm",
+    "pricing_url": "https://contextiq.example.com/pricing/premium-cocktail-contexts"
+  },
+  "metadata": {
+    "created_at": "2025-09-15T00:00:00Z",
+    "updated_at": "2026-05-11T06:00:00Z",
+    "version": "2.3",
+    "tags": [
+      "contextual",
+      "alcohol",
+      "regulated",
+      "premium",
+      "brand_safe",
+      "age_restricted"
+    ],
+    "supported_languages": [
+      "en",
+      "fr",
+      "de",
+      "es",
+      "it",
+      "ja"
+    ]
+  }
+}

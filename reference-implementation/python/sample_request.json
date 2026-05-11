@@ -1,0 +1,297 @@
+{
+  "verify_signal_example": {
+    "request_id": "550e8400-e29b-41d4-a716-446655440000",
+    "timestamp": "2026-05-11T12:00:00Z",
+    "signal_id": "verified-attention-quality",
+    "signal_version": "0.1",
+    "requestor": {
+      "organization_id": "acme-advertising-123",
+      "organization_name": "Acme Advertising Agency",
+      "user_id": "user-12345",
+      "email": "compliance@acme-ads.example.com",
+      "role": "compliance_officer"
+    },
+    "verification_type": "pre_activation",
+    "context": {
+      "intended_use": [
+        "targeting",
+        "measurement",
+        "bidding"
+      ],
+      "geographic_scope": [
+        "US",
+        "GB",
+        "CA"
+      ],
+      "target_audience": {
+        "age_ranges": [
+          "25-34",
+          "35-44"
+        ],
+        "demographics": [
+          "urban_professionals"
+        ],
+        "sensitive_categories": [
+          "none"
+        ]
+      },
+      "campaign_details": {
+        "advertiser_id": "advertiser-789",
+        "campaign_id": "campaign-456",
+        "product_categories": [
+          "consumer_electronics"
+        ],
+        "policy_sensitive_categories": [
+          "none"
+        ]
+      },
+      "platforms": [
+        "display",
+        "video",
+        "mobile_web"
+      ],
+      "data_retention_days": 90
+    },
+    "policies": {
+      "policy_frameworks": [
+        "gdpr",
+        "ccpa"
+      ]
+    },
+    "consent_status": {
+      "consent_available": true,
+      "consent_framework": "tcf_v2.2",
+      "purposes_consented": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "consent_verified": true
+    },
+    "verification_options": {
+      "strict_mode": false,
+      "include_warnings": true,
+      "generate_recommendations": true,
+      "detailed_report": false
+    },
+    "priority": "normal",
+    "metadata": {
+      "reference_id": "REF-2026-05-11-001",
+      "notes": "Pre-launch verification for Q3 campaign",
+      "tags": [
+        "q3-campaign",
+        "attention-measurement"
+      ]
+    }
+  },
+  "audit_usage_example": {
+    "audit_id": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+    "timestamp": "2026-05-11T12:30:00Z",
+    "signal_id": "verified-attention-quality",
+    "signal_version": "0.1",
+    "event_type": "signal_usage",
+    "actor": {
+      "type": "service",
+      "id": "bidding-engine-prod-01",
+      "name": "Production Bidding Engine",
+      "organization_id": "acme-advertising-123",
+      "organization_name": "Acme Advertising Agency",
+      "role": "bidding_service",
+      "ip_address": "192.168.1.100",
+      "session_id": "session-xyz-789"
+    },
+    "action": {
+      "operation": "read",
+      "resource": "attention_quality_scores",
+      "outcome": "success",
+      "description": "Retrieved attention quality scores for bid request evaluation",
+      "method": "api"
+    },
+    "context": {
+      "request_id": "req-12345-67890",
+      "campaign_id": "campaign-456",
+      "advertiser_id": "advertiser-789",
+      "platform": "display",
+      "geographic_location": "US",
+      "environment": "production"
+    },
+    "usage_details": {
+      "usage_type": "bidding",
+      "volume": {
+        "records_accessed": 1500,
+        "api_calls": 1,
+        "impressions": 1500
+      },
+      "duration_ms": 234,
+      "latency_ms": 45
+    },
+    "consent_context": {
+      "consent_framework": "tcf_v2.2",
+      "purposes_consented": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "consent_verified": true
+    },
+    "policy_context": {
+      "policies_applied": [
+        "gdpr-compliance-v1",
+        "ccpa-compliance-v1"
+      ],
+      "policy_decision": "allow"
+    },
+    "security_context": {
+      "authentication_method": "jwt",
+      "authorization_level": "service-read-signals",
+      "encryption_used": true,
+      "tls_version": "1.3"
+    },
+    "retention": {
+      "retention_period_days": 365,
+      "retention_reason": "regulatory_requirement"
+    },
+    "tags": [
+      "production",
+      "bidding",
+      "attention-signal"
+    ],
+    "metadata": {
+      "source_system": "opensignals-api",
+      "source_version": "0.1.0",
+      "schema_version": "0.1"
+    }
+  },
+  "score_signal_example": {
+    "signal_id": "verified-attention-quality",
+    "manifest": {
+      "protocol": "opensignals",
+      "version": "0.1",
+      "signal_id": "verified-attention-quality",
+      "name": "Verified Attention Quality Measurement",
+      "description": "First-party attention measurement signal tracking verified human attention across display and video inventory.",
+      "signal_type": "attention",
+      "status": "active",
+      "owner": {
+        "organization": "AttentionMetrics Research Group",
+        "contact_email": "signals@attentionmetrics.example.com"
+      },
+      "provider": {
+        "name": "AttentionMetrics Research Group",
+        "provider_id": "attentionmetrics-rg"
+      },
+      "compatible_protocols": [
+        "rtb_3.0",
+        "vast_4.2"
+      ],
+      "provenance": {
+        "data_sources": [
+          {
+            "type": "first_party",
+            "description": "Direct measurement from publisher properties using SDK",
+            "consent_basis": [
+              "explicit_consent"
+            ]
+          }
+        ],
+        "collection_method": "deterministic",
+        "update_frequency": "real_time"
+      },
+      "permissioning": {
+        "requires_consent": true,
+        "consent_framework": [
+          "tcf_v2.2"
+        ],
+        "privacy_compliance": [
+          "gdpr",
+          "ccpa"
+        ],
+        "usage_restrictions": {
+          "allowed_uses": [
+            "measurement",
+            "attribution",
+            "bidding"
+          ],
+          "max_retention_days": 180
+        }
+      },
+      "quality": {
+        "coverage_score": 0.89,
+        "freshness_score": 0.98,
+        "precision_score": 0.93,
+        "stability_score": 0.91,
+        "explainability_score": 0.95,
+        "overall_trust_score": 0.94
+      },
+      "freshness": {
+        "last_updated": "2026-05-11T07:30:00Z",
+        "next_update": "2026-05-11T07:31:00Z"
+      },
+      "audit": {
+        "audit_log_required": true,
+        "retention_period_days": 365
+      }
+    }
+  },
+  "validate_manifest_example": {
+    "manifest": {
+      "protocol": "opensignals",
+      "version": "0.1",
+      "signal_id": "test-signal-123",
+      "name": "Test Signal",
+      "description": "A test signal for validation demonstration purposes in the OpenSignals Protocol reference implementation.",
+      "signal_type": "contextual",
+      "status": "active",
+      "owner": {
+        "organization": "Test Organization",
+        "contact_email": "test@example.com"
+      },
+      "provider": {
+        "name": "Test Provider",
+        "provider_id": "test-provider-001"
+      },
+      "compatible_protocols": [
+        "rtb_3.0"
+      ],
+      "provenance": {
+        "data_sources": [
+          {
+            "type": "first_party",
+            "description": "Test data source"
+          }
+        ],
+        "collection_method": "deterministic",
+        "update_frequency": "daily"
+      },
+      "permissioning": {
+        "requires_consent": false,
+        "privacy_compliance": [
+          "gdpr"
+        ],
+        "usage_restrictions": {
+          "allowed_uses": [
+            "targeting"
+          ]
+        }
+      },
+      "quality": {
+        "coverage_score": 0.75,
+        "freshness_score": 0.80,
+        "precision_score": 0.85,
+        "stability_score": 0.78,
+        "explainability_score": 0.82,
+        "overall_trust_score": 0.80
+      },
+      "freshness": {
+        "last_updated": "2026-05-11T00:00:00Z",
+        "next_update": "2026-05-12T00:00:00Z"
+      },
+      "audit": {
+        "audit_log_required": true,
+        "retention_period_days": 90
+      }
+    }
+  }
+}

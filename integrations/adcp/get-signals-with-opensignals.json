@@ -1,0 +1,439 @@
+{
+  "_comment": "COMPLETE EXAMPLE - Multiple signals with OpenSignals metadata showing various trust levels and verification requirements",
+  "_disclaimer": "This is a conceptual integration example. Not an official AdCP or OpenSignals specification.",
+
+  "adcp_task": "get_signals",
+  "adcp_version": "1.0",
+  "request_id": "req_demo_789",
+  "timestamp": "2026-05-11T12:00:00Z",
+  "requester_agent_id": "media-optimizer-agent-v3",
+  "context": {
+    "brand": "premium-spirits-co",
+    "campaign_objective": "awareness",
+    "target_markets": ["GB", "IE"],
+    "category": "alcohol"
+  },
+
+  "signals": [
+    {
+      "signal_id": "uk-spirits-enthusiasts-25-plus",
+      "name": "UK Premium Spirits Enthusiasts (Age 25+)",
+      "provider": "Beverage Consumer Insights Ltd",
+      "signal_type": "audience",
+      "description": "First-party audience of UK spirits enthusiasts with age-verified profiles, 25+ only, interest in premium and craft spirits",
+      "coverage": {
+        "estimated_reach": 1850000,
+        "geographic_markets": ["GB", "IE"],
+        "age_verified": true,
+        "minimum_age": 25
+      },
+      "pricing": {
+        "cpm": 12.00,
+        "currency": "GBP",
+        "pricing_model": "cpm_premium_age_verified"
+      },
+
+      "open_signals": {
+        "protocol": "opensignals",
+        "version": "0.1",
+        "manifest_url": "https://beverageinsights.example.com/.well-known/opensignals/uk-spirits-enthusiasts-25-plus",
+        "trust_metadata": {
+          "overall_trust_score": 0.88,
+          "trust_band": "trusted",
+          "trust_scores": {
+            "provenance_score": 0.91,
+            "provenance_reasoning": "First-party data from authenticated beverage subscription and loyalty programs with documented collection methodology",
+            "permissioning_score": 0.86,
+            "permissioning_reasoning": "Explicit opt-in consent for alcohol advertising with clear usage terms and age verification",
+            "freshness_score": 0.89,
+            "freshness_reasoning": "Updated within last 48 hours with daily refresh cycle",
+            "quality_score": 0.88,
+            "quality_reasoning": "High coverage (68% of target demo) with validated precision through panel matching",
+            "explainability_score": 0.91,
+            "explainability_reasoning": "Full documentation with transparent methodology and segment composition details",
+            "outcome_score": 0.85,
+            "outcome_reasoning": "Validated performance in similar premium alcohol campaigns with 2.3x conversion uplift",
+            "compliance_score": 0.93,
+            "compliance_reasoning": "UK ASA compliant, age-gated, GDPR certified, no minors targeting"
+          },
+          "last_verified": "2026-05-11T09:00:00Z",
+          "verification_ttl": 86400,
+          "next_verification_required": "2026-05-12T09:00:00Z"
+        },
+        "governance_requirements": {
+          "verification_required": true,
+          "decision_mode": "approve_with_human",
+          "audit_required": true,
+          "human_approval_required_for_categories": ["alcohol"],
+          "approval_reason": "UK alcohol advertising requires human review per brand policy and ASA regulations",
+          "estimated_approval_time_minutes": 30
+        },
+        "permissioning_summary": {
+          "consent_scope": "explicit_opt_in",
+          "valid_use_cases": ["targeting", "measurement", "frequency_capping"],
+          "geographic_restrictions": [],
+          "category_restrictions": ["alcohol_allowed_age_25_plus"],
+          "individual_profiling_allowed": true,
+          "sensitive_categories_allowed": false,
+          "age_verification_method": "third_party_age_verification_service"
+        },
+        "provenance_summary": {
+          "data_sources": ["first_party_behavioral", "first_party_declared", "survey"],
+          "collection_method": "opt_in_panel",
+          "last_updated": "2026-05-11T06:00:00Z",
+          "update_frequency": "daily",
+          "chain_of_custody_verified": true
+        },
+        "compliance_details": {
+          "alcohol_specific_compliance": [
+            "uk_advertising_standards_authority",
+            "portman_group_code_of_practice",
+            "age_verification_25_plus"
+          ],
+          "privacy_compliance": ["gdpr", "pecr", "iab_tcf_v2.2"]
+        }
+      }
+    },
+
+    {
+      "signal_id": "contextual-premium-lifestyle-uk",
+      "name": "Premium Lifestyle Content - UK Publishers",
+      "provider": "ContextIQ Media",
+      "signal_type": "contextual",
+      "description": "Page-level contextual targeting for premium lifestyle content including travel, fashion, dining, and luxury goods on verified UK publisher inventory",
+      "coverage": {
+        "estimated_reach": 28000000,
+        "geographic_markets": ["GB", "IE"],
+        "publisher_count": 240,
+        "publisher_tier": "premium"
+      },
+      "pricing": {
+        "cpm": 2.50,
+        "currency": "GBP",
+        "pricing_model": "cpm_contextual"
+      },
+
+      "open_signals": {
+        "protocol": "opensignals",
+        "version": "0.1",
+        "manifest_url": "https://contextiq.example.com/.well-known/opensignals/contextual-premium-lifestyle-uk",
+        "trust_metadata": {
+          "overall_trust_score": 0.94,
+          "trust_band": "highly_trusted",
+          "trust_scores": {
+            "provenance_score": 0.96,
+            "provenance_reasoning": "Real-time NLP-based content analysis with transparent methodology and no third-party data",
+            "permissioning_score": 0.99,
+            "permissioning_reasoning": "Consent not required - privacy-safe contextual analysis with no user tracking or profiling",
+            "freshness_score": 0.98,
+            "freshness_reasoning": "Real-time page analysis with sub-second refresh",
+            "quality_score": 0.91,
+            "quality_reasoning": "High precision (94%) validated through publisher content audits and brand safety checks",
+            "explainability_score": 0.95,
+            "explainability_reasoning": "Fully transparent NLP model with keyword taxonomy and content classification details",
+            "outcome_score": 0.82,
+            "outcome_reasoning": "Demonstrated performance across luxury and premium brand campaigns",
+            "compliance_score": 0.97,
+            "compliance_reasoning": "Privacy-preserving by design, GDPR compliant, no PII processing, TAG certified"
+          },
+          "last_verified": "2026-05-11T11:45:00Z",
+          "verification_ttl": 3600
+        },
+        "governance_requirements": {
+          "verification_required": true,
+          "decision_mode": "autonomous_with_limits",
+          "audit_required": false,
+          "human_approval_required_for_categories": [],
+          "approval_reason": "Contextual signals can be autonomously approved for most categories including alcohol"
+        },
+        "permissioning_summary": {
+          "consent_scope": "consent_not_required",
+          "valid_use_cases": ["targeting", "frequency_capping", "measurement", "brand_safety"],
+          "geographic_restrictions": [],
+          "category_restrictions": [],
+          "individual_profiling_allowed": false,
+          "sensitive_categories_allowed": false,
+          "privacy_safe": true
+        },
+        "provenance_summary": {
+          "data_sources": ["contextual_analysis"],
+          "collection_method": "contextual_crawl",
+          "last_updated": "2026-05-11T11:45:00Z",
+          "update_frequency": "real_time"
+        },
+        "brand_safety": {
+          "brand_safety_verified": true,
+          "brand_safety_vendor": "DoubleVerify",
+          "content_suitability": ["alcohol_suitable", "premium_brand_suitable"],
+          "blocked_content_categories": ["user_generated_unsafe", "misinformation", "adult"]
+        }
+      }
+    },
+
+    {
+      "signal_id": "third-party-modeled-affluent",
+      "name": "Modeled Affluent Consumer Segment",
+      "provider": "DataModeling Partners",
+      "signal_type": "audience",
+      "description": "Third-party modeled audience segment predicting affluent consumers based on aggregated behavioral and demographic indicators",
+      "coverage": {
+        "estimated_reach": 5200000,
+        "geographic_markets": ["GB", "IE"],
+        "modeling_confidence": "medium"
+      },
+      "pricing": {
+        "cpm": 6.50,
+        "currency": "GBP",
+        "pricing_model": "cpm_modeled_segment"
+      },
+
+      "open_signals": {
+        "protocol": "opensignals",
+        "version": "0.1",
+        "manifest_url": "https://datamodeling.example.com/.well-known/opensignals/third-party-modeled-affluent",
+        "trust_metadata": {
+          "overall_trust_score": 0.68,
+          "trust_band": "limited_trust",
+          "trust_scores": {
+            "provenance_score": 0.61,
+            "provenance_reasoning": "Third-party aggregated data from multiple sources with limited chain of custody documentation",
+            "permissioning_score": 0.67,
+            "permissioning_reasoning": "Legitimate interest basis with some consent gaps; unclear revocation mechanism",
+            "freshness_score": 0.74,
+            "freshness_reasoning": "Updated weekly; some data points older than 30 days",
+            "quality_score": 0.65,
+            "quality_reasoning": "Moderate coverage (52%) with modeled precision (not validated); no ground truth comparison",
+            "explainability_score": 0.72,
+            "explainability_reasoning": "Basic documentation available but modeling methodology is partially proprietary",
+            "outcome_score": 0.68,
+            "outcome_reasoning": "Self-reported performance data; no third-party validation",
+            "compliance_score": 0.78,
+            "compliance_reasoning": "GDPR compliant but limited transparency on data sources and consent chains"
+          },
+          "last_verified": "2026-05-11T08:00:00Z",
+          "verification_ttl": 86400
+        },
+        "governance_requirements": {
+          "verification_required": true,
+          "decision_mode": "approve_with_human",
+          "audit_required": true,
+          "human_approval_required_for_categories": ["alcohol", "finance", "pharma", "gambling"],
+          "approval_reason": "Limited trust score (0.68) requires human review; third-party modeled data with provenance gaps"
+        },
+        "permissioning_summary": {
+          "consent_scope": "legitimate_interest",
+          "valid_use_cases": ["targeting"],
+          "geographic_restrictions": ["additional_scrutiny_for_gdpr_markets"],
+          "category_restrictions": ["requires_approval_for_regulated_categories"],
+          "individual_profiling_allowed": true,
+          "sensitive_categories_allowed": false
+        },
+        "provenance_summary": {
+          "data_sources": ["third_party_aggregated", "third_party_modeled"],
+          "collection_method": "inference",
+          "last_updated": "2026-05-04T00:00:00Z",
+          "update_frequency": "weekly",
+          "chain_of_custody_verified": false
+        },
+        "quality_concerns": [
+          "Provenance score below 0.70 - limited source transparency",
+          "Quality score below 0.70 - unvalidated modeled data",
+          "No third-party accuracy verification",
+          "Weekly refresh may be stale for fast-moving campaigns"
+        ]
+      }
+    },
+
+    {
+      "signal_id": "brand-safe-news-content",
+      "name": "Brand-Safe News & Current Events Context",
+      "provider": "SafeContext News Network",
+      "signal_type": "contextual",
+      "description": "Brand-safe news and current events content on verified premium news publishers with real-time content classification",
+      "coverage": {
+        "estimated_reach": 42000000,
+        "geographic_markets": ["GB", "IE"],
+        "publisher_count": 85,
+        "publisher_types": ["national_news", "regional_news", "business_news"]
+      },
+      "pricing": {
+        "cpm": 3.20,
+        "currency": "GBP",
+        "pricing_model": "cpm_brand_safe_premium"
+      },
+
+      "open_signals": {
+        "protocol": "opensignals",
+        "version": "0.1",
+        "manifest_url": "https://safecontext.example.com/.well-known/opensignals/brand-safe-news-content",
+        "trust_metadata": {
+          "overall_trust_score": 0.92,
+          "trust_band": "highly_trusted",
+          "trust_scores": {
+            "provenance_score": 0.94,
+            "provenance_reasoning": "First-party content analysis by accredited news publishers with transparent methodology",
+            "permissioning_score": 0.98,
+            "permissioning_reasoning": "Consent not required - contextual content classification with no user tracking",
+            "freshness_score": 0.99,
+            "freshness_reasoning": "Real-time content classification with continuous monitoring",
+            "quality_score": 0.88,
+            "quality_reasoning": "High precision brand safety classification; MRC-accredited verification",
+            "explainability_score": 0.93,
+            "explainability_reasoning": "Full transparency on content classification taxonomy and brand safety criteria",
+            "outcome_score": 0.80,
+            "outcome_reasoning": "Proven brand safety track record with zero adjacency incidents in 12 months",
+            "compliance_score": 0.98,
+            "compliance_reasoning": "GDPR compliant, TAG certified, MRC accredited brand safety measurement"
+          },
+          "last_verified": "2026-05-11T11:55:00Z",
+          "verification_ttl": 3600
+        },
+        "governance_requirements": {
+          "verification_required": true,
+          "decision_mode": "autonomous_with_limits",
+          "audit_required": false,
+          "human_approval_required_for_categories": [],
+          "approval_reason": "Contextual brand safety signal suitable for autonomous activation"
+        },
+        "permissioning_summary": {
+          "consent_scope": "consent_not_required",
+          "valid_use_cases": ["targeting", "brand_safety", "measurement"],
+          "geographic_restrictions": [],
+          "category_restrictions": [],
+          "individual_profiling_allowed": false,
+          "sensitive_categories_allowed": false,
+          "privacy_safe": true
+        },
+        "provenance_summary": {
+          "data_sources": ["contextual_analysis"],
+          "collection_method": "contextual_crawl",
+          "last_updated": "2026-05-11T11:55:00Z",
+          "update_frequency": "real_time"
+        },
+        "brand_safety": {
+          "brand_safety_verified": true,
+          "brand_safety_vendors": ["IAS", "DoubleVerify", "GumGum"],
+          "content_suitability": ["alcohol_suitable", "news_safe", "premium_brand_suitable"],
+          "blocked_content_categories": [
+            "violence",
+            "adult",
+            "hate_speech",
+            "misinformation",
+            "crime_sensitive",
+            "tragedy_sensitive"
+          ],
+          "suitability_for_alcohol": "suitable_with_content_filtering",
+          "mrc_accredited": true
+        }
+      }
+    },
+
+    {
+      "signal_id": "unverified-low-trust-segment",
+      "name": "Unverified Consumer Interest Segment",
+      "provider": "Budget Data Broker",
+      "signal_type": "audience",
+      "description": "Low-cost consumer interest segment with limited documentation and unverified provenance",
+      "coverage": {
+        "estimated_reach": 8000000,
+        "geographic_markets": ["GB", "IE"],
+        "verification_status": "unverified"
+      },
+      "pricing": {
+        "cpm": 1.20,
+        "currency": "GBP",
+        "pricing_model": "cpm_budget"
+      },
+
+      "open_signals": {
+        "protocol": "opensignals",
+        "version": "0.1",
+        "manifest_url": "https://budgetdata.example.com/.well-known/opensignals/unverified-low-trust-segment",
+        "trust_metadata": {
+          "overall_trust_score": 0.38,
+          "trust_band": "low_trust",
+          "trust_scores": {
+            "provenance_score": 0.28,
+            "provenance_reasoning": "Unknown data sources, no documented chain of custody, third-party aggregated with no verification",
+            "permissioning_score": 0.35,
+            "permissioning_reasoning": "Unclear consent mechanism, no documented legitimate interest basis, high revocation risk",
+            "freshness_score": 0.42,
+            "freshness_reasoning": "Last updated 45 days ago with irregular update schedule",
+            "quality_score": 0.33,
+            "quality_reasoning": "Low coverage (28%), no precision validation, no accuracy metrics provided",
+            "explainability_score": 0.41,
+            "explainability_reasoning": "Minimal documentation, proprietary methodology with no transparency",
+            "outcome_score": 0.35,
+            "outcome_reasoning": "No performance data available, no historical validation",
+            "compliance_score": 0.52,
+            "compliance_reasoning": "Basic GDPR compliance claimed but no audit trail or certifications"
+          },
+          "last_verified": "2026-05-11T07:00:00Z",
+          "verification_ttl": 86400
+        },
+        "governance_requirements": {
+          "verification_required": true,
+          "decision_mode": "observe",
+          "audit_required": true,
+          "human_approval_required_for_categories": ["all"],
+          "approval_reason": "Low trust score (0.38) - MUST NOT activate without explicit human override for all categories",
+          "recommendation": "reject"
+        },
+        "permissioning_summary": {
+          "consent_scope": "unclear",
+          "valid_use_cases": ["unclear"],
+          "geographic_restrictions": ["high_risk_for_gdpr"],
+          "category_restrictions": ["not_suitable_for_regulated_categories"],
+          "individual_profiling_allowed": "unclear",
+          "sensitive_categories_allowed": false
+        },
+        "provenance_summary": {
+          "data_sources": ["unknown"],
+          "collection_method": "unknown",
+          "last_updated": "2026-03-27T00:00:00Z",
+          "update_frequency": "irregular",
+          "chain_of_custody_verified": false
+        },
+        "quality_concerns": [
+          "CRITICAL: Provenance score 0.28 - unknown data sources and collection methods",
+          "CRITICAL: Quality score 0.33 - unvalidated with no accuracy metrics",
+          "HIGH: Permissioning score 0.35 - unclear consent and high compliance risk",
+          "MEDIUM: Stale data - last updated 45 days ago",
+          "RECOMMENDATION: DO NOT ACTIVATE - Signal does not meet minimum trust requirements for any use case"
+        ],
+        "warning": "This signal has a LOW TRUST rating and should NOT be activated without explicit approval and risk acceptance from brand policy owner. Not suitable for regulated categories including alcohol."
+      }
+    }
+  ],
+
+  "summary": {
+    "total_signals_returned": 5,
+    "signals_by_trust_band": {
+      "highly_trusted": 2,
+      "trusted": 1,
+      "limited_trust": 1,
+      "low_trust": 1
+    },
+    "signals_requiring_human_approval": 3,
+    "signals_suitable_for_autonomous_activation": 2,
+    "signals_recommended_for_alcohol_campaign": 4,
+    "signals_not_recommended": 1
+  },
+
+  "recommended_workflow": {
+    "step_1": "Filter signals by trust_band - consider only 'highly_trusted' and 'trusted' for alcohol campaigns",
+    "step_2": "For each candidate signal, call OpenSignals verify_signal with brand=premium-spirits-co and category=alcohol",
+    "step_3": "For signals requiring human approval, initiate approval workflow via governance agent",
+    "step_4": "For approved signals, call OpenSignals bind_signal_policy to attach alcohol-specific policies",
+    "step_5": "Call AdCP activate_signal for policy-bound approved signals",
+    "step_6": "Call OpenSignals audit_signal_usage after campaign activation"
+  },
+
+  "integration_notes": {
+    "trust_level_filtering": "Buyer agents should filter by trust_band before detailed verification to improve efficiency",
+    "human_approval_optimization": "Signals with decision_mode='approve_with_human' should be batched for human review",
+    "alcohol_compliance": "All alcohol campaigns must verify age restrictions, geographic compliance, and ASA/Portman Group adherence",
+    "contextual_advantages": "Contextual signals typically have higher trust scores and lower governance requirements due to privacy-safe nature",
+    "quality_thresholds": "Consider setting minimum trust score thresholds (e.g., 0.75 for alcohol campaigns) in brand policy"
+  }
+}

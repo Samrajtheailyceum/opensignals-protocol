@@ -1,0 +1,534 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opensignals.org/schemas/v0.1/verify-signal-response.schema.json",
+  "title": "Verify Signal Response Schema",
+  "description": "Response schema for the verify_signal task in OpenSignals Protocol. Returns the verification decision, detailed findings, and recommendations for signal compliance.",
+  "type": "object",
+  "required": [
+    "request_id",
+    "response_id",
+    "timestamp",
+    "signal_id",
+    "decision",
+    "verification_results"
+  ],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier of the original verification request (UUID v4 format)."
+    },
+    "response_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this verification response (UUID v4 format)."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the verification was completed."
+    },
+    "signal_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$",
+      "minLength": 3,
+      "maxLength": 128,
+      "description": "Unique identifier of the signal that was verified."
+    },
+    "signal_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+(\\.\\d+)?$",
+      "description": "Version of the signal manifest that was verified."
+    },
+    "decision": {
+      "type": "string",
+      "enum": [
+        "approved",
+        "approved_with_conditions",
+        "blocked",
+        "requires_review",
+        "pending"
+      ],
+      "description": "Overall verification decision. 'approved' = signal passes all checks, 'approved_with_conditions' = signal passes with restrictions, 'blocked' = signal fails verification, 'requires_review' = manual review needed, 'pending' = verification in progress."
+    },
+    "decision_confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Confidence score (0-1) in the verification decision. Higher values indicate greater confidence."
+    },
+    "verification_results": {
+      "type": "object",
+      "required": ["overall_status", "checks_performed"],
+      "properties": {
+        "overall_status": {
+          "type": "string",
+          "enum": ["pass", "pass_with_warnings", "fail", "incomplete"],
+          "description": "Overall status of verification checks."
+        },
+        "checks_performed": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["check_id", "check_name", "status", "result"],
+            "properties": {
+              "check_id": {
+                "type": "string",
+                "description": "Unique identifier for this verification check."
+              },
+              "check_name": {
+                "type": "string",
+                "description": "Human-readable name of the verification check."
+              },
+              "category": {
+                "type": "string",
+                "enum": [
+                  "privacy_compliance",
+                  "data_quality",
+                  "usage_rights",
+                  "geographic_restrictions",
+                  "consent_validation",
+                  "policy_compliance",
+                  "technical_validation",
+                  "audit_requirements",
+                  "trust_score",
+                  "custom"
+                ],
+                "description": "Category of the verification check."
+              },
+              "status": {
+                "type": "string",
+                "enum": ["pass", "fail", "warning", "skipped", "error"],
+                "description": "Status of this individual check."
+              },
+              "result": {
+                "type": "object",
+                "required": ["message"],
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "Detailed message explaining the check result."
+                  },
+                  "details": {
+                    "type": "object",
+                    "description": "Additional structured details about the check result."
+                  },
+                  "severity": {
+                    "type": "string",
+                    "enum": ["critical", "high", "medium", "low", "info"],
+                    "description": "Severity level of issues found."
+                  },
+                  "remediation": {
+                    "type": "string",
+                    "description": "Suggested remediation steps if check failed."
+                  }
+                },
+                "additionalProperties": false
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time",
+                "description": "When this check was performed."
+              },
+              "duration_ms": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "How long this check took to complete in milliseconds."
+              }
+            },
+            "additionalProperties": false
+          },
+          "description": "Detailed results of all verification checks performed."
+        },
+        "summary": {
+          "type": "object",
+          "properties": {
+            "total_checks": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Total number of checks performed."
+            },
+            "passed": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of checks that passed."
+            },
+            "failed": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of checks that failed."
+            },
+            "warnings": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of checks with warnings."
+            },
+            "skipped": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of checks that were skipped."
+            },
+            "errors": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of checks that encountered errors."
+            }
+          },
+          "description": "Summary statistics of verification checks."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Detailed results of the verification process."
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["condition_id", "description", "type"],
+        "properties": {
+          "condition_id": {
+            "type": "string",
+            "description": "Unique identifier for this condition."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the condition that must be met."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "usage_restriction",
+              "geographic_limitation",
+              "consent_requirement",
+              "audit_requirement",
+              "reporting_requirement",
+              "technical_control",
+              "data_retention_limit",
+              "custom"
+            ],
+            "description": "Type of condition being imposed."
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["mandatory", "recommended", "optional"],
+            "description": "How strictly this condition must be followed."
+          },
+          "enforcement": {
+            "type": "string",
+            "enum": ["automated", "manual", "self_attestation"],
+            "description": "How this condition will be enforced."
+          },
+          "expiration": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 timestamp when this condition expires (if applicable)."
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "Conditions that must be met for approved_with_conditions decision. Empty for approved or blocked decisions."
+    },
+    "blocking_issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["issue_id", "category", "description", "severity"],
+        "properties": {
+          "issue_id": {
+            "type": "string",
+            "description": "Unique identifier for this blocking issue."
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "privacy_violation",
+              "missing_consent",
+              "geographic_restriction",
+              "policy_violation",
+              "insufficient_quality",
+              "expired_certification",
+              "missing_documentation",
+              "technical_failure",
+              "custom"
+            ],
+            "description": "Category of the blocking issue."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the issue preventing approval."
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["critical", "high", "medium"],
+            "description": "Severity level of the blocking issue."
+          },
+          "resolution_steps": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Ordered list of steps to resolve this issue."
+          },
+          "estimated_resolution_time": {
+            "type": "string",
+            "description": "Estimated time to resolve (human-readable, e.g., '2-3 business days')."
+          },
+          "related_check_id": {
+            "type": "string",
+            "description": "ID of the verification check that identified this issue."
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "Critical issues preventing signal approval. Only present for blocked decision."
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["warning_id", "description"],
+        "properties": {
+          "warning_id": {
+            "type": "string",
+            "description": "Unique identifier for this warning."
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the warning or potential issue."
+          },
+          "category": {
+            "type": "string",
+            "description": "Category of the warning."
+          },
+          "recommendation": {
+            "type": "string",
+            "description": "Recommended action to address the warning."
+          },
+          "impact": {
+            "type": "string",
+            "enum": ["low", "medium", "high"],
+            "description": "Potential impact if warning is not addressed."
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "Non-blocking warnings and recommendations for improvement."
+    },
+    "trust_score_evaluation": {
+      "type": "object",
+      "properties": {
+        "overall_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Overall trust score for the signal (0-1)."
+        },
+        "meets_threshold": {
+          "type": "boolean",
+          "description": "Whether the trust score meets the required threshold."
+        },
+        "required_threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Minimum trust score threshold required."
+        },
+        "dimension_scores": {
+          "type": "object",
+          "properties": {
+            "coverage": {"type": "number", "minimum": 0, "maximum": 1},
+            "freshness": {"type": "number", "minimum": 0, "maximum": 1},
+            "precision": {"type": "number", "minimum": 0, "maximum": 1},
+            "stability": {"type": "number", "minimum": 0, "maximum": 1},
+            "explainability": {"type": "number", "minimum": 0, "maximum": 1},
+            "compliance": {"type": "number", "minimum": 0, "maximum": 1}
+          },
+          "description": "Individual trust dimension scores."
+        }
+      },
+      "description": "Trust score evaluation results."
+    },
+    "policy_compliance": {
+      "type": "object",
+      "properties": {
+        "policies_evaluated": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["policy_id", "policy_name", "compliant"],
+            "properties": {
+              "policy_id": {
+                "type": "string",
+                "description": "Unique identifier of the policy."
+              },
+              "policy_name": {
+                "type": "string",
+                "description": "Name of the policy."
+              },
+              "policy_version": {
+                "type": "string",
+                "description": "Version of the policy evaluated against."
+              },
+              "compliant": {
+                "type": "boolean",
+                "description": "Whether the signal complies with this policy."
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "List of specific policy violations found."
+              },
+              "notes": {
+                "type": "string",
+                "description": "Additional notes about policy compliance."
+              }
+            }
+          },
+          "description": "Results of individual policy evaluations."
+        },
+        "overall_compliant": {
+          "type": "boolean",
+          "description": "Whether the signal is compliant with all evaluated policies."
+        }
+      },
+      "description": "Detailed policy compliance evaluation results."
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["recommendation_id", "description", "priority"],
+        "properties": {
+          "recommendation_id": {
+            "type": "string",
+            "description": "Unique identifier for this recommendation."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed recommendation text."
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "data_quality_improvement",
+              "compliance_enhancement",
+              "documentation_update",
+              "technical_optimization",
+              "process_improvement",
+              "risk_mitigation",
+              "best_practice"
+            ],
+            "description": "Category of the recommendation."
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low"],
+            "description": "Priority level for implementing this recommendation."
+          },
+          "effort_estimate": {
+            "type": "string",
+            "enum": ["minimal", "low", "medium", "high", "significant"],
+            "description": "Estimated effort required to implement."
+          },
+          "expected_benefit": {
+            "type": "string",
+            "description": "Expected benefit from implementing this recommendation."
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "Actionable recommendations for improving signal compliance and quality."
+    },
+    "manual_review": {
+      "type": "object",
+      "properties": {
+        "required": {
+          "type": "boolean",
+          "description": "Whether manual review is required before final decision."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Reason why manual review is required."
+        },
+        "reviewer_role": {
+          "type": "string",
+          "enum": ["compliance_officer", "legal_counsel", "data_steward", "senior_admin"],
+          "description": "Required role for manual reviewer."
+        },
+        "review_by_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date by which manual review should be completed."
+        }
+      },
+      "description": "Information about manual review requirements."
+    },
+    "audit_trail": {
+      "type": "object",
+      "properties": {
+        "verification_method": {
+          "type": "string",
+          "enum": ["automated", "hybrid", "manual"],
+          "description": "Method used to perform verification."
+        },
+        "verifier_id": {
+          "type": "string",
+          "description": "Identifier of the system or person who performed verification."
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total time taken for verification in milliseconds."
+        },
+        "data_sources_consulted": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of data sources consulted during verification."
+        },
+        "tools_used": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of tools or systems used for verification."
+        }
+      },
+      "description": "Audit trail information about the verification process."
+    },
+    "valid_until": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp until which this verification decision is valid. After this date, re-verification is required."
+    },
+    "report_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to access a detailed verification report (if available)."
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "protocol_version": {
+          "type": "string",
+          "description": "OpenSignals Protocol version used for verification."
+        },
+        "verification_engine_version": {
+          "type": "string",
+          "description": "Version of the verification engine that processed this request."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Additional notes or context about this verification."
+        }
+      },
+      "additionalProperties": true,
+      "description": "Additional metadata about the verification response."
+    }
+  },
+  "additionalProperties": false
+}

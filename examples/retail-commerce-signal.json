@@ -1,0 +1,258 @@
+{
+  "protocol": "opensignals",
+  "version": "0.1",
+  "signal_id": "home-decor-purchase-intent",
+  "name": "Home Decor Purchase Intent Audience",
+  "signal_type": "commerce",
+  "status": "active",
+  "description": "First-party commerce signal identifying authenticated users with demonstrated purchase intent for home decor and furnishings. Built from browsing behavior, cart activity, wishlist engagement, and purchase history across a premium home goods retailer network.",
+  "owner": {
+    "organization": "HomeStyle Commerce Network",
+    "contact": "signals@homestyle.example.com",
+    "privacy_contact": "privacy@homestyle.example.com"
+  },
+  "provider": {
+    "name": "HomeStyle Commerce Network",
+    "url": "https://homestyle.example.com",
+    "privacy_policy_url": "https://homestyle.example.com/privacy",
+    "terms_of_service_url": "https://homestyle.example.com/terms"
+  },
+  "provenance": {
+    "data_sources": [
+      "first_party_commerce",
+      "first_party_behavioral",
+      "transaction_data"
+    ],
+    "collection_method": "authenticated_user_activity",
+    "last_updated": "2026-05-11T05:00:00Z",
+    "update_frequency": "daily",
+    "lookback_period_days": 30,
+    "chain_of_custody": [
+      {
+        "entity": "HomeStyle Retail Network",
+        "role": "data_collector",
+        "timestamp": "2026-05-10T00:00:00Z"
+      },
+      {
+        "entity": "HomeStyle Data Platform",
+        "role": "data_processor",
+        "timestamp": "2026-05-10T12:00:00Z"
+      },
+      {
+        "entity": "HomeStyle Commerce Network",
+        "role": "signal_provider",
+        "timestamp": "2026-05-11T05:00:00Z"
+      }
+    ]
+  },
+  "quality": {
+    "overall_trust_score": 0.91,
+    "coverage_score": 0.78,
+    "freshness_score": 0.93,
+    "precision_score": 0.94,
+    "explainability_score": 0.90,
+    "compliance_safety_score": 0.96,
+    "outcome_relevance_score": 0.88
+  },
+  "permissioning": {
+    "consent_mechanism": "explicit_opt_in",
+    "consent_framework": "custom_with_iab_gpp_support",
+    "consent_capture_method": "privacy_center_and_checkout_flow",
+    "usage_rights": "commercial_advertising_with_restrictions",
+    "permitted_uses": [
+      "audience_targeting",
+      "lookalike_modeling",
+      "campaign_optimization",
+      "suppression_targeting"
+    ],
+    "prohibited_uses": [
+      "credit_decisioning",
+      "employment_screening",
+      "insurance_underwriting",
+      "cross_context_behavioral_advertising_outside_category",
+      "third_party_data_sale"
+    ],
+    "data_retention_days": 365,
+    "geographic_restrictions": [
+      "gdpr_compliant_processing_for_eu"
+    ],
+    "right_to_deletion": true,
+    "right_to_opt_out": true
+  },
+  "governance": {
+    "category": "commerce",
+    "subcategory": "purchase_intent",
+    "human_approval_required": false,
+    "audit_required": true,
+    "audit_frequency": "quarterly",
+    "risk_level": "low_medium",
+    "compliance_frameworks": [
+      "GDPR",
+      "CCPA",
+      "IAB_GPP",
+      "ePrivacy_Directive"
+    ],
+    "policy_references": [
+      {
+        "policy_name": "GDPR Article 6 - Lawful Basis for Processing",
+        "policy_url": "https://gdpr-info.eu/art-6-gdpr/",
+        "applies_to_markets": ["EU", "GB"]
+      },
+      {
+        "policy_name": "CCPA Consumer Privacy Rights",
+        "policy_url": "https://oag.ca.gov/privacy/ccpa",
+        "applies_to_markets": ["US-CA"]
+      }
+    ],
+    "brand_safety_categories": [
+      "commerce",
+      "retail",
+      "home_lifestyle"
+    ]
+  },
+  "coverage": {
+    "scale": "medium",
+    "estimated_reach": 8500000,
+    "geographic_markets": [
+      "US",
+      "GB",
+      "CA",
+      "AU"
+    ],
+    "audience_characteristics": {
+      "household_income_index": 125,
+      "homeowner_percentage": 78,
+      "age_range": "28-65",
+      "primary_demographics": "homeowners_and_renters_with_decorating_intent"
+    },
+    "refresh_rate": "daily",
+    "average_segment_size": 850000
+  },
+  "commerce_details": {
+    "signal_indicators": [
+      "product_page_views",
+      "add_to_cart_events",
+      "wishlist_additions",
+      "product_reviews_written",
+      "purchase_history",
+      "abandoned_cart_recovery_engagement"
+    ],
+    "product_categories": [
+      "furniture",
+      "home_decor",
+      "lighting",
+      "textiles",
+      "wall_art",
+      "outdoor_living"
+    ],
+    "intent_strength_levels": [
+      "high_intent",
+      "medium_intent",
+      "browsing_intent"
+    ],
+    "purchase_recency_segments": [
+      "purchased_0_30_days",
+      "purchased_31_90_days",
+      "browsing_no_purchase"
+    ],
+    "average_basket_value_usd": 285,
+    "conversion_uplift_vs_benchmark": 2.8
+  },
+  "verification": {
+    "verification_method": "internal_audit_and_data_quality_checks",
+    "last_verified": "2026-03-15T00:00:00Z",
+    "verification_frequency": "quarterly",
+    "third_party_auditor": "Commerce Data Integrity Partners",
+    "audit_report_url": "https://homestyle.example.com/audits/commerce-signal-q1-2026.pdf",
+    "certifications": [
+      "Privacy_Shield_Certified",
+      "ISO_27001_Certified"
+    ]
+  },
+  "technical": {
+    "activation_endpoint": "https://api.homestyle.example.com/v1/signals/home-decor-purchase-intent/activate",
+    "authentication_method": "oauth2_client_credentials",
+    "supported_formats": [
+      "json",
+      "csv"
+    ],
+    "integration_documentation_url": "https://docs.homestyle.example.com/signals/purchase-intent",
+    "api_version": "1.3",
+    "supported_id_types": [
+      "hashed_email_sha256",
+      "mobile_advertising_id",
+      "first_party_cookie_id"
+    ],
+    "match_rate_average": 0.72,
+    "rate_limits": {
+      "requests_per_minute": 60,
+      "requests_per_day": 5000
+    },
+    "delivery_format": "segment_id_or_audience_list"
+  },
+  "transparency": {
+    "explainability": "high",
+    "explanation": "This signal is built from first-party authenticated user activity on the HomeStyle retail network. Users are included based on recent browsing of home decor categories, cart additions, wishlist activity, or purchase history in the past 30 days. Signal strength is determined by recency, frequency, and depth of engagement. Users have explicitly consented to personalized advertising through our privacy center. No third-party data is used.",
+    "methodology_url": "https://homestyle.example.com/methodology/purchase-intent-signals",
+    "sample_signals_available": false,
+    "user_transparency_portal": "https://privacy.homestyle.example.com/my-data",
+    "user_can_view_own_data": true,
+    "user_can_opt_out": true
+  },
+  "pricing": {
+    "cpm_range": {
+      "min": 8.00,
+      "max": 18.00,
+      "currency": "USD"
+    },
+    "pricing_model": "cpm_tiered_by_intent_strength",
+    "pricing_tiers": [
+      {
+        "tier": "high_intent",
+        "cpm": 18.00
+      },
+      {
+        "tier": "medium_intent",
+        "cpm": 12.00
+      },
+      {
+        "tier": "browsing_intent",
+        "cpm": 8.00
+      }
+    ],
+    "pricing_url": "https://homestyle.example.com/advertising/pricing"
+  },
+  "performance_history": {
+    "historical_performance_available": true,
+    "performance_metrics_url": "https://homestyle.example.com/performance/home-decor-purchase-intent",
+    "average_ctr_vs_benchmark": 2.4,
+    "average_conversion_rate": 0.042,
+    "average_roas": 4.8,
+    "campaigns_run_last_90_days": 147
+  },
+  "data_hygiene": {
+    "deduplication_method": "device_id_and_email_graph",
+    "invalid_traffic_filtering": true,
+    "bot_detection": true,
+    "fraud_prevention": "machine_learning_anomaly_detection",
+    "pii_handling": "hashed_and_encrypted",
+    "data_quality_score": 0.93
+  },
+  "metadata": {
+    "created_at": "2025-11-01T00:00:00Z",
+    "updated_at": "2026-05-11T05:00:00Z",
+    "version": "1.8",
+    "tags": [
+      "commerce",
+      "first_party",
+      "purchase_intent",
+      "retail",
+      "home_decor",
+      "high_trust",
+      "authenticated"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  }
+}
