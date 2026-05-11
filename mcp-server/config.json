@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "opensignals-protocol": {
+      "command": "python",
+      "args": [
+        "-m",
+        "server"
+      ],
+      "cwd": "/path/to/opensignals-protocol/mcp-server",
+      "env": {
+        "OPENSIGNALS_LOG_LEVEL": "INFO"
+      }
+    }
+  }
+}

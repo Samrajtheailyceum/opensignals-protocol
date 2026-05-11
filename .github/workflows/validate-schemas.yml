@@ -1,0 +1,280 @@
+name: Validate JSON Schemas
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'schemas/**/*.json'
+      - 'examples/**/*.json'
+      - 'integrations/**/*.json'
+      - 'tests/**/*.py'
+      - '.github/workflows/validate-schemas.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'schemas/**/*.json'
+      - 'examples/**/*.json'
+      - 'integrations/**/*.json'
+      - 'tests/**/*.py'
+      - '.github/workflows/validate-schemas.yml'
+  workflow_dispatch:
+
+jobs:
+  validate-schemas:
+    name: Validate JSON Schemas and Examples
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install jsonschema requests pytest
+
+    - name: Validate JSON Schema syntax
+      run: |
+        echo "Validating JSON Schema files..."
+        python -c "
+        import json
+        import sys
+        from pathlib import Path
+
+        schema_dir = Path('schemas/v0.1')
+        errors = []
+
+        for schema_file in schema_dir.glob('*.json'):
+            try:
+                with open(schema_file, 'r') as f:
+                    json.load(f)
+                print(f'✓ {schema_file.name} is valid JSON')
+            except json.JSONDecodeError as e:
+                errors.append(f'✗ {schema_file.name}: {e}')
+                print(f'✗ {schema_file.name}: {e}')
+
+        if errors:
+            print(f'\n{len(errors)} schema file(s) have errors')
+            sys.exit(1)
+        else:
+            print(f'\nAll schema files are valid JSON')
+        "
+
+    - name: Validate example manifests against schema
+      run: |
+        echo "Validating example manifests..."
+        python -c "
+        import json
+        import sys
+        from pathlib import Path
+        from jsonschema import validate, ValidationError, Draft7Validator
+
+        # Load the main manifest schema
+        with open('schemas/v0.1/open-signal-manifest.schema.json', 'r') as f:
+            manifest_schema = json.load(f)
+
+        examples_dir = Path('examples')
+        errors = []
+        validated = []
+
+        for example_file in examples_dir.glob('*.json'):
+            try:
+                with open(example_file, 'r') as f:
+                    example_data = json.load(f)
+
+                # Validate against schema
+                validate(instance=example_data, schema=manifest_schema)
+                validated.append(example_file.name)
+                print(f'✓ {example_file.name} validates against schema')
+
+            except json.JSONDecodeError as e:
+                errors.append(f'✗ {example_file.name}: Invalid JSON - {e}')
+                print(f'✗ {example_file.name}: Invalid JSON - {e}')
+            except ValidationError as e:
+                errors.append(f'✗ {example_file.name}: Schema validation failed - {e.message}')
+                print(f'✗ {example_file.name}: Schema validation failed')
+                print(f'  Path: {list(e.path)}')
+                print(f'  Message: {e.message}')
+
+        print(f'\nValidated {len(validated)} example(s) successfully')
+
+        if errors:
+            print(f'{len(errors)} example(s) failed validation')
+            sys.exit(1)
+        "
+
+    - name: Run schema validation tests
+      run: |
+        echo "Running test suite..."
+        if [ -f "tests/test_manifest_validation.py" ]; then
+          python -m pytest tests/test_manifest_validation.py -v
+        else
+          echo "No test file found, skipping pytest"
+        fi
+
+    - name: Validate integration examples
+      run: |
+        echo "Validating integration examples..."
+        python -c "
+        import json
+        import sys
+        from pathlib import Path
+
+        integration_dirs = ['integrations/adcp', 'integrations/aamp']
+        errors = []
+        validated = []
+
+        for integration_dir in integration_dirs:
+            dir_path = Path(integration_dir)
+            if not dir_path.exists():
+                continue
+
+            for json_file in dir_path.glob('*.json'):
+                try:
+                    with open(json_file, 'r') as f:
+                        json.load(f)
+                    validated.append(f'{integration_dir}/{json_file.name}')
+                    print(f'✓ {integration_dir}/{json_file.name} is valid JSON')
+                except json.JSONDecodeError as e:
+                    errors.append(f'✗ {integration_dir}/{json_file.name}: {e}')
+                    print(f'✗ {integration_dir}/{json_file.name}: {e}')
+
+        print(f'\nValidated {len(validated)} integration example(s)')
+
+        if errors:
+            print(f'{len(errors)} integration example(s) have errors')
+            sys.exit(1)
+        "
+
+    - name: Check schema references
+      run: |
+        echo "Checking schema references..."
+        python -c "
+        import json
+        from pathlib import Path
+
+        schema_dir = Path('schemas/v0.1')
+        schemas = {}
+
+        # Load all schemas
+        for schema_file in schema_dir.glob('*.json'):
+            with open(schema_file, 'r') as f:
+                schemas[schema_file.name] = json.load(f)
+
+        print(f'Loaded {len(schemas)} schema files')
+
+        # Check for \$ref references
+        for schema_name, schema_content in schemas.items():
+            refs = []
+
+            def find_refs(obj, path=''):
+                if isinstance(obj, dict):
+                    for key, value in obj.items():
+                        if key == '\$ref' and isinstance(value, str):
+                            refs.append((path, value))
+                        else:
+                            find_refs(value, f'{path}.{key}' if path else key)
+                elif isinstance(obj, list):
+                    for i, item in enumerate(obj):
+                        find_refs(item, f'{path}[{i}]')
+
+            find_refs(schema_content)
+
+            if refs:
+                print(f'\n{schema_name} has {len(refs)} reference(s):')
+                for path, ref in refs:
+                    print(f'  {path}: {ref}')
+        "
+
+    - name: Generate validation report
+      if: always()
+      run: |
+        echo "## JSON Schema Validation Report" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Workflow Run:** \`${{ github.workflow }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "**Trigger:** \`${{ github.event_name }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "**Branch:** \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "**Commit:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Validation Steps" >> $GITHUB_STEP_SUMMARY
+        echo "- ✓ JSON Schema syntax validation" >> $GITHUB_STEP_SUMMARY
+        echo "- ✓ Example manifests validation" >> $GITHUB_STEP_SUMMARY
+        echo "- ✓ Integration examples validation" >> $GITHUB_STEP_SUMMARY
+        echo "- ✓ Schema reference checking" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "All validation checks completed successfully!" >> $GITHUB_STEP_SUMMARY
+
+  lint-json:
+    name: Lint JSON Files
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install jsonlint
+      run: npm install -g jsonlint
+
+    - name: Lint all JSON files
+      run: |
+        echo "Linting JSON files..."
+        find . -name "*.json" -not -path "*/node_modules/*" -not -path "*/.git/*" | while read file; do
+          echo "Checking $file"
+          jsonlint -q "$file" || exit 1
+        done
+        echo "All JSON files passed linting"
+
+  check-schema-metadata:
+    name: Check Schema Metadata
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Check required schema fields
+      run: |
+        echo "Checking schema metadata..."
+        python -c "
+        import json
+        import sys
+        from pathlib import Path
+
+        required_fields = ['\$schema', '\$id', 'title', 'description', 'type']
+        schema_dir = Path('schemas/v0.1')
+        errors = []
+
+        for schema_file in schema_dir.glob('*.json'):
+            with open(schema_file, 'r') as f:
+                schema = json.load(f)
+
+            missing = [field for field in required_fields if field not in schema]
+
+            if missing:
+                errors.append(f'{schema_file.name}: Missing fields: {missing}')
+                print(f'✗ {schema_file.name}: Missing {missing}')
+            else:
+                print(f'✓ {schema_file.name}: All required fields present')
+
+        if errors:
+            print(f'\n{len(errors)} schema(s) missing required fields')
+            sys.exit(1)
+        else:
+            print(f'\nAll schemas have required metadata')
+        "

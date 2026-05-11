@@ -1,5 +1,12 @@
 # OpenSignals Protocol
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/Version-0.1.0-brightgreen.svg)](CHANGELOG.md)
+[![Status](https://img.shields.io/badge/Status-Draft%20RFC-yellow.svg)](specs/opensignals-v0.1.md)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![GitHub Issues](https://img.shields.io/github/issues/Samrajtheailyceum/opensignals-protocol.svg)](https://github.com/Samrajtheailyceum/opensignals-protocol/issues)
+[![GitHub Stars](https://img.shields.io/github/stars/Samrajtheailyceum/opensignals-protocol.svg)](https://github.com/Samrajtheailyceum/opensignals-protocol/stargazers)
+
 OpenSignals Protocol is an open trust layer for advertising signals used by AI agents.
 
 It does not replace AdCP, AAMP, OpenRTB, OpenDirect, AdCOM or existing advertising infrastructure. Instead, it adds a standard way to declare, verify, score, permission and audit the signals that agents use when planning, buying and optimising media.
@@ -310,7 +317,7 @@ The goal is to create a practical, implementable standard that complements exist
 
 ## Contact
 
-- **Issues and Discussion**: [GitHub Issues](https://github.com/opensignals-protocol/opensignals-protocol/issues)
+- **Issues and Discussion**: [GitHub Issues](https://github.com/Samrajtheailyceum/opensignals-protocol/issues)
 - **Specification Questions**: Open an issue with the `spec-question` label
 - **Integration Examples**: Open an issue with the `integration-example` label
 

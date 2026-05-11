@@ -1,0 +1,14 @@
+blank_issues_enabled: true
+contact_links:
+  - name: GitHub Discussions
+    url: https://github.com/Samrajtheailyceum/opensignals-protocol/discussions
+    about: Ask questions and discuss ideas with the community
+  - name: Security Vulnerability
+    url: https://github.com/Samrajtheailyceum/opensignals-protocol/security/advisories
+    about: Report security vulnerabilities privately (see SECURITY.md)
+  - name: AdCP Project
+    url: https://adcontextprotocol.org/
+    about: Questions about AdCP (Ad Context Protocol)
+  - name: IAB Tech Lab AAMP
+    url: https://iabtechlab.com/standards/aamp-agentic-advertising-management-protocols/
+    about: Questions about AAMP (Agentic Advertising Management Protocols)

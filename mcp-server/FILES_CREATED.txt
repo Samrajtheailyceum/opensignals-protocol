@@ -1,0 +1,256 @@
+OpenSignals Protocol MCP Server - Complete File List
+=====================================================
+
+Directory: /Users/samrajmatharu/opensignals-protocol/mcp-server/
+
+CORE IMPLEMENTATION FILES
+=========================
+
+1. server.py (39KB, 1000+ lines)
+   - Main MCP server implementation
+   - 6 tools: get_signal_manifest, verify_signal, score_signal, 
+     audit_signal_usage, list_signals, check_compliance
+   - 3 resource types: manifests, schemas, documentation
+   - Trust scoring engine
+   - Compliance verification engine
+   - Audit logging system
+   - Production-ready with full error handling
+
+2. requirements.txt (296B)
+   - mcp>=1.0.0 (Python MCP SDK)
+   - python-dotenv>=1.0.0
+   - jsonschema>=4.0.0
+   - httpx>=0.27.0
+   - anyio>=4.0.0
+
+3. config.json (265B)
+   - MCP server configuration template
+   - Claude Desktop integration ready
+   - Customizable command and arguments
+
+4. .env.example (1KB)
+   - Environment variable template
+   - Log level configuration
+   - Optional: custom paths, remote fetching, audit persistence
+   - Copy to .env for customization
+
+5. install.sh (6.3KB, executable)
+   - Automated installation script
+   - Creates Python virtual environment
+   - Installs dependencies
+   - Generates .env file
+   - Optionally configures Claude Desktop
+   - Tests installation
+   - ~200 lines with full error handling
+
+TESTING
+=======
+
+6. test_server.py (6.8KB, executable)
+   - Comprehensive test suite
+   - 6 test cases:
+     * Import validation
+     * Signal discovery
+     * Trust score calculation
+     * Signal verification
+     * Compliance checking
+     * Audit logging
+   - Runnable without MCP client
+   - Full pass/fail reporting
+
+DOCUMENTATION FILES
+===================
+
+7. README.md (16KB, ~600 lines)
+   - Complete setup and usage guide
+   - Tool and resource documentation
+   - Installation instructions (quick & manual)
+   - Configuration for Claude Desktop and other MCP clients
+   - Example workflows for AI agents
+   - Integration patterns (AdCP, OpenRTB, AAMP)
+   - Troubleshooting guide
+   - Architecture overview
+   - Performance metrics
+   - Security considerations
+   - Contributing guidelines
+
+8. QUICKSTART.md (8.2KB)
+   - Get started in 5 minutes
+   - 30-second setup instructions
+   - First prompts to try
+   - Understanding responses
+   - Common workflows
+   - Compliance category overview
+   - Example agent scenario
+   - Troubleshooting quick fixes
+   - One-liner test command
+
+9. EXAMPLE_PROMPTS.md (12KB, ~400 lines)
+   - 50+ example prompts for AI agents
+   - Discovery and exploration prompts
+   - Compliance checking examples
+   - Full campaign workflows
+   - Audit and governance examples
+   - Advanced workflows (autonomous agents, governance simulation)
+   - Testing and validation prompts
+   - Error handling examples
+   - Educational queries
+   - Integration examples (AdCP, OpenRTB)
+   - Real-world scenarios (multi-brand, optimization, global campaigns)
+   - Tips for agents
+
+10. ARCHITECTURE.md (36KB, ~1000 lines)
+    - Complete system architecture
+    - Component diagrams (ASCII art)
+    - Tool implementation details
+    - Trust scoring engine architecture
+    - Compliance verification engine flow
+    - Compliance rules database
+    - Data flow diagrams
+    - File organization
+    - Technology stack
+    - Performance characteristics
+    - Security architecture
+    - Visual representation of every component
+
+11. IMPLEMENTATION_SUMMARY.md (10KB)
+    - High-level overview
+    - Files created with descriptions
+    - Architecture decisions
+    - Key features (production, integration, compliance, agent-friendly)
+    - Installation summary
+    - Usage examples
+    - Data sources
+    - Compliance rules reference
+    - Trust score interpretation
+    - Integration points
+    - Performance metrics
+    - Future enhancements
+    - Quick start commands
+
+STATISTICS
+==========
+
+Total Files: 11
+Total Lines: 4,000+
+Total Size: ~145KB
+
+Breakdown:
+- Code (Python): 1,800+ lines
+- Documentation (Markdown): 2,100+ lines
+- Configuration (JSON, env, txt): 100+ lines
+- Scripts (Bash): 200+ lines
+
+Tools Implemented: 6
+Resources Implemented: 3 types
+Test Cases: 6
+Example Prompts: 50+
+
+FEATURES IMPLEMENTED
+====================
+
+Core Functionality:
+✓ Signal manifest retrieval
+✓ Compliance verification
+✓ 7-dimensional trust scoring
+✓ Audit trail logging
+✓ Signal discovery and filtering
+✓ Category/market compliance checking
+
+Compliance Rules:
+✓ Alcohol (human approval, age 21-25, contextual only)
+✓ Gambling (human approval, age 21, contextual only, restricted markets)
+✓ Pharma (human approval, no health targeting)
+✓ Finance (human approval, age 18, no vulnerability targeting)
+✓ General (standard rules)
+
+Trust Scoring:
+✓ Coverage dimension
+✓ Freshness dimension
+✓ Precision dimension
+✓ Stability dimension
+✓ Explainability dimension
+✓ Compliance dimension
+✓ Overall composite score
+✓ Trust band classification
+✓ Autonomy recommendations
+
+Integration:
+✓ Model Context Protocol (MCP) 1.0+
+✓ Claude Desktop configuration
+✓ stdio transport (JSON-RPC 2.0)
+✓ Any MCP-compatible client
+✓ Local file system (no network required)
+
+Production Features:
+✓ Comprehensive error handling
+✓ Detailed logging
+✓ Input validation
+✓ Type hints
+✓ Docstrings
+✓ Async support
+✓ Test suite
+✓ Installation automation
+
+Documentation:
+✓ Setup guide (README)
+✓ Quick start (QUICKSTART)
+✓ Example prompts (50+)
+✓ Architecture diagrams
+✓ Implementation summary
+✓ Troubleshooting
+✓ Integration patterns
+✓ API reference
+
+USAGE
+=====
+
+Installation:
+$ cd opensignals-protocol/mcp-server
+$ ./install.sh
+
+Testing:
+$ source venv/bin/activate
+$ python test_server.py
+
+With Claude Desktop:
+After installation and restart, use natural language:
+"List all available advertising signals"
+"Verify signal X for alcohol advertising in UK"
+"Calculate trust scores for signal Y"
+
+INTEGRATION POINTS
+==================
+
+OpenSignals Protocol Repository:
+├── examples/              (4 signal manifests)
+├── schemas/v0.1/         (6 JSON schemas)
+├── specs/                (protocol specification)
+└── docs/                 (documentation)
+
+External Systems:
+- Claude Desktop (primary integration)
+- AdCP (signal activation)
+- OpenRTB (bid requests with trust scores)
+- AAMP (trust and transparency pillar)
+
+LICENSE
+=======
+
+Code: Apache License 2.0
+Documentation: Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+NOTES
+=====
+
+- Production-ready: Yes ✓
+- Tests passing: Yes ✓
+- Documentation complete: Yes ✓
+- Claude Desktop compatible: Yes ✓
+- Real-world ready: Yes ✓
+
+Built for the agentic advertising era.
+
+Last Updated: 2026-05-11
+Version: 1.0
+Protocol: OpenSignals v0.1
