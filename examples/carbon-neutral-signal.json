@@ -1,0 +1,417 @@
+{
+  "protocol": "opensignals",
+  "version": "0.1",
+  "signal_id": "carbon-conscious-consumers",
+  "name": "Carbon-Neutral Consumer Signal",
+  "signal_type": "audience",
+  "status": "active",
+  "description": "Audience signal identifying consumers with verified commitment to climate action and sustainable living. Built from third-party certified sustainability behaviors including carbon offset purchases, renewable energy adoption, sustainable product purchases, and environmental program participation. Third-party verified to prevent greenwashing, ESG-compliant, and focused on documented actions rather than claimed interest.",
+  "owner": {
+    "organization": "Climate Action Consumer Network",
+    "contact": "signals@climateaction.example.com",
+    "sustainability_officer": "sustainability@climateaction.example.com",
+    "compliance_officer": "compliance@climateaction.example.com"
+  },
+  "provider": {
+    "name": "Climate Action Consumer Network",
+    "url": "https://climateaction.example.com",
+    "privacy_policy_url": "https://climateaction.example.com/privacy",
+    "terms_of_service_url": "https://climateaction.example.com/terms"
+  },
+  "provenance": {
+    "data_sources": [
+      "verified_carbon_offset_purchases",
+      "renewable_energy_subscriptions",
+      "sustainable_product_transactions",
+      "environmental_program_participation",
+      "climate_action_app_usage"
+    ],
+    "collection_method": "opt_in_verified_sustainability_actions",
+    "last_updated": "2026-05-04T00:00:00Z",
+    "update_frequency": "weekly",
+    "lookback_period_days": 180,
+    "verification_method": "third_party_sustainability_action_verification",
+    "chain_of_custody": [
+      {
+        "entity": "Sustainability Action Partners",
+        "role": "data_collector",
+        "timestamp": "2026-04-01T00:00:00Z"
+      },
+      {
+        "entity": "Carbon Credit Verification Services",
+        "role": "action_verifier",
+        "timestamp": "2026-04-15T00:00:00Z"
+      },
+      {
+        "entity": "Sustainability Claims Auditor",
+        "role": "greenwashing_prevention",
+        "timestamp": "2026-04-28T00:00:00Z"
+      },
+      {
+        "entity": "Climate Action Consumer Network",
+        "role": "signal_provider",
+        "timestamp": "2026-05-04T00:00:00Z"
+      }
+    ]
+  },
+  "quality": {
+    "overall_trust_score": 0.81,
+    "coverage_score": 0.72,
+    "freshness_score": 0.87,
+    "precision_score": 0.84,
+    "explainability_score": 0.89,
+    "compliance_safety_score": 0.93,
+    "outcome_relevance_score": 0.82
+  },
+  "permissioning": {
+    "consent_mechanism": "explicit_opt_in_sustainability_programs",
+    "consent_framework": "custom_sustainability_with_gdpr_ccpa",
+    "consent_capture_method": "carbon_offset_platforms_renewable_energy_programs",
+    "usage_rights": "commercial_advertising_sustainable_products_only",
+    "permitted_uses": [
+      "sustainable_product_targeting",
+      "renewable_energy_marketing",
+      "eco_friendly_service_promotion",
+      "climate_action_campaigns",
+      "esg_aligned_advertising"
+    ],
+    "prohibited_uses": [
+      "greenwashing_false_environmental_claims",
+      "non_sustainable_product_targeting",
+      "misleading_eco_friendly_positioning",
+      "high_carbon_footprint_products",
+      "third_party_data_sale",
+      "discriminatory_targeting"
+    ],
+    "data_retention_days": 365,
+    "geographic_restrictions": [
+      "gdpr_compliance_for_eu",
+      "ccpa_compliance_for_california"
+    ],
+    "right_to_deletion": true,
+    "right_to_opt_out": true
+  },
+  "governance": {
+    "category": "audience",
+    "subcategory": "sustainability_environmental",
+    "human_approval_required": true,
+    "approval_workflow": "sustainability_officer_environmental_claims_marketing_legal_review",
+    "audit_required": true,
+    "audit_frequency": "quarterly_plus_annual_esg_reporting",
+    "risk_level": "medium",
+    "greenwashing_prevention": "mandatory_all_campaigns",
+    "compliance_frameworks": [
+      "FTC_Green_Guides",
+      "EU_Green_Claims_Directive",
+      "ISO_14021_Environmental_Labels",
+      "Science_Based_Targets_Initiative",
+      "B_Corp_Certification_Standards",
+      "Carbon_Offset_Verification_Standards"
+    ],
+    "policy_references": [
+      {
+        "policy_name": "FTC Green Guides - Environmental Marketing Claims",
+        "policy_url": "https://www.ftc.gov/news-events/topics/truth-advertising/green-guides",
+        "applies_to_markets": ["US"]
+      },
+      {
+        "policy_name": "EU Green Claims Directive",
+        "policy_url": "https://ec.europa.eu/",
+        "applies_to_markets": ["EU"]
+      },
+      {
+        "policy_name": "ISO 14021 Environmental Labels and Declarations",
+        "policy_url": "https://www.iso.org/standard/66652.html",
+        "applies_to_markets": ["global"]
+      }
+    ],
+    "approval_requirements": {
+      "every_activation": [
+        "sustainability_officer_review_of_product_claims",
+        "third_party_verification_of_environmental_claims",
+        "marketing_review_for_greenwashing_risk",
+        "legal_review_environmental_claims_compliance",
+        "esg_team_approval"
+      ],
+      "lead_time": "7_business_days"
+    },
+    "prohibited_practices": [
+      "greenwashing_false_or_misleading_environmental_claims",
+      "vague_eco_friendly_claims_without_substantiation",
+      "targeting_for_high_carbon_products",
+      "misleading_carbon_neutral_claims",
+      "exaggerating_environmental_benefits"
+    ],
+    "substantiation_requirements": {
+      "environmental_claims": "third_party_certified_or_verified",
+      "carbon_neutrality": "science_based_calculation_plus_offsets",
+      "sustainable_materials": "certification_required",
+      "lifecycle_analysis": "recommended_for_major_claims"
+    }
+  },
+  "coverage": {
+    "scale": "small_medium",
+    "estimated_reach": 2800000,
+    "geographic_markets": [
+      "US",
+      "GB",
+      "DE",
+      "FR",
+      "NL",
+      "SE",
+      "NO",
+      "DK",
+      "AU",
+      "CA"
+    ],
+    "audience_characteristics": {
+      "sustainability_commitment": "verified_actions_not_just_interest",
+      "age_range": "25-55",
+      "behaviors": [
+        "carbon_offset_purchases",
+        "renewable_energy_adoption",
+        "sustainable_product_buying",
+        "environmental_program_participation",
+        "climate_action_advocacy"
+      ],
+      "household_income_index": 135,
+      "education_level": "above_average",
+      "values_alignment": "strong_environmental_values"
+    },
+    "refresh_rate": "weekly",
+    "average_segment_size": 280000,
+    "verification_focus": "documented_actions_over_claimed_interest"
+  },
+  "sustainability_details": {
+    "verified_action_indicators": [
+      "carbon_offset_purchase_history",
+      "renewable_energy_subscription_active",
+      "sustainable_product_purchases_certified",
+      "environmental_nonprofit_donations",
+      "climate_action_app_verified_usage",
+      "electric_vehicle_ownership",
+      "home_solar_installation",
+      "sustainable_finance_participation"
+    ],
+    "product_categories_aligned": [
+      "electric_vehicles",
+      "renewable_energy_systems",
+      "sustainable_fashion_certified",
+      "organic_regenerative_food",
+      "green_building_materials",
+      "carbon_neutral_travel",
+      "sustainable_home_goods",
+      "eco_friendly_personal_care"
+    ],
+    "engagement_strength_levels": [
+      "climate_leaders_multiple_actions_high_spend",
+      "active_sustainability_practitioners",
+      "emerging_eco_conscious_consumers"
+    ],
+    "average_sustainability_spend_annual": 4200,
+    "willingness_to_pay_premium_for_sustainability": 0.18,
+    "third_party_verification": {
+      "carbon_offsets": "Gold_Standard_or_Verified_Carbon_Standard",
+      "renewable_energy": "Green_E_Certified_or_equivalent",
+      "sustainable_products": "B_Corp_Fair_Trade_Organic_etc"
+    }
+  },
+  "verification": {
+    "verification_method": "third_party_sustainability_action_verification",
+    "last_verified": "2026-04-01T00:00:00Z",
+    "verification_frequency": "quarterly",
+    "third_party_auditor": "Sustainability Verification Partners",
+    "audit_report_url": "https://climateaction.example.com/audits/sustainability-signal-q1-2026.pdf",
+    "certifications": [
+      "B_Corp_Certified",
+      "Science_Based_Targets_Approved",
+      "ISO_14001_Environmental_Management"
+    ],
+    "greenwashing_prevention_audit": "comprehensive_every_quarter"
+  },
+  "technical": {
+    "activation_endpoint": "https://api.climateaction.example.com/v1/signals/carbon-conscious-consumers/activate",
+    "authentication_method": "api_key_with_sustainability_verification",
+    "supported_formats": [
+      "json"
+    ],
+    "integration_documentation_url": "https://docs.climateaction.example.com/signals/carbon-conscious",
+    "api_version": "1.0",
+    "supported_id_types": [
+      "hashed_email_sha256",
+      "sustainability_program_id",
+      "mobile_advertising_id"
+    ],
+    "match_rate_average": 0.71,
+    "rate_limits": {
+      "requests_per_minute": 60,
+      "requests_per_day": 6000
+    },
+    "delivery_format": "segment_id",
+    "sustainability_verification_requirement": "campaign_level_environmental_claims_verification"
+  },
+  "transparency": {
+    "explainability": "very_high",
+    "explanation": "This signal identifies consumers who have taken verified actions demonstrating commitment to climate action and sustainability. Actions include documented carbon offset purchases, active renewable energy subscriptions, certified sustainable product purchases, and participation in verified environmental programs. All actions are third-party verified to prevent inclusion based solely on claimed interest. Consumers have opted in through sustainability programs and platforms. Signal is designed exclusively for marketing genuinely sustainable products and services. All usage is audited quarterly to prevent greenwashing.",
+    "methodology_url": "https://climateaction.example.com/methodology/carbon-conscious-signal",
+    "methodology_whitepaper_url": "https://climateaction.example.com/research/verified-sustainability-actions-2026.pdf",
+    "sample_signals_available": false,
+    "user_transparency_portal": "https://privacy.climateaction.example.com/my-data",
+    "user_can_view_own_data": true,
+    "user_can_opt_out": true,
+    "third_party_verification_disclosure": "https://climateaction.example.com/verification-standards"
+  },
+  "pricing": {
+    "cpm_range": {
+      "min": 14.00,
+      "max": 32.00,
+      "currency": "USD"
+    },
+    "pricing_model": "cpm_tiered_by_engagement_strength",
+    "pricing_tiers": [
+      {
+        "tier": "climate_leaders",
+        "cpm": 32.00,
+        "characteristics": "multiple_verified_actions_high_sustainability_spend"
+      },
+      {
+        "tier": "active_practitioners",
+        "cpm": 22.00,
+        "characteristics": "regular_sustainable_purchases_verified_subscriptions"
+      },
+      {
+        "tier": "emerging_eco_conscious",
+        "cpm": 14.00,
+        "characteristics": "recent_sustainability_actions_growing_engagement"
+      }
+    ],
+    "pricing_url": "https://climateaction.example.com/pricing/carbon-conscious",
+    "value_justification": "premium_pricing_acceptance_and_strong_brand_loyalty"
+  },
+  "performance_history": {
+    "historical_performance_available": true,
+    "performance_metrics_url": "https://climateaction.example.com/performance/carbon-conscious",
+    "average_ctr_vs_benchmark": 2.1,
+    "average_conversion_rate": 0.029,
+    "average_order_value_premium_percentage": 18,
+    "average_roas": 6.2,
+    "repeat_purchase_rate": 0.32,
+    "customer_loyalty_nps": 68,
+    "campaigns_run_last_90_days": 52
+  },
+  "data_hygiene": {
+    "deduplication_method": "cross_platform_identity_graph",
+    "invalid_traffic_filtering": true,
+    "bot_detection": "standard",
+    "fraud_prevention": "sustainability_action_verification",
+    "pii_handling": "encrypted_hashed_secure",
+    "data_quality_score": 0.89,
+    "action_verification": "third_party_validated_all_signals"
+  },
+  "use_case_guidelines": {
+    "appropriate_use_cases": [
+      "electric_vehicles_and_charging_infrastructure",
+      "renewable_energy_systems_solar_wind",
+      "certified_sustainable_fashion",
+      "organic_regenerative_agriculture_products",
+      "green_building_materials_and_services",
+      "carbon_neutral_travel_and_tourism",
+      "sustainable_finance_and_investment",
+      "eco_friendly_home_products",
+      "climate_tech_innovations",
+      "environmental_nonprofit_campaigns"
+    ],
+    "prohibited_use_cases": [
+      "greenwashing_campaigns",
+      "products_with_high_carbon_footprint",
+      "misleading_eco_friendly_claims",
+      "non_sustainable_products_falsely_positioned",
+      "fossil_fuel_industry_without_verified_transition",
+      "fast_fashion_without_credible_sustainability",
+      "single_use_plastics_without_genuine_alternatives"
+    ],
+    "messaging_requirements": {
+      "must_include": [
+        "specific_environmental_benefits_quantified",
+        "third_party_certifications_if_applicable",
+        "transparent_about_limitations_and_tradeoffs",
+        "clear_call_to_action_for_sustainable_choice"
+      ],
+      "must_avoid": [
+        "vague_eco_friendly_green_claims",
+        "overpromising_environmental_impact",
+        "greenwashing_misleading_imagery",
+        "minimizing_real_environmental_issues"
+      ]
+    },
+    "substantiation_requirements": {
+      "carbon_neutrality_claims": "science_based_calculation_plus_verified_offsets",
+      "sustainable_materials": "third_party_certification_required",
+      "environmental_impact": "lifecycle_analysis_or_equivalent",
+      "renewable_energy": "renewable_energy_certificates_or_ppas"
+    },
+    "ethical_standards": "Sustainability marketing must be truthful, substantiated, and contribute to genuine climate action. No exploitation of environmental concern for profit without delivering real environmental benefit."
+  },
+  "performance_optimization": {
+    "best_practices": [
+      "substantiate_all_environmental_claims_third_party",
+      "use_specific_quantified_benefits_not_vague_claims",
+      "transparency_about_sustainability_journey_not_perfection",
+      "long_attribution_windows_considered_purchases",
+      "educational_content_performs_well",
+      "show_impact_metrics_carbon_saved_etc",
+      "partner_with_environmental_organizations_credibility"
+    ],
+    "seasonal_patterns": {
+      "peak_seasons": [
+        "earth_day_april",
+        "world_environment_day_june",
+        "climate_week_september",
+        "sustainable_friday_black_friday_alternative"
+      ]
+    },
+    "creative_recommendations": {
+      "tone": "authentic_educational_empowering",
+      "imagery": "real_products_real_impact_no_greenwashing",
+      "messaging": "specific_benefits_over_general_claims",
+      "social_proof": "customer_stories_environmental_impact_data"
+    }
+  },
+  "esg_reporting": {
+    "reporting_available": true,
+    "reporting_metrics": [
+      "campaign_carbon_footprint",
+      "sustainable_product_sales_influenced",
+      "consumer_environmental_action_encouraged",
+      "brand_sustainability_alignment_score"
+    ],
+    "reporting_frequency": "quarterly_and_annual",
+    "esg_frameworks_supported": [
+      "GRI_Global_Reporting_Initiative",
+      "SASB_Sustainability_Accounting_Standards",
+      "TCFD_Climate_Related_Disclosures",
+      "Science_Based_Targets"
+    ]
+  },
+  "metadata": {
+    "created_at": "2025-06-01T00:00:00Z",
+    "updated_at": "2026-05-04T00:00:00Z",
+    "version": "1.7",
+    "tags": [
+      "sustainability",
+      "climate_action",
+      "carbon_conscious",
+      "verified_actions",
+      "esg_compliant",
+      "third_party_verified",
+      "greenwashing_prevention"
+    ],
+    "supported_languages": [
+      "en",
+      "de",
+      "fr",
+      "sv",
+      "nl"
+    ]
+  }
+}

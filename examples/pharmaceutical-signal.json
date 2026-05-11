@@ -1,0 +1,383 @@
+{
+  "protocol": "opensignals",
+  "version": "0.1",
+  "signal_id": "health-condition-management",
+  "name": "Health Condition Management Signal",
+  "signal_type": "audience",
+  "status": "active",
+  "description": "Privacy-preserving signal identifying cohorts with interest in managing specific health conditions. Built from aggregated, de-identified health content engagement, pharmacy loyalty programs (opt-in), and wellness app data. Designed exclusively for disease awareness and treatment education advertising. Cohort-level only with minimum 1,000 individuals per segment to prevent individual targeting.",
+  "owner": {
+    "organization": "HealthAware Data Cooperative",
+    "contact": "signals@healthaware.example.com",
+    "compliance_officer": "compliance@healthaware.example.com",
+    "privacy_officer": "privacy@healthaware.example.com",
+    "medical_officer": "medical@healthaware.example.com"
+  },
+  "provider": {
+    "name": "HealthAware Data Cooperative",
+    "url": "https://healthaware.example.com",
+    "privacy_policy_url": "https://healthaware.example.com/privacy",
+    "terms_of_service_url": "https://healthaware.example.com/terms"
+  },
+  "provenance": {
+    "data_sources": [
+      "aggregated_health_content_engagement",
+      "pharmacy_loyalty_opt_in_aggregated",
+      "wellness_app_data_de_identified",
+      "patient_education_platform_usage"
+    ],
+    "collection_method": "opt_in_aggregated_cohort_level_only",
+    "last_updated": "2026-04-28T00:00:00Z",
+    "update_frequency": "biweekly",
+    "lookback_period_days": 60,
+    "aggregation_method": "hipaa_safe_harbor_de_identification",
+    "minimum_cohort_size": 1000,
+    "chain_of_custody": [
+      {
+        "entity": "Health Content Publishers",
+        "role": "data_collector",
+        "timestamp": "2026-04-01T00:00:00Z"
+      },
+      {
+        "entity": "HealthAware De-identification Service",
+        "role": "data_anonymizer",
+        "timestamp": "2026-04-15T00:00:00Z"
+      },
+      {
+        "entity": "HIPAA Compliance Review Board",
+        "role": "compliance_verifier",
+        "timestamp": "2026-04-22T00:00:00Z"
+      },
+      {
+        "entity": "Medical Ethics Committee",
+        "role": "ethics_reviewer",
+        "timestamp": "2026-04-25T00:00:00Z"
+      },
+      {
+        "entity": "HealthAware Data Cooperative",
+        "role": "signal_provider",
+        "timestamp": "2026-04-28T00:00:00Z"
+      }
+    ]
+  },
+  "quality": {
+    "overall_trust_score": 0.76,
+    "coverage_score": 0.68,
+    "freshness_score": 0.81,
+    "precision_score": 0.79,
+    "explainability_score": 0.84,
+    "compliance_safety_score": 0.95,
+    "outcome_relevance_score": 0.68
+  },
+  "permissioning": {
+    "consent_mechanism": "explicit_opt_in_with_hipaa_authorization",
+    "consent_framework": "hipaa_authorization_plus_custom",
+    "consent_capture_method": "health_app_registration_and_pharmacy_loyalty",
+    "usage_rights": "disease_awareness_and_educational_purposes_only",
+    "permitted_uses": [
+      "disease_awareness_campaigns",
+      "patient_education",
+      "treatment_option_information",
+      "health_screening_promotion",
+      "preventive_care_outreach"
+    ],
+    "prohibited_uses": [
+      "individual_health_profiling",
+      "individual_targeting",
+      "discriminatory_practices",
+      "employment_screening",
+      "insurance_underwriting",
+      "direct_product_promotion_without_education",
+      "targeting_vulnerable_populations",
+      "minor_targeting_for_health_conditions",
+      "third_party_data_sale"
+    ],
+    "data_retention_days": 180,
+    "geographic_restrictions": [
+      "hipaa_compliance_required_for_us",
+      "gdpr_article_9_compliance_for_eu",
+      "no_individual_phi_ever"
+    ],
+    "right_to_deletion": true,
+    "right_to_opt_out": true,
+    "phi_handling": "no_individual_phi_cohort_level_only"
+  },
+  "governance": {
+    "category": "restricted",
+    "subcategory": "healthcare_pharmaceutical",
+    "human_approval_required": true,
+    "approval_workflow": "medical_legal_privacy_ethics_compliance_review",
+    "audit_required": true,
+    "audit_frequency": "per_activation_plus_quarterly",
+    "risk_level": "high",
+    "compliance_frameworks": [
+      "HIPAA_Health_Insurance_Portability_Accountability_Act",
+      "FDA_Prescription_Drug_Advertising",
+      "EMA_Medicinal_Products_Advertising_Guidelines",
+      "GDPR_Article_9_Special_Category_Data",
+      "PhRMA_Code",
+      "EFPIA_Code_of_Practice"
+    ],
+    "policy_references": [
+      {
+        "policy_name": "HIPAA Privacy Rule",
+        "policy_url": "https://www.hhs.gov/hipaa/for-professionals/privacy/index.html",
+        "applies_to_markets": ["US"]
+      },
+      {
+        "policy_name": "FDA Prescription Drug Advertising Regulations",
+        "policy_url": "https://www.fda.gov/drugs/drug-advertising-and-promotion",
+        "applies_to_markets": ["US"]
+      },
+      {
+        "policy_name": "EMA Guidelines on Advertising of Medicinal Products",
+        "policy_url": "https://www.ema.europa.eu/",
+        "applies_to_markets": ["EU"]
+      },
+      {
+        "policy_name": "GDPR Article 9 - Processing of Special Categories",
+        "policy_url": "https://gdpr-info.eu/art-9-gdpr/",
+        "applies_to_markets": ["EU", "GB"]
+      },
+      {
+        "policy_name": "PhRMA Code on Interactions with Healthcare Professionals",
+        "policy_url": "https://www.phrma.org/codes-and-guidelines/code-on-interactions-with-health-care-professionals",
+        "applies_to_markets": ["US"]
+      }
+    ],
+    "approval_requirements": {
+      "every_activation": [
+        "medical_scientific_review_of_claims",
+        "legal_review_fda_ema_compliance",
+        "privacy_officer_phi_verification",
+        "ethics_committee_review",
+        "compliance_officer_final_approval"
+      ],
+      "lead_time": "14_business_days"
+    },
+    "market_restrictions": {
+      "prohibited_conditions": [
+        "mental_health_conditions_minors",
+        "reproductive_health_without_special_approval",
+        "hiv_aids_without_sensitivity_review"
+      ],
+      "age_restrictions": "no_targeting_minors_under_18_for_health_conditions"
+    },
+    "ethical_guidelines": {
+      "messaging_requirements": [
+        "educational_value_primary",
+        "no_fear_based_appeals",
+        "balanced_risk_benefit_information",
+        "encourage_hcp_consultation",
+        "no_off_label_promotion"
+      ],
+      "patient_advocacy": [
+        "partner_with_patient_advocacy_groups",
+        "provide_free_educational_resources",
+        "support_access_to_care_initiatives"
+      ]
+    }
+  },
+  "coverage": {
+    "scale": "medium",
+    "estimated_reach": 12000000,
+    "geographic_markets": [
+      "US",
+      "GB",
+      "CA",
+      "AU",
+      "DE",
+      "FR"
+    ],
+    "cohort_characteristics": {
+      "engagement_type": "health_information_seeking",
+      "condition_categories": [
+        "chronic_disease_management",
+        "diabetes_management",
+        "cardiovascular_health",
+        "arthritis_joint_health",
+        "respiratory_conditions",
+        "digestive_health"
+      ],
+      "age_range": "18_plus_adults_only",
+      "aggregation": "minimum_1000_individuals_per_cohort"
+    },
+    "refresh_rate": "biweekly",
+    "minimum_cohort_size": 1000,
+    "individual_targeting": "prohibited_cohort_level_only"
+  },
+  "health_details": {
+    "engagement_indicators": [
+      "health_content_consumption",
+      "symptom_checker_usage",
+      "wellness_app_engagement",
+      "pharmacy_loyalty_participation",
+      "patient_education_resource_downloads"
+    ],
+    "condition_focus_areas": [
+      "diabetes_type_2_management",
+      "hypertension_cardiovascular",
+      "arthritis_pain_management",
+      "asthma_copd_respiratory",
+      "digestive_conditions_ibs_crohns",
+      "chronic_pain_management"
+    ],
+    "cohort_types": [
+      "newly_diagnosed_education_seekers",
+      "active_condition_managers",
+      "preventive_health_interested",
+      "treatment_option_researchers"
+    ],
+    "no_individual_data": "all_data_aggregated_cohort_level_minimum_1000",
+    "educational_focus": "awareness_not_direct_prescription_promotion"
+  },
+  "verification": {
+    "verification_method": "hipaa_compliance_audit_and_ethics_review",
+    "last_verified": "2026-04-01T00:00:00Z",
+    "verification_frequency": "quarterly",
+    "third_party_auditor": "Healthcare Data Compliance Group",
+    "audit_report_url": "https://healthaware.example.com/audits/hipaa-compliance-q1-2026.pdf",
+    "certifications": [
+      "HIPAA_Business_Associate_Compliant",
+      "HITRUST_CSF_Certified",
+      "SOC_2_Type_II",
+      "ISO_27001_Healthcare"
+    ],
+    "ethics_board": "Independent Medical Ethics Committee"
+  },
+  "technical": {
+    "activation_endpoint": "https://api.healthaware.example.com/v1/signals/health-condition-management/activate",
+    "authentication_method": "oauth2_with_compliance_attestation",
+    "supported_formats": [
+      "json"
+    ],
+    "integration_documentation_url": "https://docs.healthaware.example.com/signals/health-conditions",
+    "api_version": "1.0",
+    "supported_id_types": [
+      "cohort_id_only_no_individual_ids"
+    ],
+    "match_rate_average": "not_applicable_cohort_level_targeting",
+    "rate_limits": {
+      "requests_per_minute": 30,
+      "requests_per_day": 2000
+    },
+    "delivery_format": "cohort_segment_minimum_1000_individuals",
+    "security_requirements": {
+      "tls_version": "1.3_minimum",
+      "encryption": "end_to_end_phi_level",
+      "audit_logging": "comprehensive_hipaa_compliant",
+      "business_associate_agreement": "required"
+    },
+    "minimum_cohort_size_enforcement": "technical_control_prevents_under_1000"
+  },
+  "transparency": {
+    "explainability": "high",
+    "explanation": "This signal identifies cohorts (minimum 1,000 individuals) who have engaged with health content related to specific chronic conditions. Data is collected from opt-in health apps, pharmacy loyalty programs, and patient education platforms. All data is de-identified using HIPAA Safe Harbor method before aggregation. No individual health information (PHI) is ever available. Cohorts are built based on aggregated engagement patterns with health content, not individual diagnoses. Designed exclusively for disease awareness and patient education, not direct product promotion. Approved only for FDA/EMA-compliant educational campaigns.",
+    "methodology_url": "https://healthaware.example.com/methodology/health-signals",
+    "methodology_whitepaper_url": "https://healthaware.example.com/research/privacy-preserving-health-signals-2026.pdf",
+    "sample_signals_available": false,
+    "user_transparency_portal": "https://privacy.healthaware.example.com/my-data",
+    "user_can_view_own_data": false,
+    "user_can_opt_out": true,
+    "phi_protection": "no_individual_phi_available_cohort_level_only",
+    "de_identification_standard": "HIPAA_Safe_Harbor_Method"
+  },
+  "pricing": {
+    "cpm_range": {
+      "min": 12.00,
+      "max": 28.00,
+      "currency": "USD"
+    },
+    "pricing_model": "cpm_tiered_by_condition_and_cohort_specificity",
+    "pricing_tiers": [
+      {
+        "tier": "specific_condition_active_management",
+        "cpm": 28.00
+      },
+      {
+        "tier": "condition_category_education_seekers",
+        "cpm": 18.00
+      },
+      {
+        "tier": "preventive_health_general",
+        "cpm": 12.00
+      }
+    ],
+    "pricing_url": "https://healthaware.example.com/pricing/health-signals",
+    "minimum_campaign_budget_usd": 25000
+  },
+  "performance_history": {
+    "historical_performance_available": true,
+    "performance_metrics_url": "https://healthaware.example.com/performance/health-signals",
+    "average_ctr": 0.008,
+    "educational_resource_download_rate": 0.15,
+    "hcp_discussion_tool_usage": 0.06,
+    "physician_finder_usage": 0.05,
+    "attribution_model": "long_term_education_to_action_90_180_days",
+    "campaigns_run_last_90_days": 42,
+    "note": "performance_measured_by_education_engagement_not_direct_sales"
+  },
+  "data_hygiene": {
+    "deduplication_method": "cohort_level_no_individual_deduplication",
+    "invalid_traffic_filtering": true,
+    "bot_detection": "standard",
+    "phi_handling": "no_individual_phi_hipaa_safe_harbor_de_identification",
+    "data_quality_score": 0.88,
+    "cohort_integrity": "minimum_1000_technical_enforcement"
+  },
+  "use_case_guidelines": {
+    "appropriate_use_cases": [
+      "disease_awareness_campaigns",
+      "patient_education_initiatives",
+      "treatment_option_information",
+      "screening_promotion_preventive_care",
+      "symptom_recognition_education",
+      "healthcare_provider_discussion_tools",
+      "patient_support_program_promotion"
+    ],
+    "prohibited_use_cases": [
+      "direct_prescription_drug_promotion_without_education",
+      "individual_targeting_based_on_health_status",
+      "off_label_drug_promotion",
+      "targeting_minors_for_health_conditions",
+      "fear_based_marketing",
+      "misleading_health_claims",
+      "insurance_underwriting",
+      "employment_decisions"
+    ],
+    "messaging_requirements": {
+      "must_include": [
+        "educational_value",
+        "balanced_information",
+        "encourage_hcp_consultation",
+        "clear_disclosures"
+      ],
+      "must_avoid": [
+        "fear_tactics",
+        "overpromising_outcomes",
+        "minimizing_risks",
+        "creating_unnecessary_anxiety"
+      ]
+    },
+    "ethical_standards": "Campaigns must provide genuine patient benefit through education and awareness. Commercial interests secondary to patient welfare."
+  },
+  "metadata": {
+    "created_at": "2025-10-01T00:00:00Z",
+    "updated_at": "2026-04-28T00:00:00Z",
+    "version": "1.3",
+    "tags": [
+      "healthcare",
+      "pharmaceutical",
+      "hipaa_compliant",
+      "patient_education",
+      "disease_awareness",
+      "cohort_level",
+      "privacy_preserving",
+      "regulated",
+      "ethics_reviewed"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  }
+}

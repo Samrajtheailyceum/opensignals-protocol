@@ -1,0 +1,359 @@
+{
+  "protocol": "opensignals",
+  "version": "0.1",
+  "signal_id": "voter-engagement-political",
+  "name": "Voter Engagement Political Signal",
+  "signal_type": "audience",
+  "status": "active",
+  "description": "Highly regulated signal for political advertising, identifying registered voters with indicators of civic engagement. Built from voter registration data (public records), civic participation patterns, and political content engagement. Subject to strict election laws, transparency requirements, disclosure mandates, and fair practice standards. Designed for legitimate political campaigns, ballot initiatives, and civic engagement.",
+  "owner": {
+    "organization": "Civic Engagement Data Alliance",
+    "contact": "signals@civicdata.example.com",
+    "compliance_officer": "compliance@civicdata.example.com",
+    "legal_counsel": "legal@civicdata.example.com"
+  },
+  "provider": {
+    "name": "Civic Engagement Data Alliance",
+    "url": "https://civicdata.example.com",
+    "privacy_policy_url": "https://civicdata.example.com/privacy",
+    "terms_of_service_url": "https://civicdata.example.com/terms"
+  },
+  "provenance": {
+    "data_sources": [
+      "public_voter_registration_records",
+      "voting_history_public_records",
+      "civic_content_engagement",
+      "political_event_participation"
+    ],
+    "collection_method": "public_records_plus_opt_in_engagement",
+    "last_updated": "2026-05-01T00:00:00Z",
+    "update_frequency": "monthly_aligned_with_registration_cycles",
+    "lookback_period_days": 730,
+    "chain_of_custody": [
+      {
+        "entity": "State Voter Registration Offices",
+        "role": "public_records_provider",
+        "timestamp": "2026-04-01T00:00:00Z"
+      },
+      {
+        "entity": "Civic Engagement Data Alliance",
+        "role": "data_aggregator",
+        "timestamp": "2026-04-15T00:00:00Z"
+      },
+      {
+        "entity": "Election Law Compliance Review",
+        "role": "legal_verifier",
+        "timestamp": "2026-04-28T00:00:00Z"
+      },
+      {
+        "entity": "Civic Engagement Data Alliance",
+        "role": "signal_provider",
+        "timestamp": "2026-05-01T00:00:00Z"
+      }
+    ]
+  },
+  "quality": {
+    "overall_trust_score": 0.73,
+    "coverage_score": 0.81,
+    "freshness_score": 0.79,
+    "precision_score": 0.76,
+    "explainability_score": 0.88,
+    "compliance_safety_score": 0.92,
+    "outcome_relevance_score": 0.58
+  },
+  "permissioning": {
+    "consent_mechanism": "public_record_plus_engagement_opt_in",
+    "usage_rights": "political_advertising_and_civic_engagement_only",
+    "permitted_uses": [
+      "political_campaign_advertising",
+      "ballot_initiative_campaigns",
+      "voter_registration_drives",
+      "civic_engagement_outreach",
+      "get_out_the_vote_efforts",
+      "political_issue_advocacy"
+    ],
+    "prohibited_uses": [
+      "voter_suppression",
+      "misleading_political_claims",
+      "discriminatory_targeting_by_protected_class",
+      "foreign_interference_in_elections",
+      "circumventing_campaign_finance_laws",
+      "commercial_non_political_advertising",
+      "voter_intimidation"
+    ],
+    "data_retention_days": 1095,
+    "record_retention_requirement": "3_years_for_public_inspection",
+    "geographic_restrictions": [
+      "federal_and_state_election_law_compliance_required",
+      "disclosure_requirements_vary_by_jurisdiction"
+    ],
+    "transparency_requirements": "mandatory_public_disclosure_of_political_advertising"
+  },
+  "governance": {
+    "category": "regulated",
+    "subcategory": "political_advertising",
+    "human_approval_required": true,
+    "approval_workflow": "legal_election_law_compliance_fairness_disclosure_review",
+    "audit_required": true,
+    "audit_frequency": "per_activation_plus_ongoing_monitoring_plus_post_election",
+    "risk_level": "high",
+    "compliance_frameworks": [
+      "FECA_Federal_Election_Campaign_Act",
+      "FEC_Internet_Communications_Regulations",
+      "State_Election_Laws_Varies",
+      "EU_Political_Advertising_Transparency",
+      "Platform_Specific_Political_Ad_Policies"
+    ],
+    "policy_references": [
+      {
+        "policy_name": "Federal Election Campaign Act",
+        "policy_url": "https://www.fec.gov/legal-resources/federal-election-campaign-laws/",
+        "applies_to_markets": ["US"]
+      },
+      {
+        "policy_name": "FEC Regulations on Internet Communications",
+        "policy_url": "https://www.fec.gov/legal-resources/regulations/",
+        "applies_to_markets": ["US"]
+      },
+      {
+        "policy_name": "California Political Cyberfraud Abatement Act",
+        "policy_url": "https://leginfo.legislature.ca.gov/",
+        "applies_to_markets": ["US-CA"]
+      },
+      {
+        "policy_name": "EU Transparency of Political Advertising Regulation",
+        "policy_url": "https://ec.europa.eu/",
+        "applies_to_markets": ["EU"]
+      }
+    ],
+    "approval_requirements": {
+      "every_activation": [
+        "legal_review_federal_state_election_law",
+        "disclosure_transparency_verification",
+        "content_review_false_misleading_claims",
+        "fairness_review_no_discriminatory_targeting",
+        "documentation_for_public_inspection"
+      ],
+      "lead_time": "5_business_days",
+      "expedited_available": false
+    },
+    "disclosure_requirements": {
+      "paid_for_by_disclaimer": "mandatory_all_ads",
+      "funding_source_disclosure": "required_if_over_threshold",
+      "record_keeping": "3_years_public_inspection",
+      "transparency_reporting": "periodic_reports_to_authorities"
+    },
+    "market_restrictions": {
+      "blackout_periods": "varies_by_jurisdiction",
+      "contribution_limits": "must_comply_with_campaign_finance_laws",
+      "foreign_nationals": "prohibited_from_political_advertising_us"
+    },
+    "fairness_standards": {
+      "no_discriminatory_targeting": "prohibited_by_race_religion_national_origin",
+      "no_voter_suppression": "zero_tolerance",
+      "no_intimidation": "zero_tolerance",
+      "truthfulness": "no_knowingly_false_claims"
+    }
+  },
+  "coverage": {
+    "scale": "large",
+    "estimated_reach": 28000000,
+    "geographic_markets": [
+      "US"
+    ],
+    "voter_characteristics": {
+      "voter_status": "registered_voters_verified",
+      "age_range": "18_plus_voting_age",
+      "engagement_indicators": [
+        "voting_history_public_record",
+        "civic_content_engagement",
+        "political_event_participation",
+        "voter_registration_recency"
+      ],
+      "propensity_models": [
+        "high_propensity_voters",
+        "medium_propensity_voters",
+        "newly_registered_voters",
+        "infrequent_voters"
+      ]
+    },
+    "geographic_granularity": [
+      "state",
+      "congressional_district",
+      "state_legislative_district",
+      "county",
+      "precinct"
+    ],
+    "refresh_rate": "monthly_plus_pre_election_updates",
+    "average_segment_size": 250000
+  },
+  "political_details": {
+    "voter_data_points": [
+      "voter_registration_status",
+      "voting_history_frequency_public_record",
+      "registered_address_district",
+      "voter_propensity_score",
+      "civic_engagement_indicators"
+    ],
+    "targeting_capabilities": [
+      "geographic_district_level",
+      "voter_propensity_high_medium_low",
+      "civic_engagement_level",
+      "registration_recency",
+      "voting_history_frequency"
+    ],
+    "prohibited_targeting": [
+      "race_or_ethnicity",
+      "religion",
+      "national_origin",
+      "gender_for_discriminatory_purposes",
+      "any_protected_class_characteristic"
+    ],
+    "use_case_types": [
+      "candidate_campaigns_federal_state_local",
+      "ballot_initiatives_referendums",
+      "issue_advocacy_campaigns",
+      "voter_registration_drives_non_partisan",
+      "get_out_the_vote_efforts",
+      "political_party_communications"
+    ]
+  },
+  "verification": {
+    "verification_method": "voter_registration_verification_plus_compliance_audit",
+    "last_verified": "2026-04-01T00:00:00Z",
+    "verification_frequency": "quarterly_plus_pre_election",
+    "third_party_auditor": "Election Law Compliance Group",
+    "audit_report_url": "https://civicdata.example.com/audits/election-compliance-q1-2026.pdf",
+    "certifications": [
+      "State_Voter_File_Vendor_Certified",
+      "Campaign_Finance_Compliant"
+    ]
+  },
+  "technical": {
+    "activation_endpoint": "https://api.civicdata.example.com/v1/signals/voter-engagement-political/activate",
+    "authentication_method": "oauth2_with_political_advertiser_verification",
+    "supported_formats": [
+      "json",
+      "csv"
+    ],
+    "integration_documentation_url": "https://docs.civicdata.example.com/signals/political",
+    "api_version": "1.0",
+    "supported_id_types": [
+      "hashed_email_sha256",
+      "hashed_address",
+      "voter_id_hashed"
+    ],
+    "match_rate_average": 0.74,
+    "rate_limits": {
+      "requests_per_minute": 50,
+      "requests_per_day": 5000
+    },
+    "delivery_format": "segment_id_or_voter_list",
+    "political_verification": {
+      "advertiser_identity_verification": "required",
+      "legitimacy_verification": "required",
+      "funding_source_verification": "required_if_applicable"
+    }
+  },
+  "transparency": {
+    "explainability": "very_high",
+    "explanation": "This signal identifies registered voters based on public voter registration records and civic engagement indicators. Voter registration status, address, and voting history are public records in most US jurisdictions. Additional engagement data (civic content, political events) is collected with opt-in consent. Data is used exclusively for political advertising and civic engagement purposes. All usage is subject to election law disclosure requirements. Advertisers must identify themselves and disclose funding sources. Records are retained for 3 years for public inspection as required by law.",
+    "methodology_url": "https://civicdata.example.com/methodology/voter-signals",
+    "sample_signals_available": false,
+    "public_records_disclosure": "https://civicdata.example.com/public-records-policy",
+    "transparency_portal": "https://transparency.civicdata.example.com",
+    "ad_archive": "https://civicdata.example.com/political-ad-archive"
+  },
+  "pricing": {
+    "cpm_range": {
+      "min": 6.00,
+      "max": 22.00,
+      "currency": "USD"
+    },
+    "pricing_model": "cpm_variable_by_election_cycle",
+    "pricing_factors": [
+      "proximity_to_election_day_prices_increase",
+      "voter_propensity_high_propensity_premium",
+      "geographic_competitiveness",
+      "segment_size_and_specificity"
+    ],
+    "pricing_notes": "Prices spike in final weeks before elections due to demand. Early booking recommended.",
+    "pricing_url": "https://civicdata.example.com/pricing/political"
+  },
+  "performance_history": {
+    "historical_performance_available": true,
+    "performance_metrics_url": "https://civicdata.example.com/performance/political",
+    "average_ctr": 0.006,
+    "voter_turnout_lift_vs_control": 0.055,
+    "persuasion_effect": 0.08,
+    "volunteer_recruitment_rate": 0.03,
+    "attribution_model": "voter_file_matching_post_election",
+    "campaigns_run_2024_cycle": 187,
+    "note": "ROI_measured_in_votes_not_revenue"
+  },
+  "data_hygiene": {
+    "deduplication_method": "voter_registration_id_and_address_matching",
+    "invalid_traffic_filtering": true,
+    "bot_detection": "standard",
+    "fraud_prevention": "identity_verification_and_anomaly_detection",
+    "data_accuracy": "verified_against_official_voter_files",
+    "data_quality_score": 0.87,
+    "voter_file_updates": "monthly_from_official_sources"
+  },
+  "use_case_guidelines": {
+    "appropriate_use_cases": [
+      "legitimate_political_campaigns_candidates",
+      "ballot_initiative_advocacy",
+      "non_partisan_voter_registration",
+      "get_out_the_vote_efforts",
+      "political_party_communications",
+      "issue_advocacy_campaigns",
+      "civic_engagement_initiatives"
+    ],
+    "prohibited_use_cases": [
+      "voter_suppression_tactics",
+      "voter_intimidation",
+      "spreading_election_misinformation",
+      "false_claims_about_candidates",
+      "discriminatory_targeting_by_protected_class",
+      "foreign_interference_in_us_elections",
+      "circumventing_campaign_finance_laws",
+      "commercial_advertising_non_political"
+    ],
+    "messaging_requirements": {
+      "must_include": [
+        "paid_for_by_disclaimer",
+        "clear_identification_of_sponsor",
+        "truthful_factual_claims",
+        "funding_source_if_required"
+      ],
+      "must_avoid": [
+        "false_misleading_information",
+        "voter_intimidation",
+        "suppression_tactics",
+        "impersonation_of_officials",
+        "fake_news_disinformation"
+      ]
+    },
+    "ethical_standards": "Political advertising must support democratic participation, provide truthful information, and respect voter autonomy. No tactics that undermine faith in democratic process."
+  },
+  "metadata": {
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2026-05-01T00:00:00Z",
+    "version": "3.0",
+    "tags": [
+      "political",
+      "voter_engagement",
+      "election",
+      "civic",
+      "regulated",
+      "disclosure_required",
+      "public_records"
+    ],
+    "supported_languages": [
+      "en",
+      "es"
+    ],
+    "election_cycle": "2026_midterm_elections"
+  }
+}

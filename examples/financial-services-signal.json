@@ -1,0 +1,332 @@
+{
+  "protocol": "opensignals",
+  "version": "0.1",
+  "signal_id": "high-value-financial-customer",
+  "name": "High-Value Financial Services Customer Signal",
+  "signal_type": "audience",
+  "status": "active",
+  "description": "Premium audience signal identifying authenticated banking customers with indicators of wealth, investment activity, and financial product interest. Built from first-party banking relationship data, aggregated transaction patterns, and financial product engagement. Designed for high-value customer acquisition with strict privacy controls and compliance oversight.",
+  "owner": {
+    "organization": "PremiumBank Financial Network",
+    "contact": "signals@premiumbank.example.com",
+    "compliance_officer": "compliance@premiumbank.example.com",
+    "privacy_officer": "privacy@premiumbank.example.com"
+  },
+  "provider": {
+    "name": "PremiumBank Financial Network",
+    "url": "https://premiumbank.example.com",
+    "privacy_policy_url": "https://premiumbank.example.com/privacy",
+    "terms_of_service_url": "https://premiumbank.example.com/terms"
+  },
+  "provenance": {
+    "data_sources": [
+      "first_party_banking_relationships",
+      "aggregated_transaction_indicators",
+      "financial_product_engagement",
+      "wealth_management_tier_status"
+    ],
+    "collection_method": "authenticated_customer_data_aggregated",
+    "last_updated": "2026-05-04T00:00:00Z",
+    "update_frequency": "weekly",
+    "lookback_period_days": 90,
+    "aggregation_method": "privacy_preserving_cohort_level",
+    "chain_of_custody": [
+      {
+        "entity": "PremiumBank Core Banking System",
+        "role": "data_collector",
+        "timestamp": "2026-05-01T00:00:00Z"
+      },
+      {
+        "entity": "PremiumBank Data Privacy Platform",
+        "role": "data_anonymizer",
+        "timestamp": "2026-05-02T00:00:00Z"
+      },
+      {
+        "entity": "PremiumBank Compliance Review",
+        "role": "compliance_verifier",
+        "timestamp": "2026-05-03T00:00:00Z"
+      },
+      {
+        "entity": "PremiumBank Financial Network",
+        "role": "signal_provider",
+        "timestamp": "2026-05-04T00:00:00Z"
+      }
+    ]
+  },
+  "quality": {
+    "overall_trust_score": 0.89,
+    "coverage_score": 0.71,
+    "freshness_score": 0.92,
+    "precision_score": 0.95,
+    "explainability_score": 0.87,
+    "compliance_safety_score": 0.98,
+    "outcome_relevance_score": 0.86
+  },
+  "permissioning": {
+    "consent_mechanism": "explicit_opt_in_with_financial_disclosures",
+    "consent_framework": "custom_financial_services_consent",
+    "consent_capture_method": "account_opening_and_privacy_center",
+    "usage_rights": "commercial_advertising_high_value_products_only",
+    "permitted_uses": [
+      "financial_services_marketing",
+      "luxury_goods_targeting",
+      "premium_services_acquisition",
+      "high_value_product_promotion"
+    ],
+    "prohibited_uses": [
+      "credit_decisioning",
+      "lending_underwriting",
+      "employment_screening",
+      "insurance_underwriting",
+      "predatory_targeting",
+      "discriminatory_practices",
+      "third_party_data_sale",
+      "cross_context_tracking"
+    ],
+    "data_retention_days": 365,
+    "geographic_restrictions": [
+      "gdpr_article_9_compliance_for_eu",
+      "glba_compliance_for_us",
+      "fcra_adherence_required"
+    ],
+    "right_to_deletion": true,
+    "right_to_opt_out": true,
+    "right_to_access": true
+  },
+  "governance": {
+    "category": "regulated",
+    "subcategory": "financial_services",
+    "human_approval_required": true,
+    "approval_workflow": "legal_compliance_privacy_risk_executive_review",
+    "audit_required": true,
+    "audit_frequency": "per_activation_plus_monthly",
+    "risk_level": "high",
+    "compliance_frameworks": [
+      "GLBA_Gramm_Leach_Bliley_Act",
+      "FCRA_Fair_Credit_Reporting_Act",
+      "SOX_Sarbanes_Oxley",
+      "GDPR_Article_9",
+      "FCA_Financial_Conduct_Authority_UK",
+      "PCI_DSS"
+    ],
+    "policy_references": [
+      {
+        "policy_name": "GLBA Privacy Rule",
+        "policy_url": "https://www.ftc.gov/business-guidance/privacy-security/gramm-leach-bliley-act",
+        "applies_to_markets": ["US"]
+      },
+      {
+        "policy_name": "FCRA Section 604 - Permissible Purposes",
+        "policy_url": "https://www.ftc.gov/legal-library/browse/statutes/fair-credit-reporting-act",
+        "applies_to_markets": ["US"]
+      },
+      {
+        "policy_name": "GDPR Article 9 - Special Category Data",
+        "policy_url": "https://gdpr-info.eu/art-9-gdpr/",
+        "applies_to_markets": ["EU", "GB"]
+      },
+      {
+        "policy_name": "FCA Handbook - Financial Promotions",
+        "policy_url": "https://www.handbook.fca.org.uk/handbook/COBS/4/",
+        "applies_to_markets": ["GB"]
+      }
+    ],
+    "approval_requirements": {
+      "first_activation": [
+        "legal_team_review",
+        "compliance_officer_approval",
+        "privacy_team_assessment",
+        "risk_management_signoff",
+        "senior_executive_approval"
+      ],
+      "subsequent_activations": [
+        "compliance_officer_verification",
+        "privacy_spot_check"
+      ]
+    },
+    "market_restrictions": {
+      "prohibited_uses_by_market": {
+        "US": [
+          "credit_decisions_without_FCRA_compliance",
+          "employment_screening"
+        ],
+        "EU": [
+          "automated_decision_making_without_consent",
+          "profiling_for_discriminatory_purposes"
+        ]
+      }
+    }
+  },
+  "coverage": {
+    "scale": "small_exclusive",
+    "estimated_reach": 450000,
+    "geographic_markets": [
+      "US",
+      "GB",
+      "CH",
+      "SG",
+      "HK"
+    ],
+    "audience_characteristics": {
+      "wealth_tier": "high_net_worth_individuals",
+      "age_range": "35-70",
+      "banking_relationship": "premium_tier_or_private_banking",
+      "investment_activity": "active",
+      "household_income_index": 250
+    },
+    "refresh_rate": "weekly",
+    "average_segment_size": 45000,
+    "exclusivity": "highly_selective"
+  },
+  "financial_details": {
+    "wealth_indicators": [
+      "premium_banking_tier_status",
+      "investment_portfolio_presence",
+      "wealth_management_engagement",
+      "high_value_transaction_patterns_aggregated",
+      "mortgage_loan_product_holdings",
+      "credit_card_premium_tier"
+    ],
+    "financial_behaviors": [
+      "active_investment_trading",
+      "financial_advisor_consultations",
+      "wealth_planning_engagement",
+      "premium_financial_product_usage"
+    ],
+    "intent_strength_levels": [
+      "high_financial_capacity",
+      "active_wealth_management",
+      "premium_product_interest"
+    ],
+    "minimum_relationship_value": "confidential",
+    "average_customer_lifetime_value_multiple": 5.8,
+    "data_aggregation": "cohort_level_to_protect_individual_privacy"
+  },
+  "verification": {
+    "verification_method": "internal_audit_and_third_party_compliance_review",
+    "last_verified": "2026-04-15T00:00:00Z",
+    "verification_frequency": "quarterly",
+    "third_party_auditor": "Financial Data Compliance Partners",
+    "audit_report_url": "https://premiumbank.example.com/audits/financial-signal-q1-2026.pdf",
+    "certifications": [
+      "SOC_2_Type_II",
+      "ISO_27001_Certified",
+      "PCI_DSS_Level_1"
+    ]
+  },
+  "technical": {
+    "activation_endpoint": "https://api.premiumbank.example.com/v2/signals/high-value-financial-customer/activate",
+    "authentication_method": "oauth2_with_mfa",
+    "supported_formats": [
+      "json"
+    ],
+    "integration_documentation_url": "https://docs.premiumbank.example.com/signals/financial-customer",
+    "api_version": "2.0",
+    "supported_id_types": [
+      "hashed_email_sha256",
+      "secure_customer_id"
+    ],
+    "match_rate_average": 0.65,
+    "rate_limits": {
+      "requests_per_minute": 20,
+      "requests_per_day": 1000
+    },
+    "delivery_format": "secure_segment_id_only",
+    "security_requirements": {
+      "tls_version": "1.3_minimum",
+      "encryption": "end_to_end_required",
+      "audit_logging": "comprehensive_all_access"
+    }
+  },
+  "transparency": {
+    "explainability": "high",
+    "explanation": "This signal identifies customers of premium banking services who have demonstrated wealth indicators and financial product engagement. Data is aggregated from first-party banking relationships with explicit customer consent. Indicators include premium tier status, investment activity, wealth management engagement, and financial product holdings. All data is anonymized and aggregated to protect individual privacy. Customers have explicitly consented to marketing communications for high-value products and services. No credit decisioning, employment, or insurance underwriting is permitted.",
+    "methodology_url": "https://premiumbank.example.com/methodology/financial-customer-signals",
+    "sample_signals_available": false,
+    "user_transparency_portal": "https://privacy.premiumbank.example.com/my-data",
+    "user_can_view_own_data": true,
+    "user_can_opt_out": true,
+    "user_can_delete_data": true
+  },
+  "pricing": {
+    "cpm_range": {
+      "min": 25.00,
+      "max": 60.00,
+      "currency": "USD"
+    },
+    "pricing_model": "cpm_tiered_by_wealth_indicators",
+    "pricing_tiers": [
+      {
+        "tier": "ultra_high_net_worth",
+        "cpm": 60.00
+      },
+      {
+        "tier": "high_net_worth",
+        "cpm": 40.00
+      },
+      {
+        "tier": "affluent_investor",
+        "cpm": 25.00
+      }
+    ],
+    "minimum_campaign_budget_usd": 50000,
+    "pricing_url": "https://premiumbank.example.com/advertising/pricing"
+  },
+  "performance_history": {
+    "historical_performance_available": true,
+    "performance_metrics_url": "https://premiumbank.example.com/performance/financial-customer",
+    "average_ctr_vs_benchmark": 1.8,
+    "average_lead_quality_multiple": 4.2,
+    "average_conversion_rate": 0.028,
+    "average_transaction_value_usd": 85000,
+    "campaigns_run_last_90_days": 23
+  },
+  "data_hygiene": {
+    "deduplication_method": "secure_customer_id_graph",
+    "invalid_traffic_filtering": true,
+    "bot_detection": "advanced_ml_based",
+    "fraud_prevention": "multi_layer_financial_fraud_detection",
+    "pii_handling": "encrypted_hashed_secure_key_management",
+    "data_quality_score": 0.96
+  },
+  "use_case_guidelines": {
+    "appropriate_use_cases": [
+      "wealth_management_services",
+      "private_banking_acquisition",
+      "luxury_automotive_over_100k",
+      "premium_real_estate",
+      "high_end_travel_services",
+      "executive_education",
+      "art_collectibles",
+      "luxury_goods_over_5k"
+    ],
+    "prohibited_use_cases": [
+      "consumer_lending",
+      "credit_card_offers_with_credit_decision",
+      "employment_opportunities",
+      "insurance_products",
+      "any_discriminatory_targeting",
+      "predatory_financial_products",
+      "high_risk_investments_to_unsuitable_customers"
+    ],
+    "ethical_guidelines": "Target only products/services appropriate for high-net-worth individuals. No exploitation of financial status. Transparent pricing and value proposition required."
+  },
+  "metadata": {
+    "created_at": "2025-08-01T00:00:00Z",
+    "updated_at": "2026-05-04T00:00:00Z",
+    "version": "2.1",
+    "tags": [
+      "financial_services",
+      "high_net_worth",
+      "regulated",
+      "premium",
+      "first_party",
+      "high_trust",
+      "wealth_management",
+      "exclusive"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  }
+}

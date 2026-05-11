@@ -1,0 +1,387 @@
+{
+  "protocol": "opensignals",
+  "version": "0.1",
+  "signal_id": "coppa-compliant-family-content",
+  "name": "COPPA-Compliant Family Content Signal",
+  "signal_type": "contextual",
+  "status": "active",
+  "description": "Strictly contextual signal identifying family-friendly content environments that are COPPA-compliant and safe for child audiences. Zero behavioral tracking, no profiling, no persistent identifiers for users under 13, and strict content safety standards. Enables brands to reach family audiences without collecting data on children. Page-level context only with mandatory age-gating.",
+  "owner": {
+    "organization": "SafeFamily Media Network",
+    "contact": "signals@safefamily.example.com",
+    "child_safety_officer": "childsafety@safefamily.example.com",
+    "compliance_officer": "compliance@safefamily.example.com"
+  },
+  "provider": {
+    "name": "SafeFamily Media Network",
+    "url": "https://safefamily.example.com",
+    "privacy_policy_url": "https://safefamily.example.com/privacy",
+    "terms_of_service_url": "https://safefamily.example.com/terms"
+  },
+  "provenance": {
+    "data_sources": [
+      "page_level_content_analysis",
+      "editorial_classification",
+      "content_rating_systems",
+      "publisher_content_declarations"
+    ],
+    "collection_method": "contextual_page_analysis_no_user_tracking",
+    "last_updated": "2026-05-11T00:00:00Z",
+    "update_frequency": "daily_with_realtime_safety_checks",
+    "chain_of_custody": [
+      {
+        "entity": "Publisher Content Management",
+        "role": "content_provider",
+        "timestamp": "2026-05-11T00:00:00Z"
+      },
+      {
+        "entity": "SafeFamily Content Analysis",
+        "role": "content_classifier",
+        "timestamp": "2026-05-11T01:00:00Z"
+      },
+      {
+        "entity": "Child Safety Review Team",
+        "role": "safety_verifier",
+        "timestamp": "2026-05-11T02:00:00Z"
+      },
+      {
+        "entity": "SafeFamily Media Network",
+        "role": "signal_provider",
+        "timestamp": "2026-05-11T03:00:00Z"
+      }
+    ]
+  },
+  "quality": {
+    "overall_trust_score": 0.82,
+    "coverage_score": 0.74,
+    "freshness_score": 0.88,
+    "precision_score": 0.86,
+    "explainability_score": 0.91,
+    "compliance_safety_score": 0.98,
+    "outcome_relevance_score": 0.72
+  },
+  "permissioning": {
+    "consent_mechanism": "not_applicable_contextual_no_user_data",
+    "usage_rights": "commercial_advertising_family_products_only",
+    "permitted_uses": [
+      "contextual_targeting_family_content",
+      "age_appropriate_product_advertising",
+      "family_oriented_brand_campaigns",
+      "educational_product_promotion"
+    ],
+    "prohibited_uses": [
+      "behavioral_tracking_of_any_users",
+      "personal_information_collection_from_children",
+      "persistent_identifiers_for_users_under_13",
+      "profiling_any_family_members",
+      "cross_site_tracking",
+      "age_misrepresentation",
+      "circumventing_coppa_protections",
+      "inappropriate_content_adjacency"
+    ],
+    "data_retention_days": 0,
+    "data_collection": "none_contextual_only",
+    "geographic_restrictions": [
+      "coppa_compliance_required_us",
+      "gdpr_k_compliance_eu",
+      "aadc_compliance_uk",
+      "global_child_privacy_protections"
+    ]
+  },
+  "governance": {
+    "category": "restricted",
+    "subcategory": "children_privacy",
+    "human_approval_required": true,
+    "approval_workflow": "child_safety_legal_compliance_creative_review",
+    "audit_required": true,
+    "audit_frequency": "per_activation_plus_weekly_monitoring",
+    "risk_level": "high",
+    "zero_tolerance_policy": true,
+    "compliance_frameworks": [
+      "COPPA_Children_Online_Privacy_Protection_Act",
+      "GDPR_K_Children_Protections",
+      "AADC_Age_Appropriate_Design_Code_UK",
+      "CCPA_Minors_Provisions",
+      "YouTube_Kids_Guidelines",
+      "ESRB_Advertising_Guidelines",
+      "CARU_Children_Advertising_Review_Unit"
+    ],
+    "policy_references": [
+      {
+        "policy_name": "COPPA Rule",
+        "policy_url": "https://www.ftc.gov/legal-library/browse/rules/childrens-online-privacy-protection-rule-coppa",
+        "applies_to_markets": ["US"]
+      },
+      {
+        "policy_name": "GDPR Article 8 - Child Consent",
+        "policy_url": "https://gdpr-info.eu/art-8-gdpr/",
+        "applies_to_markets": ["EU"]
+      },
+      {
+        "policy_name": "UK Age Appropriate Design Code",
+        "policy_url": "https://ico.org.uk/for-organisations/guide-to-data-protection/ico-codes-of-practice/age-appropriate-design-a-code-of-practice-for-online-services/",
+        "applies_to_markets": ["GB"]
+      },
+      {
+        "policy_name": "CARU Advertising Guidelines",
+        "policy_url": "https://bbbprograms.org/programs/all-programs/caru",
+        "applies_to_markets": ["US"]
+      }
+    ],
+    "approval_requirements": {
+      "every_activation": [
+        "child_safety_officer_review",
+        "legal_coppa_compliance_verification",
+        "creative_age_appropriateness_review",
+        "content_suitability_check",
+        "age_gating_verification"
+      ],
+      "ongoing": [
+        "weekly_content_safety_audits",
+        "realtime_policy_violation_monitoring",
+        "parent_feedback_review"
+      ]
+    },
+    "absolute_prohibitions": [
+      "no_behavioral_tracking_users_under_13",
+      "no_personal_information_collection_without_verifiable_parental_consent",
+      "no_persistent_identifiers_cookies_users_under_13",
+      "no_age_misrepresentation",
+      "no_circumvention_of_age_gates",
+      "no_targeting_based_on_user_data",
+      "no_inappropriate_content_adjacency"
+    ],
+    "content_safety_standards": {
+      "required_content_rating": "G_rated_or_equivalent",
+      "prohibited_content_categories": [
+        "violence",
+        "mature_themes",
+        "sexual_content",
+        "profanity",
+        "frightening_content",
+        "alcohol_drugs_tobacco",
+        "gambling",
+        "dangerous_activities"
+      ],
+      "required_content_categories": [
+        "educational",
+        "entertainment_age_appropriate",
+        "family_activities",
+        "parenting_resources"
+      ]
+    }
+  },
+  "coverage": {
+    "scale": "medium",
+    "estimated_reach": 22000000,
+    "geographic_markets": [
+      "US",
+      "GB",
+      "CA",
+      "AU",
+      "DE",
+      "FR",
+      "ES"
+    ],
+    "content_environments": {
+      "content_types": [
+        "children_entertainment",
+        "educational_content",
+        "parenting_resources",
+        "family_activities",
+        "child_development_content"
+      ],
+      "platform_types": [
+        "family_streaming_services",
+        "educational_websites",
+        "parenting_blogs",
+        "children_content_platforms",
+        "family_entertainment_sites"
+      ],
+      "age_appropriateness": "ages_2_12_with_parent_decision_making",
+      "content_ratings": [
+        "G_General_Audiences",
+        "TV_Y_All_Children",
+        "TV_Y7_Directed_Older_Children",
+        "E_Everyone_ESRB"
+      ]
+    },
+    "publisher_count": 285,
+    "inventory_types": [
+      "display",
+      "video",
+      "native"
+    ]
+  },
+  "content_details": {
+    "classification_method": "automated_nlp_plus_human_review",
+    "content_categories": [
+      "animated_entertainment",
+      "educational_games",
+      "children_books_stories",
+      "family_movies",
+      "learning_activities",
+      "parenting_advice",
+      "child_development",
+      "family_recipes",
+      "craft_activities"
+    ],
+    "safety_verification": {
+      "automated_content_analysis": true,
+      "human_safety_review": true,
+      "ongoing_monitoring": "realtime",
+      "parent_feedback_integration": true,
+      "third_party_safety_certification": "Common Sense Media approved"
+    },
+    "age_gating": {
+      "age_gate_required": "mandatory_all_placements",
+      "age_verification_method": "age_screen_before_content",
+      "fallback_for_failed_verification": "no_ad_display"
+    }
+  },
+  "verification": {
+    "verification_method": "child_safety_audit_and_content_review",
+    "last_verified": "2026-05-01T00:00:00Z",
+    "verification_frequency": "weekly",
+    "third_party_auditor": "Child Safety Media Verification",
+    "audit_report_url": "https://safefamily.example.com/audits/child-safety-may-2026.pdf",
+    "certifications": [
+      "COPPA_Safe_Harbor_Approved",
+      "Common_Sense_Media_Certified",
+      "CARU_Compliant",
+      "kidSAFE_Seal_Certified"
+    ]
+  },
+  "technical": {
+    "activation_endpoint": "https://api.safefamily.example.com/v1/signals/coppa-compliant-family-content/activate",
+    "authentication_method": "api_key_with_coppa_attestation",
+    "supported_formats": [
+      "json"
+    ],
+    "integration_documentation_url": "https://docs.safefamily.example.com/signals/family-content",
+    "api_version": "1.0",
+    "targeting_method": "contextual_page_level_only",
+    "user_data_collection": "none_zero_user_data",
+    "rate_limits": {
+      "requests_per_minute": 80,
+      "requests_per_day": 8000
+    },
+    "age_gating_enforcement": {
+      "method": "mandatory_technical_control",
+      "verification": "pre_ad_display",
+      "fallback": "no_ad_if_verification_fails"
+    },
+    "tracking_prevention": {
+      "cookies": "no_persistent_cookies_for_users_under_13",
+      "device_fingerprinting": "prohibited",
+      "cross_site_tracking": "prohibited",
+      "behavioral_signals": "none_collected"
+    }
+  },
+  "transparency": {
+    "explainability": "very_high",
+    "explanation": "This signal identifies page-level content that is suitable for family audiences and compliant with children's privacy laws. Content is classified based on publisher declarations, content rating systems (G, TV-Y, E), and automated + human content analysis. NO user data is collected or used. NO behavioral tracking occurs. NO persistent identifiers are placed on devices for users under 13. Targeting is purely contextual based on content suitability. All placements are age-gated to prevent inappropriate exposure. Parents maintain full control through age verification screens.",
+    "methodology_url": "https://safefamily.example.com/methodology/family-content-classification",
+    "sample_signals_available": true,
+    "sample_signals_url": "https://safefamily.example.com/samples/family-content",
+    "parent_transparency": {
+      "parent_information_page": "https://safefamily.example.com/for-parents",
+      "privacy_controls": "age_gating_and_content_filtering",
+      "feedback_mechanism": "parent_feedback_portal"
+    }
+  },
+  "pricing": {
+    "cpm_range": {
+      "min": 8.00,
+      "max": 18.00,
+      "currency": "USD"
+    },
+    "pricing_model": "cpm_with_compliance_and_safety_verification",
+    "pricing_factors": [
+      "seasonal_demand_holidays_back_to_school",
+      "content_exclusivity",
+      "publisher_quality",
+      "age_specificity"
+    ],
+    "pricing_url": "https://safefamily.example.com/pricing/family-content"
+  },
+  "performance_history": {
+    "historical_performance_available": true,
+    "performance_metrics_url": "https://safefamily.example.com/performance/family-content",
+    "average_ctr": 0.009,
+    "brand_awareness_lift": "strong_qualitative",
+    "seasonal_performance": {
+      "holiday_season": "peak_performance_november_december",
+      "back_to_school": "strong_august_september",
+      "summer": "moderate_june_august"
+    },
+    "safety_score": 0.998,
+    "parent_satisfaction_rating": 4.7,
+    "campaigns_run_last_90_days": 86
+  },
+  "brand_safety": {
+    "content_suitability_score": 0.998,
+    "policy_violation_rate": 0.002,
+    "parent_complaint_rate": 0.001,
+    "safety_monitoring": "realtime_with_immediate_removal",
+    "incident_response_time": "under_2_hours"
+  },
+  "use_case_guidelines": {
+    "appropriate_use_cases": [
+      "toys_games_ages_appropriate",
+      "children_books_educational_materials",
+      "family_entertainment_streaming_services",
+      "children_clothing_accessories",
+      "family_restaurants",
+      "family_travel_destinations",
+      "educational_apps_programs",
+      "family_activities_events"
+    ],
+    "prohibited_use_cases": [
+      "products_not_appropriate_for_children",
+      "targeting_children_directly_for_purchase_decisions",
+      "collecting_personal_information_from_children",
+      "behavioral_advertising_to_families",
+      "age_inappropriate_products",
+      "violent_or_mature_content",
+      "gambling_alcohol_tobacco"
+    ],
+    "creative_requirements": {
+      "must_include": [
+        "age_appropriate_language",
+        "clear_simple_messaging",
+        "positive_values",
+        "parent_decision_making_acknowledged"
+      ],
+      "must_avoid": [
+        "pressure_tactics",
+        "creating_sense_of_urgency_for_children",
+        "exploiting_inexperience",
+        "undermining_parental_authority",
+        "inappropriate_imagery_or_themes"
+      ]
+    },
+    "ethical_standards": "All advertising must respect children's developmental stage and empower parent decision-making. No exploitation of children's trust or inexperience."
+  },
+  "metadata": {
+    "created_at": "2025-09-01T00:00:00Z",
+    "updated_at": "2026-05-11T00:00:00Z",
+    "version": "1.4",
+    "tags": [
+      "coppa_compliant",
+      "family_content",
+      "children_privacy",
+      "contextual_only",
+      "no_tracking",
+      "age_gated",
+      "safety_verified",
+      "restricted"
+    ],
+    "supported_languages": [
+      "en",
+      "es",
+      "fr",
+      "de"
+    ]
+  }
+}

@@ -1,0 +1,381 @@
+{
+  "protocol": "opensignals",
+  "version": "0.1",
+  "signal_id": "luxury-purchase-intent",
+  "name": "Luxury Purchase Intent Signal",
+  "signal_type": "commerce",
+  "status": "active",
+  "description": "Premium commerce signal identifying high-net-worth individuals with verified intent to purchase luxury goods and services. Built from first-party data from luxury retail networks, concierge services, premium travel bookings, and high-end lifestyle engagement. Focuses on ultra-premium market with transaction values exceeding $5,000. Features performance validation, brand alignment verification, and premium customer experience standards.",
+  "owner": {
+    "organization": "Luxury Commerce Alliance",
+    "contact": "signals@luxurycommerce.example.com",
+    "partnerships": "partnerships@luxurycommerce.example.com",
+    "privacy_officer": "privacy@luxurycommerce.example.com"
+  },
+  "provider": {
+    "name": "Luxury Commerce Alliance",
+    "url": "https://luxurycommerce.example.com",
+    "privacy_policy_url": "https://luxurycommerce.example.com/privacy",
+    "terms_of_service_url": "https://luxurycommerce.example.com/terms"
+  },
+  "provenance": {
+    "data_sources": [
+      "first_party_luxury_retail_transactions",
+      "premium_concierge_service_engagement",
+      "high_end_travel_bookings",
+      "luxury_brand_interactions",
+      "private_shopping_appointments"
+    ],
+    "collection_method": "authenticated_luxury_customer_activity",
+    "last_updated": "2026-05-11T02:00:00Z",
+    "update_frequency": "realtime_with_hourly_aggregation",
+    "lookback_period_days": 90,
+    "minimum_transaction_value": 5000,
+    "chain_of_custody": [
+      {
+        "entity": "Luxury Retail Partner Network",
+        "role": "data_collector",
+        "timestamp": "2026-05-11T00:00:00Z"
+      },
+      {
+        "entity": "Luxury Commerce Data Platform",
+        "role": "data_processor",
+        "timestamp": "2026-05-11T01:00:00Z"
+      },
+      {
+        "entity": "Brand Partnership Verification",
+        "role": "quality_assurance",
+        "timestamp": "2026-05-11T01:30:00Z"
+      },
+      {
+        "entity": "Luxury Commerce Alliance",
+        "role": "signal_provider",
+        "timestamp": "2026-05-11T02:00:00Z"
+      }
+    ]
+  },
+  "quality": {
+    "overall_trust_score": 0.93,
+    "coverage_score": 0.79,
+    "freshness_score": 0.96,
+    "precision_score": 0.97,
+    "explainability_score": 0.91,
+    "compliance_safety_score": 0.95,
+    "outcome_relevance_score": 0.94
+  },
+  "permissioning": {
+    "consent_mechanism": "explicit_opt_in_premium_customer_programs",
+    "consent_framework": "custom_luxury_commerce_with_gdpr_ccpa",
+    "consent_capture_method": "vip_program_enrollment_and_concierge_services",
+    "usage_rights": "commercial_advertising_luxury_premium_products_only",
+    "permitted_uses": [
+      "luxury_goods_targeting",
+      "premium_services_acquisition",
+      "high_value_product_promotion",
+      "vip_experience_marketing",
+      "exclusive_event_invitations"
+    ],
+    "prohibited_uses": [
+      "mass_market_advertising",
+      "budget_product_promotion",
+      "credit_decisioning",
+      "insurance_underwriting",
+      "employment_screening",
+      "discriminatory_targeting",
+      "third_party_data_sale",
+      "brand_misalignment"
+    ],
+    "data_retention_days": 730,
+    "geographic_restrictions": [
+      "gdpr_compliance_for_eu",
+      "ccpa_compliance_for_california"
+    ],
+    "right_to_deletion": true,
+    "right_to_opt_out": true,
+    "vip_privacy_protections": "enhanced_security_and_discretion"
+  },
+  "governance": {
+    "category": "commerce",
+    "subcategory": "luxury_high_value",
+    "human_approval_required": true,
+    "approval_workflow": "brand_partnership_creative_quality_placement_verification",
+    "audit_required": true,
+    "audit_frequency": "quarterly",
+    "risk_level": "medium",
+    "approval_requirements": {
+      "first_activation": [
+        "brand_partnership_verification",
+        "brand_alignment_assessment",
+        "creative_quality_review",
+        "placement_quality_verification",
+        "privacy_review_hnwi_data_handling",
+        "account_manager_approval"
+      ],
+      "subsequent_activations": "autonomous_after_first_approval"
+    },
+    "brand_standards": {
+      "minimum_product_value": 5000,
+      "brand_positioning": "luxury_premium_ultra_premium",
+      "creative_quality": "high_end_production_required",
+      "placement_quality": "premium_inventory_only"
+    },
+    "compliance_frameworks": [
+      "GDPR",
+      "CCPA",
+      "Luxury_Brand_Partnership_Standards"
+    ],
+    "policy_references": [
+      {
+        "policy_name": "GDPR Article 6 - Lawful Processing",
+        "policy_url": "https://gdpr-info.eu/art-6-gdpr/",
+        "applies_to_markets": ["EU", "GB"]
+      },
+      {
+        "policy_name": "CCPA Consumer Rights",
+        "policy_url": "https://oag.ca.gov/privacy/ccpa",
+        "applies_to_markets": ["US-CA"]
+      }
+    ]
+  },
+  "coverage": {
+    "scale": "small_exclusive",
+    "estimated_reach": 125000,
+    "geographic_markets": [
+      "US",
+      "GB",
+      "FR",
+      "IT",
+      "CH",
+      "AE",
+      "SG",
+      "HK",
+      "JP"
+    ],
+    "audience_characteristics": {
+      "wealth_tier": "high_net_worth_and_ultra_high_net_worth",
+      "age_range": "35-70",
+      "luxury_affinity": "established_luxury_consumers",
+      "average_transaction_value": 45000,
+      "household_income_index": 300,
+      "lifestyle_indicators": [
+        "luxury_retail_purchases",
+        "premium_travel",
+        "fine_dining",
+        "art_collecting",
+        "luxury_automotive",
+        "private_aviation"
+      ]
+    },
+    "refresh_rate": "realtime_hourly_aggregation",
+    "average_segment_size": 12500,
+    "exclusivity": "highly_selective_verified_luxury_consumers"
+  },
+  "luxury_details": {
+    "purchase_intent_indicators": [
+      "recent_luxury_brand_interactions",
+      "private_shopping_appointments",
+      "concierge_service_requests",
+      "vip_event_attendance",
+      "luxury_product_research",
+      "high_value_transaction_history"
+    ],
+    "luxury_categories": [
+      "haute_couture_fashion",
+      "fine_jewelry_watches",
+      "luxury_automotive_100k_plus",
+      "premium_real_estate",
+      "fine_art_collectibles",
+      "luxury_travel_private_aviation",
+      "high_end_home_furnishings",
+      "exclusive_experiences"
+    ],
+    "intent_strength_levels": [
+      "active_shopping_recent_7_days",
+      "high_intent_recent_30_days",
+      "browsing_intent_recent_90_days"
+    ],
+    "transaction_value_tiers": [
+      "ultra_luxury_100k_plus",
+      "super_premium_50k_100k",
+      "premium_5k_50k"
+    ],
+    "customer_lifetime_value": "exceptional_repeat_purchase_and_advocacy"
+  },
+  "verification": {
+    "verification_method": "transaction_verification_and_brand_partner_validation",
+    "last_verified": "2026-04-01T00:00:00Z",
+    "verification_frequency": "quarterly",
+    "third_party_auditor": "Luxury Commerce Verification Partners",
+    "audit_report_url": "https://luxurycommerce.example.com/audits/luxury-intent-q1-2026.pdf",
+    "certifications": [
+      "Luxury_Brand_Partnership_Certified",
+      "Privacy_Shield_Certified",
+      "ISO_27001_Information_Security"
+    ],
+    "performance_validation": "documented_luxury_purchase_outcomes"
+  },
+  "technical": {
+    "activation_endpoint": "https://api.luxurycommerce.example.com/v2/signals/luxury-purchase-intent/activate",
+    "authentication_method": "oauth2_with_brand_verification",
+    "supported_formats": [
+      "json"
+    ],
+    "integration_documentation_url": "https://docs.luxurycommerce.example.com/signals/luxury-intent",
+    "api_version": "2.0",
+    "supported_id_types": [
+      "hashed_email_sha256",
+      "secure_customer_id",
+      "luxury_loyalty_program_id"
+    ],
+    "match_rate_average": 0.68,
+    "rate_limits": {
+      "requests_per_minute": 30,
+      "requests_per_day": 2000
+    },
+    "delivery_format": "secure_segment_id",
+    "minimum_campaign_budget": 50000,
+    "security_requirements": {
+      "tls_version": "1.3",
+      "encryption": "end_to_end",
+      "audit_logging": "comprehensive",
+      "vip_data_protection": "enhanced_security_protocols"
+    }
+  },
+  "transparency": {
+    "explainability": "very_high",
+    "explanation": "This signal identifies authenticated customers of luxury retail and service networks who have demonstrated verified intent to purchase high-value luxury goods. Intent indicators include recent luxury brand interactions, private shopping appointments, concierge service engagement, VIP event participation, and documented high-value transaction history. All customers have explicitly consented to luxury brand marketing through VIP program enrollment and premium customer services. Data is first-party from luxury retail partners with transaction values exceeding $5,000. Signal is validated through actual luxury purchase outcomes.",
+    "methodology_url": "https://luxurycommerce.example.com/methodology/luxury-intent",
+    "sample_signals_available": false,
+    "user_transparency_portal": "https://privacy.luxurycommerce.example.com/vip-portal",
+    "user_can_view_own_data": true,
+    "user_can_opt_out": true,
+    "vip_service": "dedicated_privacy_concierge_available"
+  },
+  "pricing": {
+    "cpm_range": {
+      "min": 35.00,
+      "max": 85.00,
+      "currency": "USD"
+    },
+    "pricing_model": "cpm_tiered_by_intent_strength_and_transaction_value",
+    "pricing_tiers": [
+      {
+        "tier": "ultra_luxury_active_shopping",
+        "cpm": 85.00,
+        "characteristics": "recent_7_days_100k_plus_intent"
+      },
+      {
+        "tier": "super_premium_high_intent",
+        "cpm": 55.00,
+        "characteristics": "recent_30_days_50k_plus_intent"
+      },
+      {
+        "tier": "premium_browsing_intent",
+        "cpm": 35.00,
+        "characteristics": "recent_90_days_5k_plus_intent"
+      }
+    ],
+    "minimum_campaign_budget_usd": 50000,
+    "pricing_url": "https://luxurycommerce.example.com/advertising/pricing",
+    "value_justification": "transaction_values_justify_premium_cpms"
+  },
+  "performance_history": {
+    "historical_performance_available": true,
+    "performance_metrics_url": "https://luxurycommerce.example.com/performance/luxury-intent",
+    "average_ctr_vs_benchmark": 3.2,
+    "average_conversion_rate": 0.012,
+    "average_transaction_value_usd": 45000,
+    "average_roas": 28.5,
+    "customer_lifetime_value_multiple": 8.4,
+    "campaigns_run_last_90_days": 34,
+    "luxury_brand_satisfaction": 9.2,
+    "repeat_purchase_rate": 0.42
+  },
+  "data_hygiene": {
+    "deduplication_method": "luxury_customer_identity_graph",
+    "invalid_traffic_filtering": true,
+    "bot_detection": "advanced_ml_luxury_fraud_prevention",
+    "fraud_prevention": "multi_layer_transaction_verification",
+    "pii_handling": "encrypted_hashed_vip_level_security",
+    "data_quality_score": 0.97,
+    "transaction_verification": "all_purchases_verified_authentic"
+  },
+  "use_case_guidelines": {
+    "appropriate_use_cases": [
+      "luxury_watches_jewelry_over_5k",
+      "haute_couture_designer_fashion",
+      "luxury_automotive_100k_plus",
+      "fine_art_collectibles",
+      "premium_real_estate_1m_plus",
+      "private_aviation_luxury_travel",
+      "luxury_yachts_supercars",
+      "exclusive_experiences_vip_events",
+      "high_end_home_furnishings",
+      "luxury_hospitality_ultra_premium"
+    ],
+    "prohibited_use_cases": [
+      "mass_market_products",
+      "budget_discount_offerings",
+      "mid_market_positioning",
+      "non_luxury_brands",
+      "products_under_5k_value",
+      "brand_dilution_risk"
+    ],
+    "brand_alignment_requirements": {
+      "minimum_brand_positioning": "luxury_or_ultra_luxury",
+      "creative_quality": "high_end_production_values",
+      "messaging": "sophisticated_aspirational",
+      "placement": "premium_inventory_only",
+      "customer_experience": "white_glove_service_expected"
+    },
+    "creative_standards": {
+      "production_quality": "professional_luxury_brand_standards",
+      "imagery": "high_end_photography_videography",
+      "messaging": "sophisticated_understated_elegant",
+      "call_to_action": "personalized_concierge_private_appointment"
+    },
+    "ethical_standards": "Luxury marketing should emphasize craftsmanship, heritage, and exceptional value. No exploitation of status anxiety or predatory tactics."
+  },
+  "performance_optimization": {
+    "best_practices": [
+      "use_for_products_over_5k_transaction_value",
+      "long_attribution_windows_90_180_days",
+      "minimal_frequency_1_2_impressions",
+      "premium_creative_mandatory",
+      "personalized_landing_experiences",
+      "concierge_service_integration",
+      "vip_customer_service_readiness"
+    ],
+    "seasonal_patterns": {
+      "peak_seasons": [
+        "holiday_gifting_november_december",
+        "spring_fashion_march_april",
+        "summer_travel_june_august",
+        "cultural_events_art_basel_etc"
+      ],
+      "geographic_patterns": "asia_pacific_strong_luxury_growth"
+    }
+  },
+  "metadata": {
+    "created_at": "2025-03-01T00:00:00Z",
+    "updated_at": "2026-05-11T02:00:00Z",
+    "version": "2.5",
+    "tags": [
+      "luxury",
+      "high_net_worth",
+      "premium",
+      "first_party",
+      "high_value",
+      "exclusive",
+      "verified_intent",
+      "performance_validated"
+    ],
+    "supported_languages": [
+      "en",
+      "fr",
+      "it",
+      "ja",
+      "zh"
+    ]
+  }
+}
