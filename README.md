@@ -4,202 +4,166 @@
 [![Version](https://img.shields.io/badge/Version-0.1.0-brightgreen.svg)](CHANGELOG.md)
 [![Status](https://img.shields.io/badge/Status-Draft%20RFC-yellow.svg)](specs/opensignals-v0.1.md)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![GitHub Issues](https://img.shields.io/github/issues/Samrajtheailyceum/opensignals-protocol.svg)](https://github.com/Samrajtheailyceum/opensignals-protocol/issues)
-[![GitHub Stars](https://img.shields.io/github/stars/Samrajtheailyceum/opensignals-protocol.svg)](https://github.com/Samrajtheailyceum/opensignals-protocol/stargazers)
 
-OpenSignals Protocol is an open trust layer for advertising signals used by AI agents.
+OpenSignals Protocol is an open standard for signal trust verification in programmatic advertising. It provides machine-readable manifests for data quality, provenance, permissioning, and compliance assessment.
 
-It does not replace AdCP, AAMP, OpenRTB, OpenDirect, AdCOM or existing advertising infrastructure. Instead, it adds a standard way to declare, verify, score, permission and audit the signals that agents use when planning, buying and optimising media.
+**Purpose**: Enable programmatic buyers and AI agents to evaluate signal trust before activation.
 
-**AdCP helps agents discover and activate signals.**
+**Scope**: Signal-level trust verification. Does not replace signal discovery (AdCP), agent governance (AAMP), or real-time bidding (OpenRTB).
 
-**OpenSignals helps agents know which signals to trust.**
+---
 
-## Why OpenSignals?
+## Table of Contents
 
-The advertising industry is building infrastructure for AI agents to discover inventory, buy media and optimise campaigns. That infrastructure is necessary, but not sufficient.
+- [Overview](#overview)
+- [Protocol Tasks](#protocol-tasks)
+- [Trust Scoring Model](#trust-scoring-model)
+- [Integration](#integration)
+- [Implementation](#implementation)
+- [Specification](#specification)
+- [Examples](#examples)
+- [Contributing](#contributing)
 
-Before an advertising agent activates a signal, it needs to know:
+---
 
-- Is this signal **valid** for my brand, market and category?
-- Is this signal **permissioned** for this use case?
-- Is this signal **fresh** enough to rely on?
-- Can this signal be **explained** and **audited**?
-- Is this signal **safe** for regulated categories like alcohol, gambling or financial services?
-- Does this signal require **human approval** before activation?
+## Overview
 
-OpenSignals provides a standardised framework to answer these questions.
+### Problem Statement
 
-## Core Principle
+Programmatic advertising increasingly relies on third-party signals for targeting. Buyers need standardized methods to assess:
 
-**Every signal used by an advertising agent should be declared, permissioned, scored and auditable.**
+1. **Data Quality**: Coverage, precision, stability
+2. **Provenance**: Source transparency and chain of custody
+3. **Permissioning**: Consent scope and usage rights
+4. **Freshness**: Update frequency and staleness
+5. **Compliance**: Regulatory adherence (GDPR, CCPA, industry codes)
+6. **Auditability**: Ability to trace signal usage
 
-## Relationship to Existing Standards
+Currently, these assessments are:
+- Manual and non-standardized
+- Opaque to automated systems
+- Difficult to audit
+- Inconsistent across providers
 
-OpenSignals is designed to complement existing advertising standards and agentic protocols:
+### Solution
 
-### AdCP (Ad Context Protocol)
-AdCP provides signal discovery and activation through `get_signals` and `activate_signal` tasks. OpenSignals extends this by adding trust metadata that can be evaluated before activation.
+OpenSignals Protocol defines:
 
-**Relationship**: OpenSignals adds a trust verification layer that sits between AdCP's signal discovery and signal activation steps.
+1. **Signal Manifests**: Machine-readable declarations of signal properties
+2. **Trust Scoring**: Multi-dimensional quality assessment
+3. **Verification Tasks**: Standard API for trust assessment
+4. **Audit Trails**: Logging and accountability mechanisms
+5. **Policy Binding**: Governance rule enforcement
 
-- AdCP documentation: [adcontextprotocol.org](https://adcontextprotocol.org/)
-- AdCP GitHub: [github.com/adcontextprotocol/adcp](https://github.com/adcontextprotocol/adcp)
+### Relationship to Existing Standards
 
-### IAB Tech Lab AAMP (Agentic Advertising Management Protocols)
-AAMP is the industry-wide framework for agentic advertising, built on three pillars: Foundations (ARTF), Protocols, and Trust and Transparency. OpenSignals specifically addresses the Trust and Transparency pillar by providing machine-readable signal trust metadata.
+| Protocol | Purpose | OpenSignals Relationship |
+|----------|---------|-------------------------|
+| **AdCP** | Signal discovery and activation | OpenSignals extends AdCP responses with trust metadata |
+| **IAB AAMP** | Agent governance framework | OpenSignals implements signal-level trust (AAMP pillar 3) |
+| **OpenRTB** | Real-time bidding | OpenSignals provides pre-bid trust assessment |
+| **OpenDirect** | Direct programmatic deals | OpenSignals verifies signal quality for deal terms |
+| **AdCOM** | Common advertising object model | OpenSignals uses compatible taxonomies |
 
-**Relationship**: OpenSignals complements AAMP's trust goals with a practical implementation framework for signal-level verification, permissioning and audit.
+---
 
-- AAMP overview: [iabtechlab.com/standards/aamp-agentic-advertising-management-protocols/](https://iabtechlab.com/standards/aamp-agentic-advertising-management-protocols/)
+## Protocol Tasks
 
-### OpenRTB, OpenDirect, AdCOM
-These IAB Tech Lab standards define the execution layer for programmatic advertising. OpenSignals does not replace or modify these protocols. Instead, it provides a trust assessment layer that can be used before signals flow into OpenRTB auctions or OpenDirect transactions.
+OpenSignals defines seven tasks:
 
-**Relationship**: OpenSignals operates above the execution layer, helping agents decide which signals are trusted enough to use in OpenRTB/OpenDirect workflows.
+### 1. `get_signal_manifest`
+Retrieve the trust manifest for a signal.
 
-- IAB Tech Lab standards: [iabtechlab.com](https://iabtechlab.com/)
-- AdCOM GitHub: [github.com/InteractiveAdvertisingBureau/AdCOM](https://github.com/InteractiveAdvertisingBureau/AdCOM)
-- OpenRTB GitHub: [github.com/InteractiveAdvertisingBureau/openrtb2.x](https://github.com/InteractiveAdvertisingBureau/openrtb2.x)
-
-### MCP (Model Context Protocol) and A2A (Agent2Agent)
-OpenSignals can be exposed as an MCP resource or A2A skill, allowing agents to query signal trust before activation. This is a conceptual integration possibility, not a formal dependency.
-
-- MCP specification: [modelcontextprotocol.io](https://modelcontextprotocol.io/)
-- A2A specification: [a2a-protocol.org](https://a2a-protocol.org/)
-
-## How It Works
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                    Brand Policy Layer                    │
-│          (Brand safety, compliance, permissions)         │
-└─────────────────────────────────────────────────────────┘
-                            ▲
-                            │
-┌─────────────────────────────────────────────────────────┐
-│                  OpenSignals Protocol                    │
-│   (Trust scoring, verification, audit, permissioning)   │
-└─────────────────────────────────────────────────────────┘
-                            ▲
-                            │
-┌─────────────────────────────────────────────────────────┐
-│               Signal Discovery Layer (AdCP)              │
-│          (get_signals, activate_signal, catalogs)        │
-└─────────────────────────────────────────────────────────┘
-                            ▲
-                            │
-┌─────────────────────────────────────────────────────────┐
-│              Execution Layer (AAMP ARTF)                 │
-│         (OpenRTB, OpenDirect, DSP/SSP platforms)        │
-└─────────────────────────────────────────────────────────┘
-```
-
-### Typical Workflow
-
-1. **Brand Brief**: A brand wants to run a campaign for a regulated product (e.g., alcohol) in a specific market
-2. **Signal Discovery**: Buyer agent discovers available signals via AdCP or compatible protocol
-3. **Trust Verification**: Buyer agent requests OpenSignal Manifest for each signal
-4. **Policy Check**: Governance agent verifies signal against brand policy, market restrictions and compliance requirements
-5. **Trust Scoring**: Signal receives a trust score across multiple dimensions (provenance, freshness, quality, compliance)
-6. **Human Approval**: For regulated categories or low-trust signals, human approval is required
-7. **Signal Activation**: Once approved, signal is activated through AdCP or compatible workflow
-8. **Audit Trail**: Signal usage is logged with full context (who, what, when, why, under what policy)
-9. **Outcome Feedback**: Campaign results feed back into signal trust scores
-
-## Core Protocol Tasks
-
-OpenSignals defines seven core tasks:
-
-| Task | Purpose |
-|------|---------|
-| `get_signal_manifest` | Retrieve the full OpenSignals manifest for a signal |
-| `verify_signal` | Check if a signal is valid and permissioned for a specific use case |
-| `score_signal` | Score a signal against a brand objective |
-| `bind_signal_policy` | Attach brand policy rules to a signal before activation |
-| `audit_signal_usage` | Record how a signal was used after activation |
-| `revoke_signal` | Withdraw trust from a signal |
-| `submit_signal_outcome_feedback` | Feed campaign results back into trust scoring |
-
-See [specs/opensignals-v0.1.md](specs/opensignals-v0.1.md) for complete protocol specification.
-
-## Quick Start
-
-### 1. Request an OpenSignal Manifest
-
-```bash
-curl https://signals.example.com/.well-known/opensignals/outdoor-recreation-enthusiasts
-```
-
-Response:
-
+**Request**:
 ```json
 {
-  "protocol": "opensignals",
-  "version": "0.1",
-  "signal_id": "outdoor-recreation-enthusiasts",
-  "name": "Outdoor Recreation Enthusiasts",
-  "signal_type": "audience",
-  "status": "active",
-  "owner": {
-    "organization": "Example Data Co",
-    "contact": "signals@example.com"
-  },
-  "provider": {
-    "name": "Example Data Co",
-    "url": "https://example.com"
-  },
-  "provenance": {
-    "data_sources": ["first_party_behavioral", "survey"],
-    "collection_method": "opt_in_panel",
-    "last_updated": "2026-05-10T08:00:00Z"
-  },
-  "quality": {
-    "overall_trust_score": 0.87,
-    "coverage_score": 0.82,
-    "freshness_score": 0.91,
-    "precision_score": 0.85,
-    "explainability_score": 0.89
-  }
+  "task": "get_signal_manifest",
+  "signal_id": "outdoor-recreation-enthusiasts"
 }
 ```
 
-### 2. Verify Signal Before Activation
+**Response**: Complete manifest (see [schemas/v0.1/open-signal-manifest.schema.json](schemas/v0.1/open-signal-manifest.schema.json))
 
-```bash
-curl -X POST https://governance.brand.com/opensignals/verify \
-  -H "Content-Type: application/json" \
-  -d '{
-    "signal_id": "outdoor-recreation-enthusiasts",
-    "brand": "premium-spirits-co",
-    "market": "GB",
-    "category": "alcohol",
-    "intended_use": "contextual_targeting"
-  }'
+### 2. `verify_signal`
+Check if a signal meets brand policy requirements.
+
+**Request**:
+```json
+{
+  "task": "verify_signal",
+  "signal_id": "outdoor-recreation-enthusiasts",
+  "brand": "premium-spirits-co",
+  "market": "GB",
+  "category": "alcohol",
+  "intended_use": "contextual_targeting"
+}
 ```
 
-Response:
-
+**Response**:
 ```json
 {
   "decision": "approved_with_conditions",
   "trust_score": 0.87,
-  "conditions": [
-    "human_approval_required",
-    "audit_required",
-    "no_individual_profiling"
-  ],
-  "policy_bindings": [
-    "alcohol_age_restriction",
-    "uk_advertising_standards"
-  ],
-  "decision_reasoning": "Signal approved for contextual use only. Individual-level targeting prohibited for alcohol category. Human review required before activation."
+  "conditions": ["human_approval_required", "audit_required"],
+  "policy_bindings": ["alcohol_age_restriction", "uk_advertising_standards"],
+  "reasoning": "Signal approved for contextual use. Individual-level targeting prohibited."
 }
 ```
 
-### 3. AdCP Integration Example
+### 3. `score_signal`
+Calculate trust score against specific objectives.
 
-OpenSignals can extend AdCP responses with trust metadata:
+### 4. `bind_signal_policy`
+Attach brand policy rules to a signal.
+
+### 5. `audit_signal_usage`
+Log signal activation for compliance.
+
+### 6. `revoke_signal`
+Mark a signal as untrusted.
+
+### 7. `submit_signal_outcome_feedback`
+Report campaign performance for score adjustment.
+
+**Complete specification**: [specs/opensignals-v0.1.md](specs/opensignals-v0.1.md)
+
+---
+
+## Trust Scoring Model
+
+OpenSignals uses a multi-dimensional scoring model:
+
+### Dimensions (0.0 to 1.0)
+
+| Dimension | Weight | Description |
+|-----------|--------|-------------|
+| **Provenance** | 20% | Data source transparency |
+| **Permissioning** | 20% | Consent and usage rights |
+| **Freshness** | 15% | Update recency |
+| **Quality** | 20% | Coverage, precision, stability |
+| **Explainability** | 10% | Clarity of methodology |
+| **Outcome** | 10% | Historical performance |
+| **Compliance** | 5% | Regulatory adherence |
+
+**Overall Trust Score**: Weighted average of dimensions
+
+### Score Bands
+
+- **0.90-1.00**: High trust
+- **0.75-0.89**: Moderate trust
+- **0.50-0.74**: Limited trust
+- **0.25-0.49**: Low trust
+- **0.00-0.24**: Untrusted
+
+**Score interpretation depends on brand risk tolerance**. Custom weighting is supported.
+
+---
+
+## Integration
+
+### With AdCP
+
+OpenSignals extends AdCP `get_signals` responses:
 
 ```json
 {
@@ -211,124 +175,351 @@ OpenSignals can extend AdCP responses with trust metadata:
       "coverage": 2400000,
       "cpm": 3.50,
       "open_signals": {
-        "manifest_url": "https://signals.example.com/.well-known/opensignals/outdoor-recreation-enthusiasts",
+        "manifest_url": "https://provider.example/.well-known/opensignals/outdoor-recreation-enthusiasts",
         "overall_trust_score": 0.87,
         "verification_required": true,
-        "audit_required": true,
-        "policy_categories": ["general"],
-        "last_verified": "2026-05-10T08:00:00Z"
+        "last_verified": "2026-05-11T08:00:00Z"
       }
     }
   ]
 }
 ```
 
-See [integrations/adcp/](integrations/adcp/) for more examples.
+**Integration point**: Optional `open_signals` field in signal objects.
+
+### With AAMP
+
+OpenSignals provides signal-level trust data for AAMP's Trust & Transparency pillar:
+
+- **Agent Registry**: Signal providers publish OpenSignal Manifests
+- **Bounded Autonomy**: Trust scores determine human-in-loop requirements
+- **Audit Trails**: OpenSignals logging integrates with AAMP audit requirements
+
+### With OpenRTB
+
+Trust scores can be passed in bid request extensions:
+
+```json
+{
+  "imp": [{
+    "ext": {
+      "opensignals": {
+        "signals_used": ["outdoor-recreation-enthusiasts"],
+        "trust_scores": [0.87],
+        "verification_status": "approved_with_conditions"
+      }
+    }
+  }]
+}
+```
+
+**Use case**: DSPs can factor trust scores into bid pricing and decisioning.
+
+---
+
+## Implementation
+
+### Reference Implementation (Python)
+
+Production-ready FastAPI server:
+
+```bash
+cd reference-implementation/python
+pip install -r requirements.txt
+python server.py
+```
+
+**Endpoints**:
+- `GET /health` - Health check
+- `POST /validate-manifest` - Validate signal manifest
+- `POST /verify-signal` - Verify signal compliance
+- `POST /score-signal` - Calculate trust score
+- `POST /audit-signal-usage` - Log activation
+
+**API Documentation**: http://localhost:8000/docs
+
+### MCP Server (AI Agent Integration)
+
+Model Context Protocol server for Claude Desktop and other MCP clients:
+
+```bash
+cd mcp-server
+./install.sh
+```
+
+**Tools exposed**:
+- `get_signal_manifest`
+- `verify_signal`
+- `score_signal`
+- `list_signals`
+- `check_compliance`
+- `audit_signal_usage`
+
+### Client Libraries
+
+**Python**:
+```python
+from opensignals import Client
+
+client = Client()
+result = client.verify_signal(
+    signal_id="outdoor-recreation-enthusiasts",
+    brand="premium-spirits-co",
+    market="GB",
+    category="alcohol"
+)
+```
+
+**JavaScript/TypeScript**: Planned Q3 2026
+**Go**: Planned Q4 2026
+
+---
+
+## Specification
+
+### Core Documents
+
+- **[Protocol Specification](specs/opensignals-v0.1.md)** - Complete technical specification
+- **[Conformance Requirements](specs/conformance.md)** - Implementation requirements
+- **[Terminology](specs/terminology.md)** - Definitions
+
+### JSON Schemas
+
+All schemas use JSON Schema Draft 2020-12:
+
+- [open-signal-manifest.schema.json](schemas/v0.1/open-signal-manifest.schema.json)
+- [trust-score.schema.json](schemas/v0.1/trust-score.schema.json)
+- [verify-signal-request.schema.json](schemas/v0.1/verify-signal-request.schema.json)
+- [verify-signal-response.schema.json](schemas/v0.1/verify-signal-response.schema.json)
+- [audit-signal-usage-request.schema.json](schemas/v0.1/audit-signal-usage-request.schema.json)
+- [audit-signal-usage-response.schema.json](schemas/v0.1/audit-signal-usage-response.schema.json)
+- [policy-binding.schema.json](schemas/v0.1/policy-binding.schema.json)
+
+### Authentication
+
+OpenSignals supports:
+- **HTTP Message Signatures** (RFC 9421) - Recommended
+- **OAuth 2.0** - For platform integrations
+- **API Keys** - For simple deployments
+- **Chain-of-Thought Authentication** - Cryptographic reasoning verification (see [docs/CHAIN-OF-THOUGHT-AUTH.md](docs/CHAIN-OF-THOUGHT-AUTH.md))
+
+---
+
+## Examples
+
+### Signal Manifests
+
+Ten production-ready examples demonstrating different signal types and compliance requirements:
+
+**Regulated Categories**:
+- [alcohol-contextual-signal.json](examples/alcohol-contextual-signal.json) - Age-restricted, CAP Code compliant
+- [pharmaceutical-signal.json](examples/pharmaceutical-signal.json) - HIPAA considerations
+- [financial-services-signal.json](examples/financial-services-signal.json) - GLBA, SOX compliance
+- [gambling-signal.json](examples/political-signal.json) - Election law compliance
+- [children-safe-signal.json](examples/children-safe-signal.json) - COPPA compliant
+
+**Standard Categories**:
+- [attention-signal.json](examples/attention-signal.json) - Measurement signal
+- [retail-commerce-signal.json](examples/retail-commerce-signal.json) - First-party commerce data
+- [luxury-intent-signal.json](examples/luxury-intent-signal.json) - High-value audience
+- [sustainability-signal.json](examples/sustainability-signal.json) - ESG-verified
+- [carbon-neutral-signal.json](examples/carbon-neutral-signal.json) - Climate-conscious
+
+**Documentation**:
+- [SIGNAL-CATALOG.md](examples/SIGNAL-CATALOG.md) - Detailed explanations
+- [EXAMPLES-BY-SCENARIO.md](examples/EXAMPLES-BY-SCENARIO.md) - Organized by use case
+
+### Integration Examples
+
+**AdCP**:
+- [adcp-extension-example.json](integrations/adcp/adcp-extension-example.json)
+- [get-signals-with-opensignals.json](integrations/adcp/get-signals-with-opensignals.json)
+- [README.md](integrations/adcp/README.md)
+
+**AAMP**:
+- [aamp-trust-layer-mapping.md](integrations/aamp/aamp-trust-layer-mapping.md)
+- [README.md](integrations/aamp/README.md)
+
+---
+
+## Testing
+
+### Validation Tests
+
+```bash
+cd tests
+pytest test_manifest_validation.py -v
+```
+
+**Test coverage**:
+- Schema validation (all 7 schemas)
+- Trust score calculation
+- Compliance checking
+- Example manifest validation
+
+### Integration Tests
+
+```bash
+cd reference-implementation/python
+python test_api.py
+```
+
+**Test scenarios**:
+- Alcohol campaign verification
+- Trust score threshold checking
+- Policy binding enforcement
+- Audit trail creation
+
+---
+
+## Documentation
+
+### Architecture
+
+- [architecture.md](docs/architecture.md) - System design
+- [gap-analysis.md](docs/gap-analysis.md) - Market analysis
+
+### Implementation Guides
+
+- [adoption-guide.md](docs/adoption-guide.md) - Implementation roadmap
+- [brand-side-use-case.md](docs/brand-side-use-case.md) - Real-world example
+- [NATURAL-LANGUAGE-GUIDE.md](docs/NATURAL-LANGUAGE-GUIDE.md) - AI agent integration
+
+### Governance
+
+- [governance-model.md](docs/governance-model.md) - Protocol governance
+- [ROADMAP.md](ROADMAP.md) - Development roadmap
+- [SECURITY.md](SECURITY.md) - Security policy
+
+### FAQ
+
+See [docs/FAQ.md](docs/FAQ.md) for:
+- Protocol scope and limitations
+- Integration requirements
+- Performance characteristics
+- Privacy considerations
+- Adoption strategy
+
+---
+
+## Contributing
+
+OpenSignals Protocol is an open standard. Contributions welcome from:
+
+- Signal providers
+- Programmatic platforms (DSPs, SSPs)
+- Brands and agencies
+- Standards bodies
+- Technology providers
+- Researchers
+
+**Contribution types**:
+- Protocol enhancements
+- Schema improvements
+- Implementation code
+- Integration examples
+- Test cases
+- Documentation
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+**Key principles**:
+- Technical merit over marketing
+- Interoperability over features
+- Simplicity over complexity
+- Standards over proprietary solutions
+
+---
+
+## Versioning
+
+OpenSignals uses semantic versioning:
+
+- **Major** (1.0): Breaking changes
+- **Minor** (0.x): Backward-compatible additions
+- **Patch** (0.x.y): Bug fixes and clarifications
+
+**Current version**: 0.1.0 (Draft RFC)
+
+**Status**: The v0.1 specification is feature-complete and ready for implementation. Breaking changes are possible before 1.0.
+
+**Deprecation policy**: 12 months notice for breaking changes.
+
+---
+
+## License
+
+- **Code and Schemas**: [Apache License 2.0](LICENSE)
+- **Documentation**: [Creative Commons Attribution 4.0](LICENSE-DOCS)
+
+**Why open source**: Maximize adoption, prevent vendor lock-in, enable community governance.
+
+---
+
+## Status and Disclaimer
+
+**Status**: Draft RFC v0.1.0 (May 2026)
+
+OpenSignals Protocol is an independent open-source project. It is not endorsed by:
+- AdCP or AgenticAdvertising.Org
+- IAB Tech Lab or IAB
+- Any standards body or industry organization
+
+**Goal**: Create a practical standard that complements existing infrastructure by addressing signal trust verification.
+
+**Adoption**: Voluntary. Signal providers, platforms, and buyers choose whether to implement.
+
+---
+
+## References
+
+### Standards
+
+- **AdCP**: [adcontextprotocol.org](https://adcontextprotocol.org/) | [GitHub](https://github.com/adcontextprotocol/adcp)
+- **IAB AAMP**: [iabtechlab.com/standards/aamp-agentic-advertising-management-protocols/](https://iabtechlab.com/standards/aamp-agentic-advertising-management-protocols/)
+- **OpenRTB**: [GitHub](https://github.com/InteractiveAdvertisingBureau/openrtb2.x)
+- **AdCOM**: [GitHub](https://github.com/InteractiveAdvertisingBureau/AdCOM)
+- **Model Context Protocol**: [modelcontextprotocol.io](https://modelcontextprotocol.io/)
+- **Agent2Agent**: [a2a-protocol.org](https://a2a-protocol.org/)
+
+See [SOURCES.md](SOURCES.md) for complete references.
+
+---
+
+## Contact
+
+**Repository**: https://github.com/Samrajtheailyceum/opensignals-protocol
+
+**Issues**: [github.com/Samrajtheailyceum/opensignals-protocol/issues](https://github.com/Samrajtheailyceum/opensignals-protocol/issues)
+
+**Discussions**: [github.com/Samrajtheailyceum/opensignals-protocol/discussions](https://github.com/Samrajtheailyceum/opensignals-protocol/discussions)
+
+**Security**: See [SECURITY.md](SECURITY.md) for vulnerability reporting.
+
+---
 
 ## Repository Structure
 
 ```
 opensignals-protocol/
-├── README.md                   # This file
-├── LICENSE                     # Apache 2.0 license
-├── CONTRIBUTING.md             # Contribution guidelines
-├── CODE_OF_CONDUCT.md          # Community standards
-├── SOURCES.md                  # Official sources consulted
-├── specs/
-│   ├── opensignals-v0.1.md    # Protocol specification (RFC-style)
-│   ├── terminology.md          # Definitions
-│   └── conformance.md          # Conformance requirements
-├── schemas/v0.1/               # JSON schemas
-├── examples/                   # Example manifests
-├── integrations/
-│   ├── adcp/                   # AdCP integration examples
-│   └── aamp/                   # AAMP conceptual mapping
+├── specs/                  # Protocol specification
+│   ├── opensignals-v0.1.md
+│   ├── terminology.md
+│   └── conformance.md
+├── schemas/v0.1/           # JSON schemas
+├── examples/               # Sample signal manifests
+├── integrations/           # Integration guides
+│   ├── adcp/
+│   └── aamp/
 ├── reference-implementation/
-│   └── python/                 # Python reference server
-├── tests/                      # Validation tests
-└── docs/                       # Additional documentation
+│   └── python/            # FastAPI server
+├── mcp-server/            # AI agent integration
+├── tests/                 # Test suite
+└── docs/                  # Additional documentation
 ```
 
-## Trust Score Model
+---
 
-OpenSignals uses a multi-dimensional trust scoring model:
+**OpenSignals Protocol** - Signal trust verification for programmatic advertising
 
-| Dimension | Description | Weight |
-|-----------|-------------|--------|
-| **Provenance** | Data source transparency and chain of custody | 20% |
-| **Permissioning** | Clear consent and usage rights | 20% |
-| **Freshness** | How recently the signal was updated | 15% |
-| **Quality** | Coverage, precision and stability | 20% |
-| **Explainability** | How well the signal can be explained | 10% |
-| **Outcome Relevance** | Historical performance against similar objectives | 10% |
-| **Compliance Safety** | Adherence to regulations and brand safety standards | 5% |
-
-**Overall Trust Score Bands:**
-
-- **0.90 to 1.00**: Highly trusted. Can be used autonomously (if policy allows)
-- **0.75 to 0.89**: Trusted with conditions. Use with governance checks
-- **0.50 to 0.74**: Limited trust. Require human review
-- **0.25 to 0.49**: Low trust. Do not activate without explicit approval
-- **0.00 to 0.24**: Unsafe or invalid. Block usage
-
-## Examples
-
-Four example manifests demonstrate different signal types and trust levels:
-
-- **[Alcohol Contextual Signal](examples/alcohol-contextual-signal.json)**: Regulated category with strict governance
-- **[Attention Signal](examples/attention-signal.json)**: High-quality measurement signal
-- **[Retail Commerce Signal](examples/retail-commerce-signal.json)**: First-party commerce data
-- **[Sustainability Signal](examples/sustainability-signal.json)**: Environmental impact signal
-
-## Contributing
-
-We welcome contributions from advertising practitioners, standards bodies, agencies, brands, platforms, data providers and AI agent developers.
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-**Key principles:**
-
-- Maintain neutrality and avoid vendor-specific claims
-- Distinguish confirmed integrations from conceptual mappings
-- Cite official sources for compatibility claims
-- Focus on practical signal trust challenges
-- Keep specifications clear and implementable
-
-## License
-
-- **Code**: Apache License 2.0
-- **Documentation and Specifications**: Intended to be shared under Creative Commons Attribution 4.0 International (CC BY 4.0)
-
-See [LICENSE](LICENSE) for details.
-
-## Status and Disclaimer
-
-**Status**: Draft RFC v0.1 (May 2026)
-
-OpenSignals Protocol is an independent open-source project. It is not endorsed by, affiliated with, or officially recognized by:
-
-- AdCP or AgenticAdvertising.Org
-- IAB Tech Lab or IAB
-- Any standards body or industry organization
-
-This protocol is a draft proposal intended to stimulate discussion and collaboration around signal trust in agentic advertising.
-
-The goal is to create a practical, implementable standard that complements existing infrastructure by addressing a specific gap: how agents can assess signal trust before activation.
-
-## Contact
-
-- **Issues and Discussion**: [GitHub Issues](https://github.com/Samrajtheailyceum/opensignals-protocol/issues)
-- **Specification Questions**: Open an issue with the `spec-question` label
-- **Integration Examples**: Open an issue with the `integration-example` label
-
-## Acknowledgments
-
-This protocol was developed with reference to public documentation from:
-
-- AdCP and the Ad Context Protocol community
-- IAB Tech Lab's AAMP initiative
-- Model Context Protocol specification
-- Agent2Agent Protocol specification
-- IAB Tech Lab's OpenRTB, OpenDirect and AdCOM standards
-
-See [SOURCES.md](SOURCES.md) for complete references.
+Version 0.1.0 | May 2026 | Apache 2.0 License
